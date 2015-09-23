@@ -1,0 +1,79 @@
+JSON format voor de recept titles:
+
+{"titles": 
+[
+	{
+		"title": "recept1",
+		"id": "hjfdhdshdsnhjfjhf",
+		"image": "http://url-naar-kleine-afbeelding.com.png.jpg.virus",
+		"rating": 4.1,
+		"number_of_ratings": 240
+	},
+	{
+		"title": "recept1",
+		"id": "hf9385jfkeogs",
+		"image": "http://url42655",
+		"rating": 6.0,
+		"number_of_ratings": 2
+	},
+	{
+		"title": "etc",
+		"id": "etcetcetc",
+		"image": "http://url5225",
+		"rating": 9.7,
+		"number_of_ratings": 6
+	}
+]
+}
+
+
+JSON format voor een specifiek recept
+
+{
+	"id": "hjfdhdshdsnhjfjhf",
+	
+	"title": "recept1",
+	
+	"author": "naam",
+	
+	"time_stamp": "2015/09/19-23:13",
+	
+	"ingredients":
+	[
+		"food",
+		"eten",
+		"spul"
+	],
+	
+	"actions":
+	[
+		{
+			"action": "handeling uitgebreid verteld",
+			"time": 120
+		},
+		{
+			"action": "een andere handeling",
+			"time": 305020
+		}
+	],
+	
+	"description": "blablabla dit eten komt uit Japan en smaakt lekker, best is om veel sake te drinken, is goed voor de import omzet.",
+	
+	"reports":
+	[
+		{
+			"image": "url.png",
+			"author": "naam",
+			"description": "kijk hoe awesome dit is!",
+			"rating": 9,
+			"time_stamp": "2015/09/23-10:53"
+		},
+		{
+			"image": "url4321.png",
+			"author": "andere naam",
+			"description": "niet aan te raden, ziet er beter uit dan het smaakt!",
+			"rating": 1,
+			"time_stamp": "2015/09/19-23:13"
+		}
+	]
+}
