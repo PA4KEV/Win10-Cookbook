@@ -8,13 +8,31 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="wideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="narrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="inputPanel.Orientation" Value="Vertical"/>
+                        <Setter Target="inputButton.Margin" Value="0,4,0,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
         <StackPanel x:Name="contentPanel" Margin="8,32,0,0">
             <TextBlock Text="Hello, world!" Margin="0,0,0,40"/>
             <TextBlock Text="What's your name?"/>
             <StackPanel x:Name="inputPanel" Orientation="Horizontal" Margin="0,20,0,20">
                 <TextBox x:Name="nameInput" Width="280" HorizontalAlignment="Left"/>
-                <Button x:Name="inputButton" Content="Say &quot;Hello&quot;"/>
+                <Button x:Name="inputButton" Content="Say &quot;Hello&quot;" Click="buttonClick"/>
             </StackPanel>
             <TextBlock x:Name="greetingOutput"/>
         </StackPanel>
