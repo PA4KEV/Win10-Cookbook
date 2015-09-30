@@ -114,6 +114,8 @@
     <None Include="CookbookWin10_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\sounds\REMVIN.WAV" />
+    <Content Include="Assets\sounds\REMVOUT.WAV" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

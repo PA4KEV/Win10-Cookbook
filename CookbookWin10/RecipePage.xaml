@@ -69,9 +69,17 @@ Ingredients<LineBreak></LineBreak>
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="211,539,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" FontSize="48" FontFamily="Consolas"/>
-        <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" Margin="266,535,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" FontSize="48" FontFamily="Consolas"/>
-        <TextBlock x:Name="textBlock6" HorizontalAlignment="Left" Margin="295,539,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" FontSize="48" FontFamily="Consolas"/>
+        <TextBlock x:Name="lbl_stopwatch_minutes" HorizontalAlignment="Left" Margin="211,539,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" FontSize="48" FontFamily="Consolas"/>
+        <TextBlock x:Name="lbl_stopwatch_colon" HorizontalAlignment="Left" Margin="266,535,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" FontSize="48" FontFamily="Consolas"/>
+        <TextBlock x:Name="lbl_stopwatch_seconds" HorizontalAlignment="Left" Margin="295,539,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" FontSize="48" FontFamily="Consolas"/>
         <Rectangle HorizontalAlignment="Left" Height="710" Margin="602,0,0,0" VerticalAlignment="Top" Width="1" Fill="#FFF1F1F1"/>
+        <Button x:Name="btn_seconds_up" Content="^" HorizontalAlignment="Left" Margin="301,498,0,0" VerticalAlignment="Top" FontSize="26.667" Height="44" Width="42" Click="btn_seconds_up_Click"/>
+        <Button x:Name="btn_minutes_up" Content="^" HorizontalAlignment="Left" Margin="216,498,0,0" VerticalAlignment="Top" FontSize="26.667" Height="44" Width="42" Click="btn_minutes_up_Click" ClickMode="Press"/>
+        <Button x:Name="btn_seconds_down" Content="v" HorizontalAlignment="Left" Margin="301,597,0,0" VerticalAlignment="Top" FontSize="26.667" Height="44" Width="42" Click="btn_seconds_down_Click"/>
+        <Button x:Name="btn_minutes_down" Content="v" HorizontalAlignment="Left" Margin="216,597,0,0" VerticalAlignment="Top" FontSize="26.667" Height="44" Width="42" Click="btn_minutes_down_Click" ClickMode="Press"/>
+        <Button x:Name="btn_stopwatch_toggle" Content="Start" HorizontalAlignment="Left" Margin="391,545,0,0" VerticalAlignment="Top" Height="50" Width="57" Click="btn_stopwatch_toggle_Click"/>
+        
+        <MediaElement x:Name="beepup" Source="Assets/sounds/REMVIN.WAV" AutoPlay="False" Height="0" Width="0" />
+        <MediaElement x:Name="beepdown" Source="Assets/sounds/REMVOUT.WAV" AutoPlay="False" Height="0" Width="0" />
     </Grid>
 </Page>
