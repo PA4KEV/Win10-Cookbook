@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Notifications;
+using Windows.Data.Xml.Dom;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -94,9 +96,28 @@ namespace CookbookWin10
                 beepdown.Play();
                 stopwatch.Stop();
                 btn_stopwatch_toggle.IsEnabled = true;
+                showToast("Sushi Chikuwa");
             }
             lbl_stopwatch_seconds.Text = seconds.ToString("D2");
             lbl_stopwatch_minutes.Text = minutes.ToString("D2");
+        }
+        private void showToast(string recipeName)
+        {
+            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);
+
+            // Fill in the text elements
+            XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
+
+            stringElements[0].AppendChild(toastXml.CreateTextNode("Alarm Finished!"));
+            stringElements[1].AppendChild(toastXml.CreateTextNode(recipeName));
+
+            // Specify the absolute path to an image
+            String imagePath = "file:///" + Path.GetFullPath("toastImageAndText.png");
+            XmlNodeList imageElements = toastXml.GetElementsByTagName("image");
+
+            ToastNotification toast = new ToastNotification(toastXml);
+
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
     }
 }
