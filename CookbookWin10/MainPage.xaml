@@ -37,7 +37,7 @@
             <TextBlock x:Name="greetingOutput"/>
         </StackPanel>
 
-        <ListBox x:Name="listbox_mainlist" Margin="819,10,10,10">
+        <ListBox x:Name="listbox_mainlist" Margin="819,10,10,10" SelectionChanged="navigateToRecipePage">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

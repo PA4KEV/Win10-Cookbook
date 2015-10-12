@@ -48,7 +48,7 @@ Ingredients<LineBreak></LineBreak>
 
             </TextBlock>
         </ScrollViewer>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="95,36,0,0" TextWrapping="Wrap" Text="Chikuwa Cucumber Maki Sushi" VerticalAlignment="Top" FontSize="26.667"/>
+        <TextBlock x:Name="recipeTitle" HorizontalAlignment="Left" Margin="95,36,0,0" TextWrapping="Wrap" Text="recipe title" VerticalAlignment="Top" FontSize="26.667"/>
         <Rectangle Fill="#FFF95454" HorizontalAlignment="Left" Height="8" Margin="0,76,0,0" VerticalAlignment="Top" Width="456"/>
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="95,89,0,0" TextWrapping="Wrap" Text="Time required:  about 20 minutes" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="95,114,0,0" TextWrapping="Wrap" Text="Author:  Johan Nes" VerticalAlignment="Top"/>

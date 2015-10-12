@@ -39,8 +39,12 @@ namespace CookbookWin10
 
             Image img = new Image();
             img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Logo.png"));
-        }              
-
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Recipe recipe = e.Parameter as Recipe;
+            recipeTitle.Text = recipe.title;
+        }
         private void btn_seconds_up_Click(object sender, RoutedEventArgs e)
         {
             beepup.Play();

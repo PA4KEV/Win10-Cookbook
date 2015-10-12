@@ -25,10 +25,11 @@ namespace CookbookWin10
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private List<Recipe> recipes;
         public MainPage()
         {
             this.InitializeComponent();
-            test();                            
+            retrieveJSON();                            
         }
 
         private void buttonClick(object sender, RoutedEventArgs e)
@@ -37,7 +38,7 @@ namespace CookbookWin10
             this.Frame.Navigate(typeof(RecipePage), null);          
         }
 
-        private async void test()
+        private async void retrieveJSON()
         {
             string page = "http://www.returnoftambelon.com/cookbook_titles.php";
             HttpClient client = new HttpClient();
@@ -50,17 +51,7 @@ namespace CookbookWin10
                 Titlebar.Text = output;
             }
 
-            string json = @"{
-              'Name': 'Bad Boys',
-              'ReleaseDate': '1995-4-7T00:00:00',
-              'Genres': [
-                'Action',
-                'Comedy'
-              ]
-            }";
-            string json2 = "{'title':'Maguro Sushi','id':1,'image':'maguro_sushi.jpg','rating':7.8,'number_of_ratings':30}";
-            //Recipe recipe = JsonConvert.DeserializeObject<Recipe>(output);
-            List<Recipe> recipes = JsonConvert.DeserializeObject<List<Recipe>>(output);
+            recipes = JsonConvert.DeserializeObject<List<Recipe>>(output);
 
             List<String> sideList = new List<string>();
             for(int x = 0; x<recipes.Count; x++)
@@ -68,6 +59,13 @@ namespace CookbookWin10
                 sideList.Add(recipes[x].title);
             }
             listbox_mainlist.ItemsSource = sideList;
+        }
+
+        private void navigateToRecipePage(object sender, SelectionChangedEventArgs e)
+        {
+            string title = listbox_mainlist.SelectedItem.ToString();
+            
+            this.Frame.Navigate(typeof(RecipePage), recipes[listbox_mainlist.SelectedIndex]);
         }
     }
 }
