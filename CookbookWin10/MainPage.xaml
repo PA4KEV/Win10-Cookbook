@@ -26,7 +26,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
         <StackPanel x:Name="contentPanel" Margin="8,32,0,0">
             <TextBlock x:Name="Titlebar" Text="Hello, world!" Margin="0,0,0,40"/>
             <TextBlock Text="What's your name?"/>
@@ -37,5 +37,14 @@
             <TextBlock x:Name="greetingOutput"/>
         </StackPanel>
 
+        <ListBox x:Name="listbox_mainlist" Margin="819,10,10,10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>

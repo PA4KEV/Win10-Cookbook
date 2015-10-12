@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Newtonsoft.Json;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -38,7 +39,7 @@ namespace CookbookWin10
 
         private async void test()
         {
-            string page = "http://www.returnoftambelon.com/cookbook_titles.php?id=1";
+            string page = "http://www.returnoftambelon.com/cookbook_titles.php";
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(page);
             HttpContent content = response.Content;
@@ -48,6 +49,25 @@ namespace CookbookWin10
             {
                 Titlebar.Text = output;
             }
+
+            string json = @"{
+              'Name': 'Bad Boys',
+              'ReleaseDate': '1995-4-7T00:00:00',
+              'Genres': [
+                'Action',
+                'Comedy'
+              ]
+            }";
+            string json2 = "{'title':'Maguro Sushi','id':1,'image':'maguro_sushi.jpg','rating':7.8,'number_of_ratings':30}";
+            //Recipe recipe = JsonConvert.DeserializeObject<Recipe>(output);
+            List<Recipe> recipes = JsonConvert.DeserializeObject<List<Recipe>>(output);
+
+            List<String> sideList = new List<string>();
+            for(int x = 0; x<recipes.Count; x++)
+            {
+                sideList.Add(recipes[x].title);
+            }
+            listbox_mainlist.ItemsSource = sideList;
         }
     }
 }
