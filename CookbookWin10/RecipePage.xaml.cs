@@ -18,6 +18,7 @@ using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Windows.Storage.Streams;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -73,6 +74,18 @@ namespace CookbookWin10
             recipeDate.Text = recipe.time;
 
             recipeText.Text = "\r\nDescription:\r\n" + recipe.description + "\r\n\r\nIngredients: \r\n" + recipe.ingredients + "\r\n\r\nActions:\r\n" + recipe.actions;
+
+            // fetch image
+            page = "http://www.returnoftambelon.com/cookbook/gallery/" + input.id +  "/main.jpg";
+            Stream st = await client.GetStreamAsync(page);
+
+            var memoryStream = new MemoryStream();
+            await st.CopyToAsync(memoryStream);
+            memoryStream.Position = 0;
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.SetSource(memoryStream.AsRandomAccessStream());
+
+            recipeImage.Source = bitmap;
         }
 
         private void btn_seconds_up_Click(object sender, RoutedEventArgs e)
