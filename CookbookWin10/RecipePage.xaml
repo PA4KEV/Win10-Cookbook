@@ -37,7 +37,7 @@
         </ScrollViewer>
         <TextBlock x:Name="recipeTitle" HorizontalAlignment="Left" Margin="95,36,0,0" TextWrapping="Wrap" Text="Loading..." VerticalAlignment="Top" FontSize="26.667"/>
         <Rectangle Fill="#FFF95454" HorizontalAlignment="Left" Height="8" Margin="0,76,0,0" VerticalAlignment="Top" Width="456"/>
-        <TextBlock x:Name="recipeTime" HorizontalAlignment="Left" Margin="95,89,0,0" TextWrapping="Wrap" Text="loading..." VerticalAlignment="Top"/>
+        <TextBlock x:Name="recipePreperation" HorizontalAlignment="Left" Margin="95,89,0,0" TextWrapping="Wrap" Text="loading..." VerticalAlignment="Top"/>
         <TextBlock x:Name="recipeAuthor" HorizontalAlignment="Left" Margin="95,114,0,0" TextWrapping="Wrap" Text="loading..." VerticalAlignment="Top"/>
         <TextBlock x:Name="recipeDate" HorizontalAlignment="Left" Margin="95,139,0,0" TextWrapping="Wrap" Text="loading..." VerticalAlignment="Top"/>
         <Rectangle HorizontalAlignment="Left" Height="33" Margin="639,76,0,0" VerticalAlignment="Top" Width="641">

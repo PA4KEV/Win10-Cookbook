@@ -36,7 +36,14 @@ namespace CookbookWin10
         {
             this.InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
+            {
+                if (Frame.CanGoBack)
+                {
+                    Frame.GoBack();
+                    a.Handled = true;
+                }
+            };
             stopwatch = new DispatcherTimer();
             stopwatch.Tick += Stopwatch_Tick;
             stopwatch.Interval = new TimeSpan(0, 0, 0, 1);
@@ -70,6 +77,7 @@ namespace CookbookWin10
                 recipe.rating = input.rating;                              
             }
             recipeTitle.Text = recipe.title;
+            recipePreperation.Text = recipe.preperation;
             recipeAuthor.Text = recipe.author;
             recipeDate.Text = recipe.time;
 

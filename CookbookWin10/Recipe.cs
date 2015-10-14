@@ -39,6 +39,7 @@ namespace CookbookWin10
     public class RecipeExtended : Recipe
     {
         public string author;
+        public string preperation;
         public string time;
         public string ingredients;
         public string actions;
