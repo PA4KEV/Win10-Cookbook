@@ -31,28 +31,15 @@
         </StackPanel>
 
         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="639,76,0,36">
-            <TextBlock TextWrapping="Wrap" Width="422" Height="648" VerticalAlignment="Top" FontSize="18.667"  > 
-                <LineBreak></LineBreak>   
-Thinking that cucumber rolls wouldn't be quite satisfying enough, I tried making the rolls with cucumbers stuffed in flavored chikuwa.<LineBreak></LineBreak>   
-<LineBreak></LineBreak>   
-It's best to go a little sparingly with the sushi rice.<LineBreak></LineBreak>   
-Try spreading a touch of wasabi if you like. For 2 rolls.<LineBreak></LineBreak>   
-          <LineBreak></LineBreak>      
-Ingredients<LineBreak></LineBreak>   
-4  Chikuwa  <LineBreak></LineBreak>   
-2  quarter slices Cucumber  <LineBreak></LineBreak>   
-2  sheets Nori seaweed  <LineBreak></LineBreak>   
-2  tbsp Golden sesame seeds  <LineBreak></LineBreak>   
-1  two small rice bowls worth Sushi rice<LineBreak></LineBreak>
-<LineBreak></LineBreak>
-
+            <TextBlock x:Name="recipeText" TextWrapping="Wrap" Width="422" Height="648" VerticalAlignment="Top" FontSize="18.667"  > 
+                loading...
             </TextBlock>
         </ScrollViewer>
-        <TextBlock x:Name="recipeTitle" HorizontalAlignment="Left" Margin="95,36,0,0" TextWrapping="Wrap" Text="recipe title" VerticalAlignment="Top" FontSize="26.667"/>
+        <TextBlock x:Name="recipeTitle" HorizontalAlignment="Left" Margin="95,36,0,0" TextWrapping="Wrap" Text="Loading..." VerticalAlignment="Top" FontSize="26.667"/>
         <Rectangle Fill="#FFF95454" HorizontalAlignment="Left" Height="8" Margin="0,76,0,0" VerticalAlignment="Top" Width="456"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="95,89,0,0" TextWrapping="Wrap" Text="Time required:  about 20 minutes" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="95,114,0,0" TextWrapping="Wrap" Text="Author:  Johan Nes" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="95,139,0,0" TextWrapping="Wrap" Text="Date posted:  21-09-2015" VerticalAlignment="Top"/>
+        <TextBlock x:Name="recipeTime" HorizontalAlignment="Left" Margin="95,89,0,0" TextWrapping="Wrap" Text="loading..." VerticalAlignment="Top"/>
+        <TextBlock x:Name="recipeAuthor" HorizontalAlignment="Left" Margin="95,114,0,0" TextWrapping="Wrap" Text="loading..." VerticalAlignment="Top"/>
+        <TextBlock x:Name="recipeDate" HorizontalAlignment="Left" Margin="95,139,0,0" TextWrapping="Wrap" Text="loading..." VerticalAlignment="Top"/>
         <Rectangle HorizontalAlignment="Left" Height="33" Margin="639,76,0,0" VerticalAlignment="Top" Width="641">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

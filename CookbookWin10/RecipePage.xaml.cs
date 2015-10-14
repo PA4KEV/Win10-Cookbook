@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -27,6 +29,7 @@ namespace CookbookWin10
     public sealed partial class RecipePage : Page
     {
         DispatcherTimer stopwatch;
+        private RecipeExtended recipe;
 
         public RecipePage()
         {
@@ -37,14 +40,41 @@ namespace CookbookWin10
             stopwatch.Tick += Stopwatch_Tick;
             stopwatch.Interval = new TimeSpan(0, 0, 0, 1);
 
+            
+
             Image img = new Image();
             img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Logo.png"));
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Recipe recipe = e.Parameter as Recipe;
-            recipeTitle.Text = recipe.title;
+            //recipeTitle.Text = recipe.title;
+            loadRecipe(recipe);
+
         }
+
+        private async void loadRecipe(Recipe input)
+        {
+            string page = "http://www.returnoftambelon.com/cookbook_recipes.php?id=" + input.id;
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(page);
+            HttpContent content = response.Content;
+
+            string output = await content.ReadAsStringAsync();
+            if (output != null)
+            {
+                recipe = JsonConvert.DeserializeObject<RecipeExtended>(output);
+                recipe.image = input.image;
+                recipe.number_of_ratings = input.number_of_ratings;
+                recipe.rating = input.rating;                              
+            }
+            recipeTitle.Text = recipe.title;
+            recipeAuthor.Text = recipe.author;
+            recipeDate.Text = recipe.time;
+
+            recipeText.Text = "\r\nDescription:\r\n" + recipe.description + "\r\n\r\nIngredients: \r\n" + recipe.ingredients + "\r\n\r\nActions:\r\n" + recipe.actions;
+        }
+
         private void btn_seconds_up_Click(object sender, RoutedEventArgs e)
         {
             beepup.Play();

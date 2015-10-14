@@ -35,4 +35,13 @@ namespace CookbookWin10
             return image;
         }
     }
+
+    public class RecipeExtended : Recipe
+    {
+        public string author;
+        public string time;
+        public string ingredients;
+        public string actions;
+        public string description;
+    }
 }

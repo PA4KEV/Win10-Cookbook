@@ -58,7 +58,7 @@ namespace CookbookWin10
             {
                 sideList.Add(recipes[x].title);
             }
-            listbox_mainlist.ItemsSource = sideList;
+            listbox_mainlist.ItemsSource = sideList;            
         }
 
         private void navigateToRecipePage(object sender, SelectionChangedEventArgs e)
