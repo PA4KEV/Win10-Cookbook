@@ -10,6 +10,7 @@ namespace CookbookWin10
     {
         public string title;
         public int id;
+        public string category;
         public double rating;
         public int number_of_ratings;
         public string image;

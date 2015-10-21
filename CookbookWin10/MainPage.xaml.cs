@@ -24,12 +24,15 @@ namespace CookbookWin10
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MainPage : Page
-    {
-        private List<Recipe> recipes;
+    {        
+        private RecipeController recipeController;
+
         public MainPage()
         {
             this.InitializeComponent();
-            retrieveJSON();                            
+            recipeController = new RecipeController();
+            retrieveJSON();
+            
         }
 
         private void buttonClick(object sender, RoutedEventArgs e)
@@ -50,22 +53,15 @@ namespace CookbookWin10
             {
                 Titlebar.Text = output;
             }
-
-            recipes = JsonConvert.DeserializeObject<List<Recipe>>(output);
-
-            List<String> sideList = new List<string>();
-            for(int x = 0; x<recipes.Count; x++)
-            {
-                sideList.Add(recipes[x].title);
-            }
-            listbox_mainlist.ItemsSource = sideList;            
+            recipeController.setRecipes(JsonConvert.DeserializeObject<List<Recipe>>(output));
+            listbox_mainlist.ItemsSource = recipeController.getRecipeTitles();
         }
 
         private void navigateToRecipePage(object sender, SelectionChangedEventArgs e)
         {
             string title = listbox_mainlist.SelectedItem.ToString();
             
-            this.Frame.Navigate(typeof(RecipePage), recipes[listbox_mainlist.SelectedIndex]);
+            this.Frame.Navigate(typeof(RecipePage), recipeController.getRecipes()[listbox_mainlist.SelectedIndex]);
         }
     }
 }

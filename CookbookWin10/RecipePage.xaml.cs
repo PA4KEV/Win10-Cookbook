@@ -73,6 +73,7 @@ namespace CookbookWin10
             {
                 recipe = JsonConvert.DeserializeObject<RecipeExtended>(output);
                 recipe.image = input.image;
+                recipe.category = input.category;
                 recipe.number_of_ratings = input.number_of_ratings;
                 recipe.rating = input.rating;                              
             }
@@ -84,16 +85,22 @@ namespace CookbookWin10
             recipeText.Text = "\r\nDescription:\r\n" + recipe.description + "\r\n\r\nIngredients: \r\n" + recipe.ingredients + "\r\n\r\nActions:\r\n" + recipe.actions;
 
             // fetch image
-            page = "http://www.returnoftambelon.com/cookbook/gallery/" + input.id +  "/main.jpg";
-            Stream st = await client.GetStreamAsync(page);
+            try {
+                page = "http://www.returnoftambelon.com/cookbook/gallery/" + input.id + "/main.jpg";
+                Stream st = await client.GetStreamAsync(page);
 
-            var memoryStream = new MemoryStream();
-            await st.CopyToAsync(memoryStream);
-            memoryStream.Position = 0;
-            BitmapImage bitmap = new BitmapImage();
-            bitmap.SetSource(memoryStream.AsRandomAccessStream());
+                var memoryStream = new MemoryStream();
+                await st.CopyToAsync(memoryStream);
+                memoryStream.Position = 0;
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.SetSource(memoryStream.AsRandomAccessStream());
 
-            recipeImage.Source = bitmap;
+                recipeImage.Source = bitmap;
+            }
+            catch (Exception e)
+            {
+                
+            }
         }
 
         private void btn_seconds_up_Click(object sender, RoutedEventArgs e)
