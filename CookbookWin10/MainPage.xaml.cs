@@ -31,14 +31,14 @@ namespace CookbookWin10
         {
             this.InitializeComponent();
             recipeController = new RecipeController();
-            retrieveJSON();
-            
+            retrieveJSON();            
         }
 
-        private void buttonClick(object sender, RoutedEventArgs e)
+        private void newDailyRecipe(object sender, RoutedEventArgs e)
         {
-            //greetingOutput.Text = "Hello " + nameInput.Text + "!";
-            this.Frame.Navigate(typeof(RecipePage), null);          
+            recipeController.randomDailyRecipe();
+            lblDailyTitle.Text = recipeController.getDailyRecipe().title;
+            lblDailyCategory.Text = recipeController.getDailyRecipe().category;
         }
 
         private async void retrieveJSON()
@@ -51,9 +51,10 @@ namespace CookbookWin10
             string output = await content.ReadAsStringAsync();
             if(output != null)
             {
-                Titlebar.Text = output;
+                //lblDailyRecipe.Text = output;
             }
             recipeController.setRecipes(JsonConvert.DeserializeObject<List<Recipe>>(output));
+            recipeController.randomDailyRecipe();
             listbox_mainlist.ItemsSource = recipeController.getRecipeTitles();
         }
 

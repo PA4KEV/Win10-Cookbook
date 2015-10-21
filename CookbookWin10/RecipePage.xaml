@@ -27,7 +27,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <StackPanel HorizontalAlignment="Left" Height="243" Margin="95,225,0,0" VerticalAlignment="Top" Width="353" Background="#FF7A7373">
-            <Image x:Name="recipeImage" Source="Assets/Images/01/chikuwa_main.jpg" Height="243"/>
+            <Image x:Name="recipeImage" Height="243"/>
         </StackPanel>
 
         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Margin="639,76,0,36">

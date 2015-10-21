@@ -1,24 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.Notifications;
-using Windows.Data.Xml.Dom;
 using System.Net.Http;
 using Newtonsoft.Json;
-using Windows.Storage.Streams;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Notifications;
+using System.IO;
+
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,13 +20,16 @@ namespace CookbookWin10
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class RecipePage : Page
-    {
-        DispatcherTimer stopwatch;
+    {        
         private RecipeExtended recipe;
+        private KitchenTimer kitchenTimer;
 
         public RecipePage()
         {
             this.InitializeComponent();
+            kitchenTimer = new KitchenTimer();
+            kitchenTimer.Tick += new KitchenTimer.TickHandler(updateKitchenTimer);
+            kitchenTimer.TimeDone += new KitchenTimer.TimerDoneHandler(timeDoneKitchenTimer);
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
             {
@@ -44,11 +39,6 @@ namespace CookbookWin10
                     a.Handled = true;
                 }
             };
-            stopwatch = new DispatcherTimer();
-            stopwatch.Tick += Stopwatch_Tick;
-            stopwatch.Interval = new TimeSpan(0, 0, 0, 1);
-
-            
 
             Image img = new Image();
             img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Logo.png"));
@@ -58,7 +48,6 @@ namespace CookbookWin10
             Recipe recipe = e.Parameter as Recipe;
             //recipeTitle.Text = recipe.title;
             loadRecipe(recipe);
-
         }
 
         private async void loadRecipe(Recipe input)
@@ -103,66 +92,49 @@ namespace CookbookWin10
             }
         }
 
+        private void updateKitchenTimer(KitchenTimer kitchenTimer, EventArgs e)
+        {
+            lbl_stopwatch_minutes.Text = kitchenTimer.getMinutes().ToString("D2");
+            lbl_stopwatch_seconds.Text = kitchenTimer.getSeconds().ToString("D2");            
+        }
+        private void timeDoneKitchenTimer(KitchenTimer kitchenTimer, EventArgs e)
+        {
+            beepdown.Play();
+            btn_stopwatch_toggle.IsEnabled = true;
+            showToast("Sushi Chikuwa");
+        }
+
         private void btn_seconds_up_Click(object sender, RoutedEventArgs e)
         {
             beepup.Play();
-            lbl_stopwatch_seconds.Text = (Int32.Parse(lbl_stopwatch_seconds.Text) + 1 > 60) ? "00" : (Int32.Parse(lbl_stopwatch_seconds.Text) + 1).ToString("D2");            
+            kitchenTimer.incrementSeconds();         
         }
 
         private void btn_minutes_up_Click(object sender, RoutedEventArgs e)
         {
             beepup.Play();
-            lbl_stopwatch_minutes.Text = (Int32.Parse(lbl_stopwatch_minutes.Text) + 1 > 99) ? "00" : (Int32.Parse(lbl_stopwatch_minutes.Text) + 1).ToString("D2");            
+            kitchenTimer.incrementMinutes();
         }
 
         private void btn_seconds_down_Click(object sender, RoutedEventArgs e)
         {
             beepdown.Play();
-            lbl_stopwatch_seconds.Text = (Int32.Parse(lbl_stopwatch_seconds.Text) - 1).ToString("D2");
-            if (Int32.Parse(lbl_stopwatch_seconds.Text) < 0)
-                lbl_stopwatch_seconds.Text = "59";            
+            kitchenTimer.decrementSeconds();                      
         }
 
         private void btn_minutes_down_Click(object sender, RoutedEventArgs e)
         {
             beepdown.Play();
-            lbl_stopwatch_minutes.Text = (Int32.Parse(lbl_stopwatch_minutes.Text) - 1).ToString("D2");
-            if (Int32.Parse(lbl_stopwatch_minutes.Text) < 0)
-                lbl_stopwatch_minutes.Text = "99";            
+            kitchenTimer.decrementMinutes();     
         }
 
         private void btn_stopwatch_toggle_Click(object sender, RoutedEventArgs e)
         {
-            beepup.Play();
-            stopwatch.Start();
+            beepup.Play();            
             btn_stopwatch_toggle.IsEnabled = false;
+            kitchenTimer.startKitchenTimer();
         }
 
-        private void Stopwatch_Tick(object sender, object e)
-        {
-            int seconds = Int32.Parse(lbl_stopwatch_seconds.Text);
-            int minutes = Int32.Parse(lbl_stopwatch_minutes.Text);
-
-            if ((seconds - 1) < 0)  {
-                seconds = 59;
-                if ((minutes - 1) >= 0) {
-                    minutes--;
-                }                
-            }
-            else {
-                seconds--;
-            }
-
-            if (minutes <= 0 && seconds <= 0) {
-                seconds = minutes = 0;
-                beepdown.Play();
-                stopwatch.Stop();
-                btn_stopwatch_toggle.IsEnabled = true;
-                showToast("Sushi Chikuwa");
-            }
-            lbl_stopwatch_seconds.Text = seconds.ToString("D2");
-            lbl_stopwatch_minutes.Text = minutes.ToString("D2");
-        }
         private void showToast(string recipeName)
         {
             XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText04);

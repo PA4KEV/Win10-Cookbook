@@ -9,6 +9,12 @@ namespace CookbookWin10
     class RecipeController
     {
         private List<Recipe> recipes;
+        private Recipe dailyRecipe;
+
+        public RecipeController()
+        {
+            
+        }
 
         public List<String> getRecipeTitles()
         {
@@ -28,6 +34,16 @@ namespace CookbookWin10
         public void setRecipes(List<Recipe> recipes)
         {
             this.recipes = recipes;
+        }
+        public Recipe getDailyRecipe()
+        {
+            return dailyRecipe;
+        }
+        public void randomDailyRecipe()
+        {
+            Random random = new Random();
+            int idx = random.Next(recipes.Count);
+            dailyRecipe = recipes[idx];
         }
     }
 }
