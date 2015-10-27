@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -30,20 +32,40 @@ namespace CookbookWin10
         public MainPage()
         {
             this.InitializeComponent();
-            recipeController = new RecipeController();
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
             retrieveJSON();            
         }
 
-        private void newDailyRecipe(object sender, RoutedEventArgs e)
+        private async void newDailyRecipe(object sender, RoutedEventArgs e)
         {
             recipeController.randomDailyRecipe();
             lblDailyTitle.Text = recipeController.getDailyRecipe().title;
             lblDailyCategory.Text = recipeController.getDailyRecipe().category;
+
+            HttpClient client = new HttpClient();
+            try
+            {
+                int id = recipeController.getDailyRecipe().getID();
+                string page = "http://www.returnoftambelon.com/cookbook/gallery/" + id + "/main.jpg";
+                Stream st = await client.GetStreamAsync(page);
+
+                var memoryStream = new MemoryStream();
+                await st.CopyToAsync(memoryStream);
+                memoryStream.Position = 0;
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.SetSource(memoryStream.AsRandomAccessStream());
+
+                imgDailyImage.Source = bitmap;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private async void retrieveJSON()
         {
-            string page = "http://www.returnoftambelon.com/cookbook_titles.php";
+            string page = "http://www.returnoftambelon.com/koken_recepten.php";
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(page);
             HttpContent content = response.Content;
@@ -53,16 +75,21 @@ namespace CookbookWin10
             {
                 //lblDailyRecipe.Text = output;
             }
-            recipeController.setRecipes(JsonConvert.DeserializeObject<List<Recipe>>(output));
-            recipeController.randomDailyRecipe();
-            listbox_mainlist.ItemsSource = recipeController.getRecipeTitles();
+            recipeController = new RecipeController(JsonConvert.DeserializeObject<List<Recipe>>(output));
+            updateMainPage();       
         }
 
         private void navigateToRecipePage(object sender, SelectionChangedEventArgs e)
         {
             string title = listbox_mainlist.SelectedItem.ToString();
-            
-            this.Frame.Navigate(typeof(RecipePage), recipeController.getRecipes()[listbox_mainlist.SelectedIndex]);
+
+            this.Frame.Navigate(typeof(RecipePageImproved), recipeController.getRecipes()[listbox_mainlist.SelectedIndex]);
+        }
+
+        private void updateMainPage()
+        {
+            listbox_mainlist.ItemsSource = recipeController.getRecipeTitles();
+            //newDailyRecipe(null, null);
         }
     }
 }

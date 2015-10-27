@@ -11,9 +11,11 @@ namespace CookbookWin10
         private List<Recipe> recipes;
         private Recipe dailyRecipe;
 
-        public RecipeController()
+        private EventArgs eventArgs = null;
+        public RecipeController(List<Recipe> recipes)
         {
-            
+            this.recipes = recipes;
+            randomDailyRecipe();
         }
 
         public List<String> getRecipeTitles()
@@ -22,7 +24,7 @@ namespace CookbookWin10
             List<String> sideList = new List<string>();
             for (int x = 0; x < recipes.Count; x++)
             {
-                sideList.Add(recipes[x].title);
+                sideList.Add(recipes[x].getTitle() + " " + recipes[x].getSubtitle());
             }
             return sideList;            
         }

@@ -1,0 +1,43 @@
+﻿<Page
+    x:Class="CookbookWin10.RecipePageImproved"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CookbookWin10"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Rectangle x:Name="rect_main" Fill="Orange" HorizontalAlignment="Left" Height="446" Margin="524,0,0,0" VerticalAlignment="Top" Width="756"/>
+        <Rectangle x:Name="rect_border_top" Fill="#FFFFFFFF" HorizontalAlignment="Left" Height="18" Margin="524,446,0,0" VerticalAlignment="Top" Width="756"/>
+        <Rectangle x:Name="rect_ingredients" Fill="#FFFFD100" HorizontalAlignment="Left" Height="152" Margin="524,464,0,0" VerticalAlignment="Top" Width="756"/>
+        <Rectangle x:Name="rect_border_low" Fill="#FFFFFFFF" HorizontalAlignment="Left" Height="18" Margin="524,616,0,0" VerticalAlignment="Top" Width="756"/>
+        <Rectangle x:Name="rect_sub_right" Fill="Orange" HorizontalAlignment="Left" Height="86" Margin="1060,634,0,0" VerticalAlignment="Top" Width="220"/>
+        <Rectangle x:Name="rect_sub_middle" Fill="Crimson" HorizontalAlignment="Left" Height="86" Margin="790,634,0,0" VerticalAlignment="Top" Width="270"/>
+        <Rectangle x:Name="rect_sub_left" Fill="Brown" HorizontalAlignment="Left" Height="86" Margin="524,634,0,0" VerticalAlignment="Top" Width="266"/>
+        <Rectangle x:Name="rect_left_low" Fill="Brown" HorizontalAlignment="Left" Height="256" Margin="0,464,0,0" VerticalAlignment="Top" Width="502"/>
+        <Rectangle x:Name="rect_left_top" Fill="Crimson" HorizontalAlignment="Left" Height="446" VerticalAlignment="Top" Width="502"/>
+        <TextBlock x:Name="lbl_title" HorizontalAlignment="Left" Margin="620,30,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="44" Width="618" FontSize="29.333" FontWeight="Bold"/>
+        <TextBlock x:Name="lbl_subtitle" HorizontalAlignment="Left" Margin="772,79,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="28" Width="466" FontSize="24" FontWeight="Bold"/>
+        <TextBlock x:Name="lbl_recipe" HorizontalAlignment="Left" Margin="772,112,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="310" Width="466" Foreground="White"/>
+        <TextBlock x:Name="lbl_type" HorizontalAlignment="Left" Margin="552,421,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontStyle="Italic"/>
+        <TextBlock x:Name="lbl_ingredients" HorizontalAlignment="Left" Margin="552,481,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18.667" Height="112" Width="556" Foreground="White"/>
+        <TextBlock x:Name="lbl_rect_left" HorizontalAlignment="Left" Margin="600,664,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18.667" Width="164" Foreground="White"/>
+        <TextBlock x:Name="lbl_rect_middle" HorizontalAlignment="Left" Margin="882,664,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18.667" Width="153" Foreground="White"/>
+        <TextBlock x:Name="lbl_rect_right" HorizontalAlignment="Left" Margin="1120,664,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18.667" Width="150" Foreground="White"/>
+        <TextBlock x:Name="lbl_tip_title_low" HorizontalAlignment="Left" Margin="552,302,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="16" Foreground="White"/>
+        <TextBlock x:Name="lbl_tip_low" HorizontalAlignment="Left" Margin="552,328,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="13.333" Height="82" Width="145" Foreground="White"/>
+        <TextBlock x:Name="lbl_tip_title_top" HorizontalAlignment="Left" Margin="552,136,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="16" Foreground="White"/>
+        <TextBlock x:Name="lbl_tip_top" HorizontalAlignment="Left" Margin="552,162,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="13.333" Height="82" Width="145" Foreground="White"/>
+        <TextBlock x:Name="lbl_stopwatch_minutes" HorizontalAlignment="Left" Margin="172,564,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Height="76" Width="58" Foreground="White" FontSize="48"/>
+        <TextBlock x:Name="lbl_stopwatch_colon" HorizontalAlignment="Left" Margin="230,560,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" Height="76" Width="24" Foreground="White" FontSize="48"/>
+        <TextBlock x:Name="lbl_stopwatch_seconds" HorizontalAlignment="Left" Margin="247,564,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Height="76" Width="58" Foreground="White" FontSize="48"/>
+        <Button x:Name="btn_seconds_up" Content="^" HorizontalAlignment="Left" Margin="249,514,0,0" VerticalAlignment="Top" Height="50" Width="50"/>
+        <Button x:Name="btn_minutes_up" Content="^" HorizontalAlignment="Left" Margin="172,514,0,0" VerticalAlignment="Top" Height="50" Width="50"/>
+        <Button x:Name="btn_seconds_down" Content="v" HorizontalAlignment="Left" Margin="249,633,0,0" VerticalAlignment="Top" Height="50" Width="50"/>
+        <Button x:Name="btn_minutes_down" Content="v" HorizontalAlignment="Left" Margin="172,633,0,0" VerticalAlignment="Top" Height="50" Width="50"/>
+        <ToggleButton x:Name="btn_stopwatch_toggle" Content="start" HorizontalAlignment="Left" Margin="342,564,0,0" VerticalAlignment="Top" Height="72" Width="87"/>
+
+
+    </Grid>
+</Page>

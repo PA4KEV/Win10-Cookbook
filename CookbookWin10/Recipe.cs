@@ -8,42 +8,61 @@ namespace CookbookWin10
 {
     public class Recipe
     {
-        public string title;
         public int id;
+        public string date;
+        public string title;
+        public string subtitle;
         public string category;
-        public double rating;
-        public int number_of_ratings;
+        public string author;
+        public string type;
+        public int persons;
+        public string preperationTime;
+        public string recipe;
+        public string tip;
+        public string winetip;
+        public string ingredients;
         public string image;
 
-        public string getTitle()
-        {
-            return title;
-        }
+
         public int getID()
         {
             return id;
         }
-        public double getRating()
+        public string getTitle()
         {
-            return rating;
+            return title;
         }
-        public int getNumberOfRatings()
+        public string getSubtitle()
         {
-            return number_of_ratings;
+            return subtitle;
+        }
+        public string getCategory()
+        {
+            return category;
+        }
+        public string getAuthor()
+        {
+            return author;
+        }
+        public string getRecipeType()
+        {
+            return type;
+        }
+        public int getPersons()
+        {
+            return persons;
+        }
+        public string getPreperationTime()
+        {
+            return preperationTime;
+        }
+        public string getRecipe()
+        {
+            return recipe;
         }
         public string getImageString()
         {
             return image;
         }
-    }
-
-    public class RecipeExtended : Recipe
-    {
-        public string author;
-        public string preperation;
-        public string time;
-        public string ingredients;
-        public string actions;
-        public string description;
     }
 }
