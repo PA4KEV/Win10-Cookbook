@@ -24,14 +24,14 @@
         <TextBlock x:Name="lbl_subtitle" HorizontalAlignment="Left" Margin="772,79,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="28" Width="466" FontSize="24" FontWeight="Bold"/>
         <TextBlock x:Name="lbl_recipe" HorizontalAlignment="Left" Margin="772,112,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="310" Width="466" Foreground="White"/>
         <TextBlock x:Name="lbl_type" HorizontalAlignment="Left" Margin="552,421,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontStyle="Italic"/>
-        <TextBlock x:Name="lbl_ingredients" HorizontalAlignment="Left" Margin="552,481,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18.667" Height="112" Width="556" Foreground="White"/>
-        <TextBlock x:Name="lbl_rect_left" HorizontalAlignment="Left" Margin="600,664,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18.667" Width="164" Foreground="White"/>
+        <TextBlock x:Name="lbl_ingredients" HorizontalAlignment="Left" Margin="552,481,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18.667" Height="112" Width="313" Foreground="White"/>
+        <TextBlock x:Name="lbl_rect_left" HorizontalAlignment="Left" Margin="607,664,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18.667" Width="164" Foreground="White"/>
         <TextBlock x:Name="lbl_rect_middle" HorizontalAlignment="Left" Margin="882,664,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18.667" Width="153" Foreground="White"/>
         <TextBlock x:Name="lbl_rect_right" HorizontalAlignment="Left" Margin="1120,664,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18.667" Width="150" Foreground="White"/>
         <TextBlock x:Name="lbl_tip_title_low" HorizontalAlignment="Left" Margin="552,302,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="16" Foreground="White"/>
         <TextBlock x:Name="lbl_tip_low" HorizontalAlignment="Left" Margin="552,328,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="13.333" Height="82" Width="145" Foreground="White"/>
         <TextBlock x:Name="lbl_tip_title_top" HorizontalAlignment="Left" Margin="552,136,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="16" Foreground="White"/>
-        <TextBlock x:Name="lbl_tip_top" HorizontalAlignment="Left" Margin="552,162,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="13.333" Height="82" Width="145" Foreground="White"/>
+        <TextBlock x:Name="lbl_tip_top" HorizontalAlignment="Left" Margin="552,162,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="13.333" Height="77" Width="145" Foreground="White"/>
         <TextBlock x:Name="lbl_stopwatch_minutes" HorizontalAlignment="Left" Margin="172,564,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Height="76" Width="58" Foreground="White" FontSize="48"/>
         <TextBlock x:Name="lbl_stopwatch_colon" HorizontalAlignment="Left" Margin="230,560,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" Height="76" Width="24" Foreground="White" FontSize="48"/>
         <TextBlock x:Name="lbl_stopwatch_seconds" HorizontalAlignment="Left" Margin="247,564,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Height="76" Width="58" Foreground="White" FontSize="48"/>
@@ -41,6 +41,11 @@
         <Button x:Name="btn_minutes_down" Content="v" HorizontalAlignment="Left" Margin="172,633,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="btn_minutes_down_Click"/>
         <ToggleButton x:Name="btn_stopwatch_toggle" Content="start" HorizontalAlignment="Left" Margin="342,564,0,0" VerticalAlignment="Top" Height="72" Width="87" Click="btn_stopwatch_toggle_Click"/>
         <Image x:Name="img_main" HorizontalAlignment="Left" Height="446" VerticalAlignment="Top" Width="502"/>
+        <Image x:Name="img_prepTime" Source="ms-appx:///Assets/clock.png" HorizontalAlignment="Left" Height="48" Margin="817,655,0,0" VerticalAlignment="Top" Width="48"/>
+        <Image x:Name="img_persons" Source="ms-appx:///Assets/persons.png" HorizontalAlignment="Left" Height="48" Margin="544,655,0,0" VerticalAlignment="Top" Width="48"/>
+        <Image x:Name="img_cart" Source="ms-appx:///Assets/shopping_cart.png" HorizontalAlignment="Left" Height="48" Margin="1190,514,0,0" VerticalAlignment="Top" Width="48"/>
+        <Image x:Name="img_tip_low" HorizontalAlignment="Left" Height="48" Margin="552,244,0,0" VerticalAlignment="Top" Width="48"/>
+        <Image x:Name="img_tip_top" HorizontalAlignment="Left" Height="48" Margin="552,79,0,0" VerticalAlignment="Top" Width="48"/>
 
 
     </Grid>
