@@ -57,39 +57,30 @@ namespace CookbookWin10
             if (output != null)
             {
                 recipe = JsonConvert.DeserializeObject<Recipe>(output);
-            }
-            lbl_title.Text = recipe.getTitle();
-            lbl_subtitle.Text = recipe.getSubtitle();
-            lbl_recipe.Text = recipe.getRecipe();
-            lbl_type.Text = recipe.getRecipeType();
-            lbl_rect_left.Text = recipe.getPersons() + " personen";
-            lbl_rect_middle.Text = recipe.getPreperationTime();
-            lbl_rect_right.Text = recipe.getAuthor();
+            }            
+            
+            fillRectanglesWithColors(recipe.getCategoryInteger());
+            fillXamlElements(recipe);
 
-            rect_main.Fill = CategoryColor.sets[1, 0];
-            rect_ingredients.Fill = CategoryColor.sets[1, 1];
-            rect_left_low.Fill = CategoryColor.sets[1, 2];
-            rect_left_top.Fill = CategoryColor.sets[1, 3]; 
-
-            //recipeText.Text = "\r\nDescription:\r\n" + recipe.description + "\r\n\r\nIngredients: \r\n" + recipe.ingredients + "\r\n\r\nActions:\r\n" + recipe.actions;
-
-            // fetch image
-            try
+            if (recipe.getImageString().Length != 0)
             {
-                page = "http://www.returnoftambelon.com/cookbook/gallery/" + input.id + "/main.jpg";
-                Stream st = await client.GetStreamAsync(page);
+                try
+                {
+                    page = "http://www.returnoftambelon.com/cookbook/gallery/" + recipe.getImageString();
+                    Stream st = await client.GetStreamAsync(page);
 
-                var memoryStream = new MemoryStream();
-                await st.CopyToAsync(memoryStream);
-                memoryStream.Position = 0;
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.SetSource(memoryStream.AsRandomAccessStream());
+                    var memoryStream = new MemoryStream();
+                    await st.CopyToAsync(memoryStream);
+                    memoryStream.Position = 0;
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.SetSource(memoryStream.AsRandomAccessStream());
 
-                //recipeImage.Source = bitmap;
-            }
-            catch (Exception e)
-            {
+                    img_main.Source = bitmap;
+                }
+                catch (Exception e)
+                {
 
+                }
             }
         }
 
@@ -154,5 +145,81 @@ namespace CookbookWin10
 
             ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
+
+        private void fillXamlElements(Recipe recipe)
+        {
+            lbl_title.Text = recipe.getTitle();
+            lbl_subtitle.Text = recipe.getSubtitle();
+            lbl_recipe.Text = recipe.getRecipe();
+            lbl_type.Text = recipe.getRecipeType();
+            lbl_rect_left.Text = recipe.getPersons() + " personen";
+            lbl_rect_middle.Text = recipe.getPreperationTime();
+            lbl_rect_right.Text = recipe.getAuthor();            
+
+            string[] ingredients = recipe.getIngredients();
+            string output_left = "";
+            string output_right = "";
+            for (int x = 0; x < 10 && x < ingredients.Length; x++)
+            {
+                if (x < 5)
+                    output_left += ingredients[x].Trim() + "\n";
+                else
+                    output_right += ingredients[x].Trim() + "\n";
+            }
+            lbl_ingredients_left.Text = output_left;
+            lbl_ingredients_right.Text = output_right;
+
+            if (recipe.getTip().Length != 0)
+            {
+                lbl_tip_title_low.Text = "Tip:";
+                lbl_tip_low.Text = recipe.getTip();
+                img_tip_low.Source = new BitmapImage(new Uri("ms-appx:///Assets/tip.png"));
+                if (recipe.getWineTip().Length != 0)
+                {
+                    lbl_tip_title_top.Text = "Wijntip:";
+                    lbl_tip_top.Text = recipe.getWineTip();
+                    img_tip_top.Source = new BitmapImage(new Uri("ms-appx:///Assets/wine.png"));
+                }
+            }
+            else if (recipe.getWineTip().Length != 0)
+            {
+                lbl_tip_title_low.Text = "Wijntip:";
+                lbl_tip_low.Text = recipe.getWineTip();
+                img_tip_low.Source = new BitmapImage(new Uri("ms-appx:///Assets/wine.png"));
+            }            
+        }
+
+        private void fillRectanglesWithColors(int category)
+        {
+            int[] idx = { 0, 1, 2, 3 };
+            FisherYatesShuffle(idx);
+
+            rect_main.Fill = CategoryColor.sets[category, idx[0]];
+            rect_ingredients.Fill = CategoryColor.sets[category, idx[1]];
+            rect_left_low.Fill = CategoryColor.sets[category, idx[2]];
+            rect_left_top.Fill = CategoryColor.sets[category, idx[3]];
+            rect_sub_left.Fill = CategoryColor.sets[category, 0];
+            rect_sub_middle.Fill = CategoryColor.sets[category, 1];
+            rect_sub_right.Fill = CategoryColor.sets[category, 2];
+
+            lbl_title.Foreground = CategoryColor.sets[category, idx[1]];
+            lbl_subtitle.Foreground = CategoryColor.sets[category, idx[2]];
+        }
+
+        private static void FisherYatesShuffle<T>(T[] array)
+        {
+            Random _random = new Random();
+            int n = array.Length;
+            for (int i = 0; i < n; i++)
+            {
+                // NextDouble returns a random number between 0 and 1.
+                // ... It is equivalent to Math.random() in Java.
+                int r = i + (int)(_random.NextDouble() * (n - i));
+                T t = array[r];
+                array[r] = array[i];
+                array[i] = t;
+            }
+        }
+
     }
 }

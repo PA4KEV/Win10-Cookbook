@@ -15,9 +15,9 @@ namespace CookbookWin10
 
         public static SolidColorBrush[,] sets = {
             //Spanish
-            { (new SolidColorBrush(Color.FromArgb(255, 214, 78, 32))), (new SolidColorBrush(Color.FromArgb(255, 255, 119, 8))), (new SolidColorBrush(Color.FromArgb(255, 255, 193, 8))), (new SolidColorBrush(Color.FromArgb(255, 247, 5, 5))) },
+            { (new SolidColorBrush(Color.FromArgb(255, 214, 78, 32))), (new SolidColorBrush(Color.FromArgb(255, 255, 119, 8))), (new SolidColorBrush(Color.FromArgb(255, 247, 5, 5))), (new SolidColorBrush(Color.FromArgb(255, 255, 193, 8))) },
             //French
-            { (new SolidColorBrush(Color.FromArgb(255, 58, 14, 232))), (new SolidColorBrush(Color.FromArgb(255, 149, 64, 201))), (new SolidColorBrush(Color.FromArgb(255, 209, 52, 0))), (new SolidColorBrush(Color.FromArgb(255, 227, 9, 9))) }
+            { (new SolidColorBrush(Color.FromArgb(255, 58, 14, 232))), (new SolidColorBrush(Color.FromArgb(255, 149, 64, 201))), (new SolidColorBrush(Color.FromArgb(255, 227, 9, 9))), (new SolidColorBrush(Color.FromArgb(255, 105, 31, 0))) }
         };
     }
 }
