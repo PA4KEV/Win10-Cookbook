@@ -60,6 +60,18 @@ namespace CookbookWin10
         {
             return recipe;
         }
+        public string getTip()
+        {
+            return tip;
+        }
+        public string getWineTip()
+        {
+            return winetip;
+        }
+        public string[] getIngredients()
+        {
+            return ingredients.Split(',');
+        }
         public string getImageString()
         {
             return image;

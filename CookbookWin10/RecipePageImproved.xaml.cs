@@ -66,6 +66,11 @@ namespace CookbookWin10
             lbl_rect_middle.Text = recipe.getPreperationTime();
             lbl_rect_right.Text = recipe.getAuthor();
 
+            rect_main.Fill = CategoryColor.sets[1, 0];
+            rect_ingredients.Fill = CategoryColor.sets[1, 1];
+            rect_left_low.Fill = CategoryColor.sets[1, 2];
+            rect_left_top.Fill = CategoryColor.sets[1, 3]; 
+
             //recipeText.Text = "\r\nDescription:\r\n" + recipe.description + "\r\n\r\nIngredients: \r\n" + recipe.ingredients + "\r\n\r\nActions:\r\n" + recipe.actions;
 
             // fetch image
@@ -90,44 +95,44 @@ namespace CookbookWin10
 
         private void updateKitchenTimer(KitchenTimer kitchenTimer, EventArgs e)
         {
-            //lbl_stopwatch_minutes.Text = kitchenTimer.getMinutes().ToString("D2");
-            //.Text = kitchenTimer.getSeconds().ToString("D2");
+            lbl_stopwatch_minutes.Text = kitchenTimer.getMinutes().ToString("D2");
+            lbl_stopwatch_seconds.Text = kitchenTimer.getSeconds().ToString("D2");
         }
         private void timeDoneKitchenTimer(KitchenTimer kitchenTimer, EventArgs e)
         {
-            //beepdown.Play();
-            //btn_stopwatch_toggle.IsEnabled = true;
+            beepdown.Play();
+            btn_stopwatch_toggle.IsEnabled = true;
             showToast("Sushi Chikuwa");
         }
 
         private void btn_seconds_up_Click(object sender, RoutedEventArgs e)
         {
-            //beepup.Play();
+            beepup.Play();
             kitchenTimer.incrementSeconds();
         }
 
         private void btn_minutes_up_Click(object sender, RoutedEventArgs e)
         {
-            //beepup.Play();
+            beepup.Play();
             kitchenTimer.incrementMinutes();
         }
 
         private void btn_seconds_down_Click(object sender, RoutedEventArgs e)
         {
-            //beepdown.Play();
+            beepdown.Play();
             kitchenTimer.decrementSeconds();
         }
 
         private void btn_minutes_down_Click(object sender, RoutedEventArgs e)
         {
-            //beepdown.Play();
+            beepdown.Play();
             kitchenTimer.decrementMinutes();
         }
 
         private void btn_stopwatch_toggle_Click(object sender, RoutedEventArgs e)
         {
-            //beepup.Play();
-            //btn_stopwatch_toggle.IsEnabled = false;
+            beepup.Play();
+            btn_stopwatch_toggle.IsEnabled = false;
             kitchenTimer.startKitchenTimer();
         }
 

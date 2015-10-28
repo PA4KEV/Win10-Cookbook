@@ -7,7 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <MediaElement x:Name="beepup" Source="Assets/sounds/REMVIN.WAV" AutoPlay="False" Height="0" Width="0" />
+        <MediaElement x:Name="beepdown" Source="Assets/sounds/REMVOUT.WAV" AutoPlay="False" Height="0" Width="0" />
         <Rectangle x:Name="rect_main" Fill="Orange" HorizontalAlignment="Left" Height="446" Margin="524,0,0,0" VerticalAlignment="Top" Width="756"/>
         <Rectangle x:Name="rect_border_top" Fill="#FFFFFFFF" HorizontalAlignment="Left" Height="18" Margin="524,446,0,0" VerticalAlignment="Top" Width="756"/>
         <Rectangle x:Name="rect_ingredients" Fill="#FFFFD100" HorizontalAlignment="Left" Height="152" Margin="524,464,0,0" VerticalAlignment="Top" Width="756"/>
@@ -32,11 +35,12 @@
         <TextBlock x:Name="lbl_stopwatch_minutes" HorizontalAlignment="Left" Margin="172,564,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Height="76" Width="58" Foreground="White" FontSize="48"/>
         <TextBlock x:Name="lbl_stopwatch_colon" HorizontalAlignment="Left" Margin="230,560,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Top" Height="76" Width="24" Foreground="White" FontSize="48"/>
         <TextBlock x:Name="lbl_stopwatch_seconds" HorizontalAlignment="Left" Margin="247,564,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Height="76" Width="58" Foreground="White" FontSize="48"/>
-        <Button x:Name="btn_seconds_up" Content="^" HorizontalAlignment="Left" Margin="249,514,0,0" VerticalAlignment="Top" Height="50" Width="50"/>
-        <Button x:Name="btn_minutes_up" Content="^" HorizontalAlignment="Left" Margin="172,514,0,0" VerticalAlignment="Top" Height="50" Width="50"/>
-        <Button x:Name="btn_seconds_down" Content="v" HorizontalAlignment="Left" Margin="249,633,0,0" VerticalAlignment="Top" Height="50" Width="50"/>
-        <Button x:Name="btn_minutes_down" Content="v" HorizontalAlignment="Left" Margin="172,633,0,0" VerticalAlignment="Top" Height="50" Width="50"/>
-        <ToggleButton x:Name="btn_stopwatch_toggle" Content="start" HorizontalAlignment="Left" Margin="342,564,0,0" VerticalAlignment="Top" Height="72" Width="87"/>
+        <Button x:Name="btn_seconds_up" Content="^" HorizontalAlignment="Left" Margin="249,514,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="btn_seconds_up_Click"/>
+        <Button x:Name="btn_minutes_up" Content="^" HorizontalAlignment="Left" Margin="172,514,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="btn_minutes_up_Click"/>
+        <Button x:Name="btn_seconds_down" Content="v" HorizontalAlignment="Left" Margin="249,633,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="btn_seconds_down_Click"/>
+        <Button x:Name="btn_minutes_down" Content="v" HorizontalAlignment="Left" Margin="172,633,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="btn_minutes_down_Click"/>
+        <ToggleButton x:Name="btn_stopwatch_toggle" Content="start" HorizontalAlignment="Left" Margin="342,564,0,0" VerticalAlignment="Top" Height="72" Width="87" Click="btn_stopwatch_toggle_Click"/>
+        <Image x:Name="img_main" HorizontalAlignment="Left" Height="446" VerticalAlignment="Top" Width="502"/>
 
 
     </Grid>
