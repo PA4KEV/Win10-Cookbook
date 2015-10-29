@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="CategoryColor.cs" />
     <Compile Include="KitchenTimer.cs" />
+    <Compile Include="MainListboxModel.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

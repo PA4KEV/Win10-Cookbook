@@ -41,14 +41,17 @@ namespace CookbookWin10
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Recipe recipe = e.Parameter as Recipe;
+            MainListboxModel model = e.Parameter as MainListboxModel;
             //recipeTitle.Text = recipe.title;
-            loadRecipe(recipe);
+
+            loadRecipe(model.id);          
         }
 
-        private async void loadRecipe(Recipe input)
+
+
+        private async void loadRecipe(int id)
         {
-            string page = "http://www.returnoftambelon.com/koken_recepten.php?id=" + input.id;
+            string page = "http://www.returnoftambelon.com/koken_recepten.php?id=" + id;
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(page);
             HttpContent content = response.Content;

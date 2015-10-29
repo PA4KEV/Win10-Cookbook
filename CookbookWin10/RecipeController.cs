@@ -8,44 +8,62 @@ namespace CookbookWin10
 {
     class RecipeController
     {
-        private List<Recipe> recipes;
-        private Recipe dailyRecipe;
+        private List<MainListboxModel> listboxItems;
+        //private Recipe dailyRecipe;
+        private List<string> categories;
 
         private EventArgs eventArgs = null;
-        public RecipeController(List<Recipe> recipes)
+        public RecipeController(List<MainListboxModel> listboxItems)
         {
-            this.recipes = recipes;
-            randomDailyRecipe();
-        }
-
-        public List<String> getRecipeTitles()
-        {
-            if(recipes.Count <= 0) { throw new Exception();  }
-            List<String> sideList = new List<string>();
-            for (int x = 0; x < recipes.Count; x++)
+            this.listboxItems = listboxItems;
+            //randomDailyRecipe();
+            this.categories = new List<string>();
+            for(int x = 0; x < listboxItems.Count; x++)
             {
-                sideList.Add(recipes[x].getTitle() + " " + recipes[x].getSubtitle());
+                if(!categories.Contains(listboxItems[x].category))
+                {
+                    categories.Add(listboxItems[x].category);
+                }
             }
-            return sideList;            
         }
 
-        public List<Recipe> getRecipes()
+        public List<string> getCategories()
         {
-            return recipes;
-        }
-        public void setRecipes(List<Recipe> recipes)
-        {
-            this.recipes = recipes;
-        }
-        public Recipe getDailyRecipe()
-        {
-            return dailyRecipe;
-        }
+            return categories;
+        }        
         public void randomDailyRecipe()
         {
             Random random = new Random();
-            int idx = random.Next(recipes.Count);
-            dailyRecipe = recipes[idx];
+            //int idx = random.Next(recipes.Count);
+            //dailyRecipe = recipes[idx];
         }
+
+        public List<MainListboxModel> getListboxItems()
+        {
+            return listboxItems;
+        }
+
+        public List<MainListboxModel> getListboxItems(string category)
+        {
+            if(category.Equals("all"))
+            {
+                return listboxItems;
+            }
+
+            List<MainListboxModel> list = new List<MainListboxModel>();
+            for(int x = 0; x < listboxItems.Count; x++)
+            {
+                if(listboxItems[x].category.Equals(category))
+                {
+                    list.Add(listboxItems[x]);
+                }
+            }
+            return list;
+        }
+
+        public void setListboxItems(List<MainListboxModel> list)
+        {
+            this.listboxItems = list;
+        }        
     }
 }

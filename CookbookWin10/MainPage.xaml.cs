@@ -28,6 +28,7 @@ namespace CookbookWin10
     public sealed partial class MainPage : Page
     {        
         private RecipeController recipeController;
+        private string category = "all";     
 
         public MainPage()
         {
@@ -38,14 +39,14 @@ namespace CookbookWin10
 
         private async void newDailyRecipe(object sender, RoutedEventArgs e)
         {
-            recipeController.randomDailyRecipe();
-            lblDailyTitle.Text = recipeController.getDailyRecipe().title;
-            lblDailyCategory.Text = recipeController.getDailyRecipe().category;
+            //recipeController.randomDailyRecipe();
+            //lblDailyTitle.Text = recipeController.getDailyRecipe().title;
+            //lblDailyCategory.Text = recipeController.getDailyRecipe().category;
 
             HttpClient client = new HttpClient();
             try
             {
-                int id = recipeController.getDailyRecipe().getID();
+                int id = 0;
                 string page = "http://www.returnoftambelon.com/cookbook/gallery/" + id + "/main.jpg";
                 Stream st = await client.GetStreamAsync(page);
 
@@ -55,7 +56,7 @@ namespace CookbookWin10
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.SetSource(memoryStream.AsRandomAccessStream());
 
-                imgDailyImage.Source = bitmap;
+                //imgDailyImage.Source = bitmap;
             }
             catch (Exception ex)
             {
@@ -65,31 +66,87 @@ namespace CookbookWin10
 
         private async void retrieveJSON()
         {
-            string page = "http://www.returnoftambelon.com/koken_recepten.php";
+            string page = "http://www.returnoftambelon.com/koken_recepten.php?section=main";
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(page);
             HttpContent content = response.Content;
 
             string output = await content.ReadAsStringAsync();
-            if(output != null)
+            if (output != null)
             {
-                //lblDailyRecipe.Text = output;
+                recipeController = new RecipeController(JsonConvert.DeserializeObject<List<MainListboxModel>>(output));
+
+                for (int x = 0; x < recipeController.getListboxItems().Count; x++)
+                {
+                    BitmapImage img = new BitmapImage();
+                    if (recipeController.getListboxItems()[x].image.Length != 0)
+                    {
+                        try
+                        {
+                            page = "http://www.returnoftambelon.com/cookbook/gallery/" + recipeController.getListboxItems()[x].image;
+                            Stream st = await client.GetStreamAsync(page);
+
+                            var memoryStream = new MemoryStream();
+                            await st.CopyToAsync(memoryStream);
+                            memoryStream.Position = 0;
+                            img.SetSource(memoryStream.AsRandomAccessStream());
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                        recipeController.getListboxItems()[x].setBitmapImage(img);
+                    }                    
+                }
             }
-            recipeController = new RecipeController(JsonConvert.DeserializeObject<List<Recipe>>(output));
-            updateMainPage();       
         }
+
+        private void updateMainListboxes(string category)
+        {
+            lbox_main_0.ItemsSource = recipeController.getListboxItems(category);
+        }
+        private void updateMainMenuColors(string category)
+        {
+            if(category.Equals("Spaans"))
+            {
+
+            }
+            else if(category.Equals("Frans"))
+            {
+
+            }
+        }
+
+        // Click events
 
         private void navigateToRecipePage(object sender, SelectionChangedEventArgs e)
         {
-            string title = listbox_mainlist.SelectedItem.ToString();
+            this.Frame.Navigate(typeof(RecipePageImproved), recipeController.getListboxItems(this.category)[lbox_main_0.SelectedIndex]);        
+        }        
 
-            this.Frame.Navigate(typeof(RecipePageImproved), recipeController.getRecipes()[listbox_mainlist.SelectedIndex]);
+        private void btn_category_Click(object sender, RoutedEventArgs e)
+        {
+            MenuFlyout menuFlyout = new MenuFlyout();
+
+            for(int x = 0; x < recipeController.getCategories().Count; x++)
+            {
+                MenuFlyoutItem flyItem = new MenuFlyoutItem();
+                flyItem.Text = recipeController.getCategories()[x];
+                flyItem.Click += FlyItem_Click;
+                menuFlyout.Items.Add(flyItem);
+            }            
+            menuFlyout.ShowAt((FrameworkElement)sender);
         }
 
-        private void updateMainPage()
+        private void FlyItem_Click(object sender, RoutedEventArgs e)
         {
-            listbox_mainlist.ItemsSource = recipeController.getRecipeTitles();
-            //newDailyRecipe(null, null);
+            if (sender.GetType() == typeof(MenuFlyoutItem))
+            {                
+                MenuFlyoutItem item = (MenuFlyoutItem)sender;
+                this.category = item.Text;
+                updateMainListboxes(item.Text);
+                updateMainMenuColors(item.Text);    
+            }            
         }
     }
 }
