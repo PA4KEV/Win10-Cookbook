@@ -195,7 +195,7 @@ namespace CookbookWin10
         private void fillRectanglesWithColors(int category)
         {
             int[] idx = { 0, 1, 2, 3 };
-            FisherYatesShuffle(idx);
+            MainPage.FisherYatesShuffle(idx);
 
             rect_main.Fill = CategoryColor.sets[category, idx[0]];
             rect_ingredients.Fill = CategoryColor.sets[category, idx[1]];
@@ -207,22 +207,6 @@ namespace CookbookWin10
 
             lbl_title.Foreground = CategoryColor.sets[category, idx[1]];
             lbl_subtitle.Foreground = CategoryColor.sets[category, idx[2]];
-        }
-
-        private static void FisherYatesShuffle<T>(T[] array)
-        {
-            Random _random = new Random();
-            int n = array.Length;
-            for (int i = 0; i < n; i++)
-            {
-                // NextDouble returns a random number between 0 and 1.
-                // ... It is equivalent to Math.random() in Java.
-                int r = i + (int)(_random.NextDouble() * (n - i));
-                T t = array[r];
-                array[r] = array[i];
-                array[i] = t;
-            }
-        }
-
+        } 
     }
 }

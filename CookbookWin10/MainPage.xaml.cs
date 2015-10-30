@@ -17,6 +17,8 @@ using Windows.UI.Xaml.Navigation;
 using Newtonsoft.Json;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Shapes;
+using Windows.UI;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -95,33 +97,70 @@ namespace CookbookWin10
                         {
 
                         }
-                        recipeController.getListboxItems()[x].setBitmapImage(img);
-                    }                    
+                        recipeController.getListboxItems()[x].bitmapImage = img;
+                    }
+
+                    Random random = new Random();
+                    int colorIndex = random.Next(4);
+                    if(recipeController.getListboxItems()[x].category.Equals("Spaans"))
+                    {
+                        recipeController.getListboxItems()[x].rectColor = (CategoryColor.sets[CategoryColor.SPANISH, colorIndex]);
+                    }   
+                    else if (recipeController.getListboxItems()[x].category.Equals("Frans"))
+                    {
+                        recipeController.getListboxItems()[x].rectColor = (CategoryColor.sets[CategoryColor.FRENCH, colorIndex]);
+                    }
                 }
             }
         }
 
         private void updateMainListboxes(string category)
-        {
-            lbox_main_0.ItemsSource = recipeController.getListboxItems(category);
-        }
+        {            
+            MainListboxModel[] recipes = recipeController.getListboxItems(category).ToArray();            
+            FisherYatesShuffle(recipes);
+            ListView[] lists = { lbox_main_0, lbox_main_1, lbox_main_2, lbox_main_3, lbox_main_4 };
+
+            // knullige zooi...
+            List<MainListboxModel>[] subLists = { new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>() };
+
+            for (int x = 0; x < recipes.Length; x++)
+            {
+                subLists[(x % subLists.Length)].Add(recipes[x]);
+            }           
+            for (int y = 0; y < lists.Length; y++)
+            {
+                lists[y].ItemsSource = subLists[y];
+            }                    
+        }              
+
         private void updateMainMenuColors(string category)
         {
+            int catColor = 0;
             if(category.Equals("Spaans"))
             {
-
+                catColor = CategoryColor.SPANISH;
             }
             else if(category.Equals("Frans"))
             {
-
+                catColor = CategoryColor.FRENCH;
             }
+            colorRectangles(catColor);
+            lbl_main_menu_welcome.Text = "Heerlijk " + category + " Koken";            
         }
 
         // Click events
 
         private void navigateToRecipePage(object sender, SelectionChangedEventArgs e)
         {
-            this.Frame.Navigate(typeof(RecipePageImproved), recipeController.getListboxItems(this.category)[lbox_main_0.SelectedIndex]);        
+            if(sender.GetType() == typeof(ListView))
+            {
+                ListView listView = (ListView)sender;
+
+                MainListboxModel model = (MainListboxModel)listView.Items[listView.SelectedIndex];
+
+                this.Frame.Navigate(typeof(RecipePageImproved), model);
+            }
+            
         }        
 
         private void btn_category_Click(object sender, RoutedEventArgs e)
@@ -144,9 +183,47 @@ namespace CookbookWin10
             {                
                 MenuFlyoutItem item = (MenuFlyoutItem)sender;
                 this.category = item.Text;
+                
+                updateMainMenuColors(item.Text);
                 updateMainListboxes(item.Text);
-                updateMainMenuColors(item.Text);    
             }            
+        }
+
+        // Colors
+
+        private void colorRectangles(int catColorID)
+        {
+            // deal with when 2 colors are next to eachother
+            int[] keys = { 0, 0, 1, 2, 3 };
+            FisherYatesShuffle(keys);
+
+            Rectangle[] rectangles = { rect_main_0, rect_main_1, rect_main_2, rect_main_3, rect_main_4 };
+            ListView[] lists = { lbox_main_0, lbox_main_1, lbox_main_2, lbox_main_3, lbox_main_4 };
+
+            for (int x = 0; x < keys.Length; x++)
+            {
+                rectangles[x].Fill = CategoryColor.sets[catColorID, keys[x]];
+                lists[x].Background = CategoryColor.sets[catColorID, keys[x]];
+            }
+            Random random = new Random();            
+            rect_main_menu.Fill = CategoryColor.sets[catColorID, keys[random.Next(keys.Length)]];
+                        
+            //recipeController.setListBoxColors(catColorID);            
+        }
+
+        public static void FisherYatesShuffle<T>(T[] array)
+        {
+            Random _random = new Random();
+            int n = array.Length;
+            for (int i = 0; i < n; i++)
+            {
+                // NextDouble returns a random number between 0 and 1.
+                // ... It is equivalent to Math.random() in Java.
+                int r = i + (int)(_random.NextDouble() * (n - i));
+                T t = array[r];
+                array[r] = array[i];
+                array[i] = t;
+            }
         }
     }
 }

@@ -13,7 +13,7 @@
         <MediaElement x:Name="beepdown" Source="Assets/sounds/REMVOUT.WAV" AutoPlay="False" Height="0" Width="0" />
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70*" />
+                <ColumnDefinition Width="55*" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
@@ -29,14 +29,14 @@
                 </Grid>
 
                 <Rectangle x:Name="rect_left_top" Grid.Column="0" Grid.Row="2" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBlock x:Name="lbl_stopwatch_minutes" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="100,0,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Center" Height="76" Width="58" Foreground="White" FontSize="48"/>
-                <TextBlock x:Name="lbl_stopwatch_colon" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="170,0,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Center" Height="76" Width="24" Foreground="White" FontSize="48"/>
-                <TextBlock x:Name="lbl_stopwatch_seconds" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="200,0,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Center" Height="76" Width="58" Foreground="White" FontSize="48"/>
-                <Button x:Name="btn_seconds_up" Content="^" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="200,20,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="btn_seconds_up_Click"/>
-                <Button x:Name="btn_minutes_up" Content="^" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="100,20,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="btn_minutes_up_Click"/>
-                <Button x:Name="btn_seconds_down" Content="v" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="200,0,0,20" VerticalAlignment="Bottom" Height="50" Width="50" Click="btn_seconds_down_Click"/>
-                <Button x:Name="btn_minutes_down" Content="v" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="100,0,0,20" VerticalAlignment="Bottom" Height="50" Width="50" Click="btn_minutes_down_Click"/>
-                <ToggleButton x:Name="btn_stopwatch_toggle" Grid.Column="0" Grid.Row="2" Content="start" HorizontalAlignment="Right" Margin="0,0,30,0" VerticalAlignment="Center" Height="72" Width="87" Click="btn_stopwatch_toggle_Click"/>
+                <TextBlock x:Name="lbl_stopwatch_minutes" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="20,0,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Center" Height="76" Width="58" Foreground="White" FontSize="48"/>
+                <TextBlock x:Name="lbl_stopwatch_colon" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="90,0,0,0" TextWrapping="Wrap" Text=":" VerticalAlignment="Center" Height="76" Width="24" Foreground="White" FontSize="48"/>
+                <TextBlock x:Name="lbl_stopwatch_seconds" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="120,0,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Center" Height="76" Width="58" Foreground="White" FontSize="48"/>
+                <Button x:Name="btn_seconds_up" Content="^" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="btn_seconds_up_Click"/>
+                <Button x:Name="btn_minutes_up" Content="^" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="120,20,0,0" VerticalAlignment="Top" Height="50" Width="50" Click="btn_minutes_up_Click"/>
+                <Button x:Name="btn_seconds_down" Content="v" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="20,0,0,20" VerticalAlignment="Bottom" Height="50" Width="50" Click="btn_seconds_down_Click"/>
+                <Button x:Name="btn_minutes_down" Content="v" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="120,0,0,20" VerticalAlignment="Bottom" Height="50" Width="50" Click="btn_minutes_down_Click"/>
+                <ToggleButton x:Name="btn_stopwatch_toggle" Grid.Column="0" Grid.Row="2" Content="start" HorizontalAlignment="Right" Margin="0,0,30,0" VerticalAlignment="Center" Height="50" Width="50" Click="btn_stopwatch_toggle_Click"/>
             </Grid>
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>

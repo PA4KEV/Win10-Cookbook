@@ -42,20 +42,70 @@
                 <ColumnDefinition Width="20*" />
                 <ColumnDefinition Width="20*" />
             </Grid.ColumnDefinitions>
-            <ListBox Grid.Column="0" x:Name="lbox_main_0" Margin="0,0,0,0" SelectionChanged="navigateToRecipePage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                <ListBox.ItemTemplate>
+            <ListView Grid.Column="0" Background="#FFEEEEEE"  x:Name="lbox_main_0" Margin="0,0,0,0" SelectionChanged="navigateToRecipePage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <Image Source="{Binding bitmapImage}" Stretch="UniformToFill"/>
-                            <!--<TextBlock Text="{Binding listTitle}" /> -->
+                        <StackPanel Orientation="Vertical">                            
+                            <Image Source="{Binding bitmapImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                            <TextBlock Text="{Binding title}" />
+                            <TextBlock Text="{Binding subtitle}" />
                         </StackPanel>
                     </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView Grid.Column="1" Background="#FFEEEEEE"  x:Name="lbox_main_1" Margin="0,0,0,0" SelectionChanged="navigateToRecipePage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="{Binding bitmapImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                            <TextBlock Text="{Binding title}" />
+                            <TextBlock Text="{Binding subtitle}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView Grid.Column="2" Background="#FFEEEEEE"  x:Name="lbox_main_2" Margin="0,0,0,0" SelectionChanged="navigateToRecipePage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="{Binding bitmapImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                            <TextBlock Text="{Binding title}" />
+                            <TextBlock Text="{Binding subtitle}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView Grid.Column="3" Background="#FFEEEEEE"  x:Name="lbox_main_3" Margin="0,0,0,0" SelectionChanged="navigateToRecipePage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="{Binding bitmapImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                            <TextBlock Text="{Binding title}" />
+                            <TextBlock Text="{Binding subtitle}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView Grid.Column="4" Background="#FFEEEEEE"  x:Name="lbox_main_4" Margin="0,0,0,0" SelectionChanged="navigateToRecipePage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="{Binding bitmapImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                            <TextBlock Text="{Binding title}" />
+                            <TextBlock Text="{Binding subtitle}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>       
 
         <Rectangle Grid.Row="2" x:Name="rect_main_menu" Fill="#FFEEEEEE" Stretch="UniformToFill" />
         <Button x:Name="btn_category" Content="Categorien" HorizontalAlignment="Right" Margin="0,0,50,0" Grid.Row="2" VerticalAlignment="Center" Click="btn_category_Click"/>
+        <TextBlock x:Name="lbl_main_menu_welcome" HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="32" FontWeight="Bold" Foreground="White"/>
         
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
@@ -70,7 +120,6 @@
             <Rectangle x:Name="rect_main_2" Grid.Column="2" Fill="#FFEEEEEE" Stretch="UniformToFill" />
             <Rectangle x:Name="rect_main_3" Grid.Column="3" Fill="#FFEEEEEE" Stretch="UniformToFill" />
             <Rectangle x:Name="rect_main_4" Grid.Column="4" Fill="#FFEEEEEE" Stretch="UniformToFill" />
-        </Grid>        
-
+        </Grid>
     </Grid>
 </Page>

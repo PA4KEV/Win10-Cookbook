@@ -24,7 +24,7 @@ namespace CookbookWin10
                 {
                     categories.Add(listboxItems[x].category);
                 }
-            }
+            }            
         }
 
         public List<string> getCategories()
@@ -59,6 +59,14 @@ namespace CookbookWin10
                 }
             }
             return list;
+        }
+
+        public void setListBoxColors(int catColorID)
+        {
+            foreach (MainListboxModel model in listboxItems)
+            {
+                model.rectColor = CategoryColor.sets[catColorID, 0];
+            }
         }
 
         public void setListboxItems(List<MainListboxModel> list)

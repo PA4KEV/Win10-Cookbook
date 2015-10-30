@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace CookbookWin10
@@ -15,11 +16,9 @@ namespace CookbookWin10
         public string subtitle { get; set; }
         public string category { get; set; }
         public string image { get; set; }
-        public BitmapImage bitmapImage { get; set; }        
-
-        public void setBitmapImage(BitmapImage bitmap)
-        {
-            this.bitmapImage = bitmap;
-        }
+        public BitmapImage bitmapImage { get; set; }
+        public SolidColorBrush rectColor { get; set; }        
     }
+
+
 }
