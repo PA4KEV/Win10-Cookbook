@@ -19,6 +19,9 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI;
+using Windows.UI.Notifications;
+using Windows.ApplicationModel.Background;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -36,8 +39,34 @@ namespace CookbookWin10
         {
             this.InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+
+            registerBackgroundTask();
             retrieveJSON();
+
         }
+
+        private async void registerBackgroundTask()
+        {
+            string myTaskName = "TileUpdateTask";
+            // check if task is already registered
+
+            foreach (var cur in BackgroundTaskRegistration.AllTasks)
+                if (cur.Value.Name == myTaskName)
+                {
+                    await (new MessageDialog("Task already registered")).ShowAsync();
+                    return;
+                }
+            
+            // Windows Phone app must call this to use trigger types (see MSDN)
+            await BackgroundExecutionManager.RequestAccessAsync();
+
+            // register a new task
+            BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder { Name = "TileUpdate Task", TaskEntryPoint = "BackgroundTasks.TileUpdateTask" };
+            taskBuilder.SetTrigger(new TimeTrigger(15, true));
+            BackgroundTaskRegistration myTileUpdateTask = taskBuilder.Register();
+            await (new MessageDialog("Task registered")).ShowAsync();
+        }
+
 
         private async void newDailyRecipe(object sender, RoutedEventArgs e)
         {
@@ -64,7 +93,7 @@ namespace CookbookWin10
             {
 
             }
-        }
+        }        
 
         private async void retrieveJSON()
         {
