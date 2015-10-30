@@ -30,13 +30,13 @@ namespace CookbookWin10
     public sealed partial class MainPage : Page
     {        
         private RecipeController recipeController;
-        private string category = "all";     
+        public static string category = "all";     
 
         public MainPage()
         {
             this.InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-            retrieveJSON();            
+            retrieveJSON();
         }
 
         private async void newDailyRecipe(object sender, RoutedEventArgs e)
@@ -77,7 +77,7 @@ namespace CookbookWin10
             if (output != null)
             {
                 recipeController = new RecipeController(JsonConvert.DeserializeObject<List<MainListboxModel>>(output));
-
+                btn_category.Visibility = Visibility.Visible;
                 for (int x = 0; x < recipeController.getListboxItems().Count; x++)
                 {
                     BitmapImage img = new BitmapImage();
@@ -110,6 +110,12 @@ namespace CookbookWin10
                     {
                         recipeController.getListboxItems()[x].rectColor = (CategoryColor.sets[CategoryColor.FRENCH, colorIndex]);
                     }
+                }
+                // navigate back
+                if (!MainPage.category.Equals("all"))
+                {
+                    updateMainListboxes(MainPage.category);
+                    updateMainMenuColors(MainPage.category);
                 }
             }
         }
@@ -182,7 +188,7 @@ namespace CookbookWin10
             if (sender.GetType() == typeof(MenuFlyoutItem))
             {                
                 MenuFlyoutItem item = (MenuFlyoutItem)sender;
-                this.category = item.Text;
+                MainPage.category = item.Text;
                 
                 updateMainMenuColors(item.Text);
                 updateMainListboxes(item.Text);

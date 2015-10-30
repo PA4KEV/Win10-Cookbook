@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -14,14 +14,16 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="lbl_main_menu_welcome.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="narrowState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="inputPanel.Orientation" Value="Vertical"/>
-                        <Setter Target="inputButton.Margin" Value="0,4,0,0"/>
+                        <Setter Target="lbl_main_menu_welcome.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -47,8 +49,8 @@
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">                            
                             <Image Source="{Binding bitmapImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                            <TextBlock Text="{Binding title}" />
-                            <TextBlock Text="{Binding subtitle}" />
+                            <TextBlock Text="{Binding title}" FontSize="13" FontWeight="Bold" Foreground="White" />
+                            <TextBlock Text="{Binding subtitle}" FontSize="11" Foreground="White"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -59,8 +61,8 @@
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
                             <Image Source="{Binding bitmapImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                            <TextBlock Text="{Binding title}" />
-                            <TextBlock Text="{Binding subtitle}" />
+                            <TextBlock Text="{Binding title}" FontSize="13" FontWeight="Bold" Foreground="White" />
+                            <TextBlock Text="{Binding subtitle}" FontSize="11" Foreground="White"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -71,8 +73,8 @@
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
                             <Image Source="{Binding bitmapImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                            <TextBlock Text="{Binding title}" />
-                            <TextBlock Text="{Binding subtitle}" />
+                            <TextBlock Text="{Binding title}" FontSize="13" FontWeight="Bold" Foreground="White" />
+                            <TextBlock Text="{Binding subtitle}" FontSize="11" Foreground="White"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -83,8 +85,8 @@
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
                             <Image Source="{Binding bitmapImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                            <TextBlock Text="{Binding title}" />
-                            <TextBlock Text="{Binding subtitle}" />
+                            <TextBlock Text="{Binding title}" FontSize="13" FontWeight="Bold" Foreground="White" />
+                            <TextBlock Text="{Binding subtitle}" FontSize="11" Foreground="White"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -95,8 +97,8 @@
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
                             <Image Source="{Binding bitmapImage}" Stretch="UniformToFill" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                            <TextBlock Text="{Binding title}" />
-                            <TextBlock Text="{Binding subtitle}" />
+                            <TextBlock Text="{Binding title}" FontSize="13" FontWeight="Bold" Foreground="White" />
+                            <TextBlock Text="{Binding subtitle}" FontSize="11" Foreground="White"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -104,7 +106,7 @@
         </Grid>       
 
         <Rectangle Grid.Row="2" x:Name="rect_main_menu" Fill="#FFEEEEEE" Stretch="UniformToFill" />
-        <Button x:Name="btn_category" Content="Categorien" HorizontalAlignment="Right" Margin="0,0,50,0" Grid.Row="2" VerticalAlignment="Center" Click="btn_category_Click"/>
+        <Button x:Name="btn_category" Content="Categorien" HorizontalAlignment="Right" Margin="0,0,50,0" Grid.Row="2" VerticalAlignment="Center" Click="btn_category_Click" Visibility="Collapsed"/>
         <TextBlock x:Name="lbl_main_menu_welcome" HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="32" FontWeight="Bold" Foreground="White"/>
         
         <Grid Grid.Row="4">

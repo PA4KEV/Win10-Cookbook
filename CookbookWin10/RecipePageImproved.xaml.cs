@@ -28,7 +28,7 @@ namespace CookbookWin10
             kitchenTimer = new KitchenTimer();
             kitchenTimer.Tick += new KitchenTimer.TickHandler(updateKitchenTimer);
             kitchenTimer.TimeDone += new KitchenTimer.TimerDoneHandler(timeDoneKitchenTimer);
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;            
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
             {
                 if (Frame.CanGoBack)
@@ -47,7 +47,7 @@ namespace CookbookWin10
             loadRecipe(model.id);          
         }
 
-
+        
 
         private async void loadRecipe(int id)
         {
