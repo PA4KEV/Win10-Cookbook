@@ -13,7 +13,7 @@ namespace CookbookWin10
     class RecipeController
     {
         private List<MainListboxModel> listboxItems;
-        //private Recipe dailyRecipe;
+        private MainListboxModel dailyRecipe;
         private List<string> categories;
 
         private EventArgs eventArgs = null;
@@ -79,7 +79,6 @@ namespace CookbookWin10
                         categories.Add(listboxItems[x].category);
                     }
                 }
-
                 jsonReady(this, eventArgs);
             }
         }
@@ -91,8 +90,13 @@ namespace CookbookWin10
         public void randomDailyRecipe()
         {
             Random random = new Random();
-            //int idx = random.Next(recipes.Count);
-            //dailyRecipe = recipes[idx];
+            int idx = random.Next(listboxItems.Count);
+            dailyRecipe = listboxItems[idx];
+        }
+
+        public MainListboxModel getDailyRecipe()
+        {
+            return dailyRecipe;
         }
 
         public List<MainListboxModel> getListboxItems()

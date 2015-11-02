@@ -96,7 +96,7 @@ namespace CookbookWin10
         {
             beepdown.Play();
             btn_stopwatch_toggle.IsEnabled = true;
-            showToast("Sushi Chikuwa");
+            showToast(recipe.title + " " + recipe.subtitle);
         }
 
         private void btn_seconds_up_Click(object sender, RoutedEventArgs e)
@@ -137,7 +137,7 @@ namespace CookbookWin10
             // Fill in the text elements
             XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
 
-            stringElements[0].AppendChild(toastXml.CreateTextNode("Alarm Finished!"));
+            stringElements[0].AppendChild(toastXml.CreateTextNode("Kookwekker klaar!"));
             stringElements[1].AppendChild(toastXml.CreateTextNode(recipeName));
 
             // Specify the absolute path to an image

@@ -44,7 +44,7 @@ namespace CookbookWin10
                        
             
             recipeController = new RecipeController();
-            recipeController.jsonReady += RecipeController_jsonReady;               
+            recipeController.jsonReady += RecipeController_jsonReady;            
         }
 
         private void RecipeController_jsonReady(RecipeController rc, EventArgs e)
@@ -81,53 +81,48 @@ namespace CookbookWin10
         }
 
 
-        private async void newDailyRecipe(object sender, RoutedEventArgs e)
+        private void newDailyRecipe(object sender, RoutedEventArgs e)
         {
-            //recipeController.randomDailyRecipe();
-            //lblDailyTitle.Text = recipeController.getDailyRecipe().title;
-            //lblDailyCategory.Text = recipeController.getDailyRecipe().category;
+            recipeController.randomDailyRecipe();
+            UpdateTile(recipeController.getDailyRecipe());
 
-            HttpClient client = new HttpClient();
-            try
-            {
-                int id = 0;
-                string page = "http://www.returnoftambelon.com/cookbook/gallery/" + id + "/main.jpg";
-                Stream st = await client.GetStreamAsync(page);
+            //HttpClient client = new HttpClient();
+            //try
+            //{
+            //    int id = 0;
+            //    string page = "http://www.returnoftambelon.com/cookbook/gallery/" + id + "/main.jpg";
+            //    Stream st = await client.GetStreamAsync(page);
 
-                var memoryStream = new MemoryStream();
-                await st.CopyToAsync(memoryStream);
-                memoryStream.Position = 0;
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.SetSource(memoryStream.AsRandomAccessStream());
+            //    var memoryStream = new MemoryStream();
+            //    await st.CopyToAsync(memoryStream);
+            //    memoryStream.Position = 0;
+            //    BitmapImage bitmap = new BitmapImage();
+            //    bitmap.SetSource(memoryStream.AsRandomAccessStream());
 
-                //imgDailyImage.Source = bitmap;
-            }
-            catch (Exception ex)
-            {
+            //    //imgDailyImage.Source = bitmap;
+            //}
+            //catch (Exception ex)
+            //{
 
-            }
+            //}
         }        
 
         
 
-        private void UpdateTile(string infoString)
+        private void UpdateTile(MainListboxModel item)
         {
             var updater = TileUpdateManager.CreateTileUpdaterForApplication();
             updater.EnableNotificationQueue(true);
             updater.Clear();
             Windows.Data.Xml.Dom.XmlDocument xml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150PeekImageAndText01);
 
-            xml.GetElementsByTagName("text")[0].InnerText = "Paella";
-            xml.GetElementsByTagName("text")[1].InnerText = "2";
-            xml.GetElementsByTagName("text")[2].InnerText = "3";
-            xml.GetElementsByTagName("text")[3].InnerText = "4";
-
-            //xml.GetElementsByTagName("image")[0].InnerText = "http://www.returnoftambelon.com/cookbook/gallery/churros.jpg";
-
-
+            xml.GetElementsByTagName("text")[0].InnerText = item.title;
+            xml.GetElementsByTagName("text")[1].InnerText = item.subtitle;            
+            xml.GetElementsByTagName("text")[3].InnerText = "Heerlijk " + item.category;
+            
             XmlNodeList squareImageElements = xml.GetElementsByTagName("image");
             XmlElement squareImageElement = (XmlElement)squareImageElements.Item(0);
-            squareImageElement.SetAttribute("src", "http://www.returnoftambelon.com/cookbook/gallery/paella.jpg");
+            squareImageElement.SetAttribute("src", "http://www.returnoftambelon.com/cookbook/gallery/" + item.image); //http://www.returnoftambelon.com/cookbook/gallery/paella.jpg
 
 
             updater.Update(new TileNotification(xml));
@@ -202,7 +197,8 @@ namespace CookbookWin10
 
         private void btn_daily_Click(object sender, RoutedEventArgs e)
         {
-            UpdateTile("Ruudje");
+            recipeController.randomDailyRecipe();
+            UpdateTile(recipeController.getDailyRecipe());
         }
 
         private void FlyItem_Click(object sender, RoutedEventArgs e)
