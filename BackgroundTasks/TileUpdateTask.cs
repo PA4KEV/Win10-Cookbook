@@ -15,13 +15,16 @@ namespace BackgroundTasks
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             //BackgroundTaskDeferral _deferral = taskInstance.GetDeferral(); // used to safely use async methods
-            ToastTemplateType toastTemplate = ToastTemplateType.ToastText02;
 
-            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
-            XmlNodeList textElements = toastXml.GetElementsByTagName("text");
-            textElements[0].AppendChild(toastXml.CreateTextNode("My first Task - Yeah"));
-            textElements[1].AppendChild(toastXml.CreateTextNode("I'm a message from your background task!"));
-            ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+            //ToastTemplateType toastTemplate = ToastTemplateType.ToastText02;
+
+            //XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+            //XmlNodeList textElements = toastXml.GetElementsByTagName("text");
+            //textElements[0].AppendChild(toastXml.CreateTextNode("My first Task - Yeah"));
+            //textElements[1].AppendChild(toastXml.CreateTextNode("I'm a message from your background task!"));
+            //ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(toastXml));
+
+            UpdateTile("TEST");
 
             //_deferral.Complete();
         }

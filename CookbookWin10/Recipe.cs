@@ -47,6 +47,8 @@ namespace CookbookWin10
                 cat = CategoryColor.SPANISH;
             else if (category.Equals("Frans"))
                 cat = CategoryColor.FRENCH;
+            else if (category.Equals("Amerikaans"))
+                cat = CategoryColor.AMERICAN;
             return cat;
         }
         public string getAuthor()

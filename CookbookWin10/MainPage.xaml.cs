@@ -22,6 +22,7 @@ using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Popups;
+using Windows.Data.Xml.Dom;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -39,10 +40,22 @@ namespace CookbookWin10
         {
             this.InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+            //registerBackgroundTask(); 
+                       
+            
+            recipeController = new RecipeController();
+            recipeController.jsonReady += RecipeController_jsonReady;               
+        }
 
-            registerBackgroundTask();
-            retrieveJSON();
-
+        private void RecipeController_jsonReady(RecipeController rc, EventArgs e)
+        {
+            btn_category.Visibility = Visibility.Visible;
+            btn_daily.Visibility = Visibility.Visible;
+            if (!MainPage.category.Equals("all"))
+            {
+                updateMainListboxes(MainPage.category);
+                updateMainMenuColors(MainPage.category);
+            }
         }
 
         private async void registerBackgroundTask()
@@ -95,58 +108,29 @@ namespace CookbookWin10
             }
         }        
 
-        private async void retrieveJSON()
+        
+
+        private void UpdateTile(string infoString)
         {
-            string page = "http://www.returnoftambelon.com/koken_recepten.php?section=main";
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(page);
-            HttpContent content = response.Content;
+            var updater = TileUpdateManager.CreateTileUpdaterForApplication();
+            updater.EnableNotificationQueue(true);
+            updater.Clear();
+            Windows.Data.Xml.Dom.XmlDocument xml = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150PeekImageAndText01);
 
-            string output = await content.ReadAsStringAsync();
-            if (output != null)
-            {
-                recipeController = new RecipeController(JsonConvert.DeserializeObject<List<MainListboxModel>>(output));
-                btn_category.Visibility = Visibility.Visible;
-                for (int x = 0; x < recipeController.getListboxItems().Count; x++)
-                {
-                    BitmapImage img = new BitmapImage();
-                    if (recipeController.getListboxItems()[x].image.Length != 0)
-                    {
-                        try
-                        {
-                            page = "http://www.returnoftambelon.com/cookbook/gallery/" + recipeController.getListboxItems()[x].image;
-                            Stream st = await client.GetStreamAsync(page);
+            xml.GetElementsByTagName("text")[0].InnerText = "Paella";
+            xml.GetElementsByTagName("text")[1].InnerText = "2";
+            xml.GetElementsByTagName("text")[2].InnerText = "3";
+            xml.GetElementsByTagName("text")[3].InnerText = "4";
 
-                            var memoryStream = new MemoryStream();
-                            await st.CopyToAsync(memoryStream);
-                            memoryStream.Position = 0;
-                            img.SetSource(memoryStream.AsRandomAccessStream());
-                        }
-                        catch (Exception e)
-                        {
+            //xml.GetElementsByTagName("image")[0].InnerText = "http://www.returnoftambelon.com/cookbook/gallery/churros.jpg";
 
-                        }
-                        recipeController.getListboxItems()[x].bitmapImage = img;
-                    }
 
-                    Random random = new Random();
-                    int colorIndex = random.Next(4);
-                    if(recipeController.getListboxItems()[x].category.Equals("Spaans"))
-                    {
-                        recipeController.getListboxItems()[x].rectColor = (CategoryColor.sets[CategoryColor.SPANISH, colorIndex]);
-                    }   
-                    else if (recipeController.getListboxItems()[x].category.Equals("Frans"))
-                    {
-                        recipeController.getListboxItems()[x].rectColor = (CategoryColor.sets[CategoryColor.FRENCH, colorIndex]);
-                    }
-                }
-                // navigate back
-                if (!MainPage.category.Equals("all"))
-                {
-                    updateMainListboxes(MainPage.category);
-                    updateMainMenuColors(MainPage.category);
-                }
-            }
+            XmlNodeList squareImageElements = xml.GetElementsByTagName("image");
+            XmlElement squareImageElement = (XmlElement)squareImageElements.Item(0);
+            squareImageElement.SetAttribute("src", "http://www.returnoftambelon.com/cookbook/gallery/paella.jpg");
+
+
+            updater.Update(new TileNotification(xml));
         }
 
         private void updateMainListboxes(string category)
@@ -179,6 +163,10 @@ namespace CookbookWin10
             {
                 catColor = CategoryColor.FRENCH;
             }
+            else if (category.Equals("Amerikaans"))
+            {
+                catColor = CategoryColor.AMERICAN;
+            }
             colorRectangles(catColor);
             lbl_main_menu_welcome.Text = "Heerlijk " + category + " Koken";            
         }
@@ -210,6 +198,11 @@ namespace CookbookWin10
                 menuFlyout.Items.Add(flyItem);
             }            
             menuFlyout.ShowAt((FrameworkElement)sender);
+        }
+
+        private void btn_daily_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateTile("Ruudje");
         }
 
         private void FlyItem_Click(object sender, RoutedEventArgs e)
@@ -259,6 +252,6 @@ namespace CookbookWin10
                 array[r] = array[i];
                 array[i] = t;
             }
-        }
+        }        
     }
 }
