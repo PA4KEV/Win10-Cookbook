@@ -13,6 +13,7 @@ namespace CookbookWin10
         public static int SPANISH = 0;
         public static int FRENCH = 1;
         public static int AMERICAN = 2;
+        public static int ITALIAN = 3;
 
         public static SolidColorBrush[,] sets = {
             //Spanish
@@ -20,7 +21,9 @@ namespace CookbookWin10
             //French
             { (new SolidColorBrush(Color.FromArgb(255, 58, 14, 232))), (new SolidColorBrush(Color.FromArgb(255, 149, 64, 201))), (new SolidColorBrush(Color.FromArgb(255, 227, 9, 9))), (new SolidColorBrush(Color.FromArgb(255, 105, 31, 0))) },
             //American
-            { (new SolidColorBrush(Color.FromArgb(255, 12, 84, 199))), (new SolidColorBrush(Color.FromArgb(255, 15, 60, 133))), (new SolidColorBrush(Color.FromArgb(255, 247, 5, 5))), (new SolidColorBrush(Color.FromArgb(255, 105, 179, 219))) }
+            { (new SolidColorBrush(Color.FromArgb(255, 12, 84, 199))), (new SolidColorBrush(Color.FromArgb(255, 15, 60, 133))), (new SolidColorBrush(Color.FromArgb(255, 247, 5, 5))), (new SolidColorBrush(Color.FromArgb(255, 105, 179, 219))) },
+            //Italian
+            { (new SolidColorBrush(Color.FromArgb(255, 224, 7, 7))), (new SolidColorBrush(Color.FromArgb(255, 222, 215, 20))), (new SolidColorBrush(Color.FromArgb(255, 102, 230, 67))), (new SolidColorBrush(Color.FromArgb(255, 26, 153, 49))) }
         };
     }
 }

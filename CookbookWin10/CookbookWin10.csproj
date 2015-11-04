@@ -114,6 +114,7 @@
     <Compile Include="RecipePageImproved.xaml.cs">
       <DependentUpon>RecipePageImproved.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StorageManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -123,10 +124,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\clock.png" />
+    <Content Include="Assets\sounds\CONFIRM1.WAV" />
     <Content Include="Assets\persons.png" />
     <Content Include="Assets\shopping_cart.png" />
     <Content Include="Assets\sounds\REMVIN.WAV" />
     <Content Include="Assets\sounds\REMVOUT.WAV" />
+    <Content Include="Assets\star_empty.png" />
+    <Content Include="Assets\star_full.png" />
     <Content Include="Assets\tip.png" />
     <Content Include="Assets\wine.png" />
     <Content Include="Properties\Default.rd.xml" />

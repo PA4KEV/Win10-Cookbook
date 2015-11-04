@@ -128,16 +128,26 @@ namespace CookbookWin10
             updater.Update(new TileNotification(xml));
         }
 
-        private void updateMainListboxes(string category)
-        {            
-            MainListboxModel[] recipes = recipeController.getListboxItems(category).ToArray();            
-            FisherYatesShuffle(recipes);
+        private async void updateMainListboxes(string category)
+        {
+            List<MainListboxModel> recipes;
+
+            if (category.Equals("Favorites"))
+            {
+                recipes = await recipeController.getFavorites();
+            } 
+            else
+            {
+                recipes = recipeController.getListboxItems(category);
+            }
+
+            FisherYatesShuffle(recipes.ToArray());
             ListView[] lists = { lbox_main_0, lbox_main_1, lbox_main_2, lbox_main_3, lbox_main_4 };
 
             // knullige zooi...
             List<MainListboxModel>[] subLists = { new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>() };
 
-            for (int x = 0; x < recipes.Length; x++)
+            for (int x = 0; x < recipes.Count; x++)
             {
                 subLists[(x % subLists.Length)].Add(recipes[x]);
             }           
@@ -150,11 +160,15 @@ namespace CookbookWin10
         private void updateMainMenuColors(string category)
         {
             int catColor = 0;
-            if(category.Equals("Spaans"))
+            if (category.Equals("Favorites"))
+            {
+                catColor = CategoryColor.ITALIAN;
+            }
+            else if (category.Equals("Spaans"))
             {
                 catColor = CategoryColor.SPANISH;
             }
-            else if(category.Equals("Frans"))
+            else if (category.Equals("Frans"))
             {
                 catColor = CategoryColor.FRENCH;
             }
@@ -162,8 +176,12 @@ namespace CookbookWin10
             {
                 catColor = CategoryColor.AMERICAN;
             }
+            else if (category.Equals("Italiaans"))
+            {
+                catColor = CategoryColor.ITALIAN;
+            }
             colorRectangles(catColor);
-            lbl_main_menu_welcome.Text = "Heerlijk " + category + " Koken";            
+            lbl_main_menu_welcome.Text = (category.Equals("Favorites")) ? "Heerlijk Mijn Favorieten Koken" : "Heerlijk " + category + " Koken";            
         }
 
         // Click events
@@ -177,21 +195,36 @@ namespace CookbookWin10
                 MainListboxModel model = (MainListboxModel)listView.Items[listView.SelectedIndex];
 
                 this.Frame.Navigate(typeof(RecipePageImproved), model);
-            }
-            
+            }            
         }        
 
         private void btn_category_Click(object sender, RoutedEventArgs e)
         {
+            buildFlyout(sender);
+        }
+
+        private async void buildFlyout(object sender)
+        {
             MenuFlyout menuFlyout = new MenuFlyout();
 
-            for(int x = 0; x < recipeController.getCategories().Count; x++)
+            for (int x = 0; x < recipeController.getCategories().Count; x++)
             {
                 MenuFlyoutItem flyItem = new MenuFlyoutItem();
                 flyItem.Text = recipeController.getCategories()[x];
                 flyItem.Click += FlyItem_Click;
                 menuFlyout.Items.Add(flyItem);
-            }            
+            }
+            StorageManager storageManager = new StorageManager();
+
+            bool fileExists = await storageManager.fileExists();
+            if (fileExists)
+            {
+                MenuFlyoutItem favItem = new MenuFlyoutItem();
+                favItem.Text = "Mijn Favorieten";
+                favItem.Click += FlyItem_Click_Favorites;
+                menuFlyout.Items.Add(favItem);
+            }
+
             menuFlyout.ShowAt((FrameworkElement)sender);
         }
 
@@ -211,6 +244,17 @@ namespace CookbookWin10
                 updateMainMenuColors(item.Text);
                 updateMainListboxes(item.Text);
             }            
+        }
+
+        private void FlyItem_Click_Favorites(object sender, RoutedEventArgs e)
+        {
+            if (sender.GetType() == typeof(MenuFlyoutItem))
+            {
+                MenuFlyoutItem item = (MenuFlyoutItem)sender;
+                
+                updateMainMenuColors("Favorites");
+                updateMainListboxes("Favorites");
+            }
         }
 
         // Colors

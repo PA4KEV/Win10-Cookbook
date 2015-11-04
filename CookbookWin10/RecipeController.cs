@@ -122,6 +122,21 @@ namespace CookbookWin10
             return list;
         }
 
+        public async Task<List<MainListboxModel>> getFavorites()
+        {
+            List<MainListboxModel> list = new List<MainListboxModel>();
+            StorageManager storageManager = new StorageManager();
+            
+            for (int x = 0; x < listboxItems.Count; x++)
+            {
+                bool fav = await storageManager.isFavorite(listboxItems[x].id);
+                if (fav)                
+                    list.Add(listboxItems[x]);                
+            }
+            return list;
+        }
+    
+
         public void setListBoxColors(int catColorID)
         {
             foreach (MainListboxModel model in listboxItems)

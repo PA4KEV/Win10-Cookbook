@@ -22,14 +22,17 @@ namespace CookbookWin10
     {
         private Recipe recipe;
         private KitchenTimer kitchenTimer;
+        private StorageManager storageManager;
+        private bool isFav;
         public RecipePageImproved()
         {
             this.InitializeComponent();
             kitchenTimer = new KitchenTimer();
             kitchenTimer.Tick += new KitchenTimer.TickHandler(updateKitchenTimer);
             kitchenTimer.TimeDone += new KitchenTimer.TimerDoneHandler(timeDoneKitchenTimer);
+            storageManager = new StorageManager();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;            
-            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
+            SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
             {
                 if (Frame.CanGoBack)
                 {
@@ -65,6 +68,13 @@ namespace CookbookWin10
             fillRectanglesWithColors(recipe.getCategoryInteger());
             fillXamlElements(recipe);
 
+            bool fileExists = await storageManager.createFile();
+            if(fileExists)
+            {
+                isFav = await storageManager.isFavorite(id);
+                img_star.Source = (isFav) ? new BitmapImage() { UriSource = new Uri("ms-appx:///Assets/star_full.png", UriKind.Absolute) } : new BitmapImage() { UriSource = new Uri("ms-appx:///Assets/star_empty.png", UriKind.Absolute) };
+            }           
+
             if (recipe.getImageString().Length != 0)
             {
                 try
@@ -94,40 +104,56 @@ namespace CookbookWin10
         }
         private void timeDoneKitchenTimer(KitchenTimer kitchenTimer, EventArgs e)
         {
-            beepdown.Play();
+            sfx_beepdown.Play();
             btn_stopwatch_toggle.IsEnabled = true;
             showToast(recipe.title + " " + recipe.subtitle);
         }
 
         private void btn_seconds_up_Click(object sender, RoutedEventArgs e)
         {
-            beepup.Play();
+            sfx_beepup.Play();
             kitchenTimer.incrementSeconds();
         }
 
         private void btn_minutes_up_Click(object sender, RoutedEventArgs e)
         {
-            beepup.Play();
+            sfx_beepup.Play();
             kitchenTimer.incrementMinutes();
         }
 
         private void btn_seconds_down_Click(object sender, RoutedEventArgs e)
         {
-            beepdown.Play();
+            sfx_beepdown.Play();
             kitchenTimer.decrementSeconds();
         }
 
         private void btn_minutes_down_Click(object sender, RoutedEventArgs e)
         {
-            beepdown.Play();
+            sfx_beepdown.Play();
             kitchenTimer.decrementMinutes();
         }
 
         private void btn_stopwatch_toggle_Click(object sender, RoutedEventArgs e)
         {
-            beepup.Play();
+            sfx_beepup.Play();
             btn_stopwatch_toggle.IsEnabled = false;
             kitchenTimer.startKitchenTimer();
+        }
+
+        private void btn_fav_click(object sender, RoutedEventArgs e)
+        {
+            if (isFav)
+            {
+                storageManager.removeFavorite(recipe.id);
+                isFav = false;
+            }
+            else
+            {
+                storageManager.addNewFavorite(recipe.id);
+                isFav = true;
+                sfx_favorite.Play();
+            }
+            img_star.Source = (isFav) ? new BitmapImage() { UriSource = new Uri("ms-appx:///Assets/star_full.png", UriKind.Absolute) } : new BitmapImage() { UriSource = new Uri("ms-appx:///Assets/star_empty.png", UriKind.Absolute) };
         }
 
         private void showToast(string recipeName)
@@ -207,6 +233,8 @@ namespace CookbookWin10
 
             lbl_title.Foreground = CategoryColor.sets[category, idx[1]];
             lbl_subtitle.Foreground = CategoryColor.sets[category, idx[2]];
-        } 
+        }
+
+        
     }
 }
