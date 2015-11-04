@@ -130,24 +130,25 @@ namespace CookbookWin10
 
         private async void updateMainListboxes(string category)
         {
-            List<MainListboxModel> recipes;
+            MainListboxModel[] recipes;
 
             if (category.Equals("Favorites"))
             {
-                recipes = await recipeController.getFavorites();
+                List<MainListboxModel> list = await recipeController.getFavorites();
+                recipes = list.ToArray();
             } 
             else
             {
-                recipes = recipeController.getListboxItems(category);
+                recipes = recipeController.getListboxItems(category).ToArray();
             }
 
-            FisherYatesShuffle(recipes.ToArray());
+            FisherYatesShuffle(recipes);
             ListView[] lists = { lbox_main_0, lbox_main_1, lbox_main_2, lbox_main_3, lbox_main_4 };
 
             // knullige zooi...
             List<MainListboxModel>[] subLists = { new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>() };
 
-            for (int x = 0; x < recipes.Count; x++)
+            for (int x = 0; x < recipes.Length; x++)
             {
                 subLists[(x % subLists.Length)].Add(recipes[x]);
             }           

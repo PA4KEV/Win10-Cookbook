@@ -48,8 +48,7 @@
                         <AdaptiveTrigger MinWindowWidth="650" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="img_cart.Visibility" Value="Collapsed" />
-                        <Setter Target="btn_fav.Visibility" Value="Collapsed" />
+                        <Setter Target="img_cart.Visibility" Value="Collapsed" />                        
                         <Setter Target="lbl_ingredients_right.Margin" Value="300,15,0,0" />
                         <Setter Target="img_tip_top.Visibility" Value="Collapsed"/>
                         <Setter Target="lbl_tip_title_top.Visibility" Value="Collapsed"/>
@@ -69,8 +68,7 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="img_cart.Visibility" Value="Collapsed" />
-                        <Setter Target="btn_fav.Visibility" Value="Collapsed" />
+                        <Setter Target="img_cart.Visibility" Value="Collapsed" />                        
                         <Setter Target="column_main_left.Width" Value="0"/>
                         <Setter Target="column_main_border.Width" Value="0"/>
                         <Setter Target="img_tip_top.Visibility" Value="Collapsed"/>
@@ -128,8 +126,8 @@
                     <RowDefinition Height="9*"/>
                 </Grid.RowDefinitions>
                 <Rectangle x:Name="rect_main" Grid.Column="2" Grid.Row="0" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <TextBlock x:Name="lbl_title" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="20,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="64" Width="694" FontSize="40" FontWeight="Bold"/>
-                <TextBlock x:Name="lbl_subtitle" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" Margin="20,67,50,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="45" Width="470" FontSize="24" FontWeight="Bold"/>
+                <TextBlock x:Name="lbl_title" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="20,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="64" Width="694" FontSize="40" FontWeight="Bold"/>
+                <TextBlock x:Name="lbl_subtitle" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" Margin="20,67,50,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxHeight="45" MaxWidth="470" FontSize="24" FontWeight="Bold"/>
                 <ScrollViewer x:Name="lbl_recipe_scroll"  HorizontalScrollMode="Enabled" Width="Auto" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" Margin="20,112,50,0" MaxHeight="310" MaxWidth="470" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <TextBlock x:Name="lbl_recipe" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White"  />
                 </ScrollViewer>
@@ -140,7 +138,7 @@
                 <Image x:Name="img_tip_low" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Height="48" Margin="15,0,0,160" VerticalAlignment="Bottom" Width="48"/>
                 <TextBlock x:Name="lbl_tip_title_low" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="15,0,0,135" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontSize="14.667" Foreground="White" Width="193"/>
                 <TextBlock x:Name="lbl_tip_low" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="15,0,0,50" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontSize="12" Height="82" Width="193" Foreground="White"/>
-                <Button x:Name="btn_fav" Grid.Column="2" Padding="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="24" Margin="20,10,20,10" Width="24" Background="#00000000" BorderThickness="0" Click="btn_fav_click">
+                <Button x:Name="btn_fav" Grid.Column="2" Padding="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="24" Margin="10,10,10,10" Width="24" Background="#00000000" BorderThickness="0" Click="btn_fav_click">
                     <Image x:Name="img_star" Source="ms-appx:///Assets/star_empty.png" Height="24" Width="24"/>
                 </Button>
                 <Rectangle x:Name="rect_ingredients" Grid.Column="2" Grid.Row="2" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
