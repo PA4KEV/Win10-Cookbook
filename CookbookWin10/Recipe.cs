@@ -42,16 +42,7 @@ namespace CookbookWin10
         }
         public int getCategoryInteger()
         {
-            int cat = 0;
-            if (category.Equals("Spaans"))
-                cat = CategoryColor.SPANISH;
-            else if (category.Equals("Frans"))
-                cat = CategoryColor.FRENCH;
-            else if (category.Equals("Amerikaans"))
-                cat = CategoryColor.AMERICAN;
-            else if (category.Equals("Italiaans"))
-                cat = CategoryColor.ITALIAN;
-            return cat;
+            return RecipeController.getCategory(category);
         }
         public string getAuthor()
         {

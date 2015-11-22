@@ -86,7 +86,23 @@ namespace CookbookWin10
         public List<string> getCategories()
         {
             return categories;
-        }        
+        }  
+        
+        public static int getCategory(string category)
+        {
+            int cat = 0;
+            if (category.Equals("Spaans"))
+                cat = CategoryColor.SPANISH;
+            else if (category.Equals("Frans"))
+                cat = CategoryColor.FRENCH;
+            else if (category.Equals("Amerikaans"))
+                cat = CategoryColor.AMERICAN;
+            else if (category.Equals("Italiaans"))
+                cat = CategoryColor.ITALIAN;
+            return cat;
+        }
+            
+              
         public void randomDailyRecipe()
         {
             Random random = new Random();

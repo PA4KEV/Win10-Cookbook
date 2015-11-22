@@ -34,7 +34,8 @@ namespace CookbookWin10
     public sealed partial class MainPage : Page
     {        
         private RecipeController recipeController;
-        public static string category = "all";     
+        public static string category = "all";    
+        private string imgUrl = "http://www.returnoftambelon.com/cookbook/gallery/";
 
         public MainPage()
         {
@@ -51,6 +52,7 @@ namespace CookbookWin10
         {
             btn_category.Visibility = Visibility.Visible;
             btn_daily.Visibility = Visibility.Visible;
+            btn_editor.Visibility = Visibility.Visible;
             if (!MainPage.category.Equals("all"))
             {
                 updateMainListboxes(MainPage.category);
@@ -80,7 +82,6 @@ namespace CookbookWin10
             await (new MessageDialog("Task registered")).ShowAsync();
         }
 
-
         private void newDailyRecipe(object sender, RoutedEventArgs e)
         {
             recipeController.randomDailyRecipe();
@@ -105,9 +106,7 @@ namespace CookbookWin10
             //{
 
             //}
-        }        
-
-        
+        }
 
         private void UpdateTile(MainListboxModel item)
         {
@@ -122,7 +121,7 @@ namespace CookbookWin10
             
             XmlNodeList squareImageElements = xml.GetElementsByTagName("image");
             XmlElement squareImageElement = (XmlElement)squareImageElements.Item(0);
-            squareImageElement.SetAttribute("src", "http://www.returnoftambelon.com/cookbook/gallery/" + item.image); //http://www.returnoftambelon.com/cookbook/gallery/paella.jpg
+            squareImageElement.SetAttribute("src", imgUrl + item.image);
 
 
             updater.Update(new TileNotification(xml));
@@ -204,7 +203,7 @@ namespace CookbookWin10
             buildFlyout(sender);
         }
 
-        private async void buildFlyout(object sender)
+        public async void buildFlyout(object sender)
         {
             MenuFlyout menuFlyout = new MenuFlyout();
 
@@ -293,6 +292,14 @@ namespace CookbookWin10
                 array[r] = array[i];
                 array[i] = t;
             }
-        }        
+        }
+
+        private void btn_editor_Click(object sender, RoutedEventArgs e)
+        {
+            if(recipeController != null)
+            {
+                this.Frame.Navigate(typeof(RecipeEditor), recipeController);
+            }            
+        }
     }
 }

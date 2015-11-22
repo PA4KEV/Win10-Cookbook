@@ -9,7 +9,6 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
-using System.IO;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -233,8 +232,6 @@ namespace CookbookWin10
 
             lbl_title.Foreground = CategoryColor.sets[category, idx[1]];
             lbl_subtitle.Foreground = CategoryColor.sets[category, idx[2]];
-        }
-
-        
+        }        
     }
 }

@@ -1,0 +1,160 @@
+﻿<Page
+    x:Class="CookbookWin10.RecipeEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CookbookWin10"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+
+                <VisualState x:Name="wideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1120" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="column_main_left.Width" Value="55*"/>
+                        <Setter Target="column_main_border.Width" Value="2*"/>
+                        <Setter Target="lbl_type.Margin" Value="20,0,0,10"/>
+                        <Setter Target="lbl_type.HorizontalAlignment" Value="Left"/>
+                        <Setter Target="lbl_type.VerticalAlignment" Value="Bottom"/>
+                        <Setter Target="lbl_recipe_scroll.Margin" Value="0,112,50,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="hideTipState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="img_tip_top.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_title_top.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_top.Visibility" Value="Collapsed"/>
+                        <Setter Target="img_tip_low.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_title_low.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_low.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_type.Margin" Value="0,10,20,0"/>
+                        <Setter Target="lbl_type.HorizontalAlignment" Value="Right"/>
+                        <Setter Target="lbl_type.VerticalAlignment" Value="Top"/>
+                        <Setter Target="lbl_ingredients_right.Margin" Value="300,15,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="hideCartState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="650" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="img_cart.Visibility" Value="Collapsed" />
+                        <Setter Target="lbl_ingredients_right.Margin" Value="300,15,0,0" />
+                        <Setter Target="img_tip_top.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_title_top.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_top.Visibility" Value="Collapsed"/>
+                        <Setter Target="img_tip_low.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_title_low.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_low.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_type.Margin" Value="0,10,20,0"/>
+                        <Setter Target="lbl_type.HorizontalAlignment" Value="Right"/>
+                        <Setter Target="lbl_type.VerticalAlignment" Value="Top"/>
+                        <Setter Target="lbl_ingredients_right.Margin" Value="300,15,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="narrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="img_cart.Visibility" Value="Collapsed" />
+                        <Setter Target="column_main_left.Width" Value="0"/>
+                        <Setter Target="column_main_border.Width" Value="0"/>
+                        <Setter Target="img_tip_top.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_title_top.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_top.Visibility" Value="Collapsed"/>
+                        <Setter Target="img_tip_low.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_title_low.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_tip_low.Visibility" Value="Collapsed"/>
+                        <Setter Target="lbl_type.Margin" Value="0,10,20,0"/>
+                        <Setter Target="lbl_type.HorizontalAlignment" Value="Right"/>
+                        <Setter Target="lbl_type.VerticalAlignment" Value="Top"/>
+                        <Setter Target="img_cart.Visibility" Value="Collapsed" />
+                        <Setter Target="lbl_ingredients_right.Margin" Value="300,15,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <MediaElement x:Name="sfx_beepup" Source="Assets/sounds/REMVIN.WAV" AutoPlay="False" Height="0" Width="0" />
+        <MediaElement x:Name="sfx_beepdown" Source="Assets/sounds/REMVOUT.WAV" AutoPlay="False" Height="0" Width="0" />
+        <MediaElement x:Name="sfx_favorite" Source="Assets/sounds/CONFIRM1.WAV" AutoPlay="False" Height="0" Width="0" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="column_main_left" Width="55*" />
+                <ColumnDefinition x:Name="column_main_border" Width="2*" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="25*"/>
+                </Grid.RowDefinitions>
+                <Rectangle x:Name="rect_left_low" Grid.Column="0" Grid.Row="0" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Grid HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Margin="0,0,0,0" VerticalAlignment="Top">
+                    <Image x:Name="img_main" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+                <Rectangle x:Name="rect_left_top" Grid.Column="0" Grid.Row="2" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Button x:Name="btn_editor_category" Grid.Column="0" Grid.Row="2" Content="Categorien" HorizontalAlignment="Right" Margin="0,0,50,0" VerticalAlignment="Top" Visibility="Visible" Click="btn_editor_category_Click"/>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="61*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="9*"/>
+                </Grid.RowDefinitions>
+                <Rectangle x:Name="rect_main" Grid.Column="2" Grid.Row="0" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                <TextBlock x:Name="lbl_title" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="20,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="64" Width="694" FontSize="40" FontWeight="Bold"/>
+                <TextBlock x:Name="lbl_subtitle" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" Margin="20,67,50,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxHeight="45" MaxWidth="470" FontSize="24" FontWeight="Bold"/>
+                <ScrollViewer x:Name="lbl_recipe_scroll"  HorizontalScrollMode="Enabled" Width="Auto" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" Margin="20,112,50,0" MaxHeight="310" MaxWidth="470" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <TextBlock x:Name="lbl_recipe" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White"  />
+                </ScrollViewer>
+                <TextBlock x:Name="lbl_type" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="20,0,0,10" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontStyle="Italic" Foreground="#B2FFFFFF"/>
+                <Image x:Name="img_tip_top" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Height="48" Margin="15,0,0,320" VerticalAlignment="Bottom" Width="48"/>
+                <TextBlock x:Name="lbl_tip_title_top" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="15,0,0,285" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontSize="14.667" Foreground="White" Width="193"/>
+                <TextBlock x:Name="lbl_tip_top" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="15,0,0,210" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontSize="12" Height="77" Width="193" Foreground="White"/>
+                <Image x:Name="img_tip_low" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Height="48" Margin="15,0,0,160" VerticalAlignment="Bottom" Width="48"/>
+                <TextBlock x:Name="lbl_tip_title_low" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="15,0,0,135" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontSize="14.667" Foreground="White" Width="193"/>
+                <TextBlock x:Name="lbl_tip_low" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="15,0,0,50" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontSize="12" Height="82" Width="193" Foreground="White"/>
+
+                <Rectangle x:Name="rect_ingredients" Grid.Column="2" Grid.Row="2" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock x:Name="lbl_ingredients_left" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" Margin="20,15,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" Height="130" Width="300" Foreground="White"/>
+                <TextBlock x:Name="lbl_ingredients_right" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" Margin="340,15,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" Height="130" Width="300" Foreground="White"/>
+                <Image x:Name="img_cart" Grid.Column="2" Grid.Row="2" Source="ms-appx:///Assets/shopping_cart.png" HorizontalAlignment="Right" VerticalAlignment="Center" Height="48" Margin="0,0,20,0" Width="48"/>
+                <Grid Grid.Column="2" Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="60*" />
+                    </Grid.ColumnDefinitions>
+                    <Rectangle x:Name="rect_sub_right" Grid.Column="0" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Image x:Name="img_persons"  Grid.Column="0" Source="ms-appx:///Assets/persons.png" HorizontalAlignment="Left" Height="48" Margin="15,0,0,0" VerticalAlignment="Center" Width="48"/>
+                    <TextBlock x:Name="lbl_rect_left" Grid.Column="0" HorizontalAlignment="Left" Margin="80,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="16" Width="170" Foreground="White"/>
+
+                    <Rectangle x:Name="rect_sub_middle" Grid.Column="1" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Image x:Name="img_prepTime" Grid.Column="1" Source="ms-appx:///Assets/clock.png" HorizontalAlignment="Left" Height="48" Margin="15,0,0,0" VerticalAlignment="Center" Width="48"/>
+                    <ScrollViewer x:Name="lbl_rect_middle_scroll"  HorizontalScrollMode="Enabled" Width="Auto" Grid.Column="1" HorizontalAlignment="Left" Margin="80,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <TextBlock x:Name="lbl_rect_middle" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="16"  Foreground="White"/>
+                    </ScrollViewer>
+
+                    <Rectangle x:Name="rect_sub_left" Grid.Column="2" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="lbl_rect_right" Grid.Column="2" HorizontalAlignment="Left" Margin="15,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="16" Width="150" Foreground="White"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
