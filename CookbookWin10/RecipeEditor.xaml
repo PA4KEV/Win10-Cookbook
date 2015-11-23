@@ -103,6 +103,8 @@
                     <RowDefinition Height="25*"/>
                 </Grid.RowDefinitions>
                 <Rectangle x:Name="rect_left_low" Grid.Column="0" Grid.Row="0" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Button x:Name="btn_browsePhoto" Grid.Column="0" Grid.Row="0" Content="Voeg foto toe" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,0" Click="btn_browsePhoto_Click"/>
+                <Button x:Name="btn_makePhoto" Grid.Column="0" Grid.Row="0" Content="Maak een foto" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,160,0"/>
                 <Grid HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Margin="0,0,0,0" VerticalAlignment="Top">
                     <Image x:Name="img_main" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
@@ -118,8 +120,8 @@
                     <RowDefinition Height="9*"/>
                 </Grid.RowDefinitions>
                 <Rectangle x:Name="rect_main" Grid.Column="2" Grid.Row="0" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <TextBlock x:Name="lbl_title" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="20,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="64" Width="694" FontSize="40" FontWeight="Bold"/>
-                <TextBlock x:Name="lbl_subtitle" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" Margin="20,67,50,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" MaxHeight="45" MaxWidth="470" FontSize="24" FontWeight="Bold"/>
+                <TextBox x:Name="tbx_title" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,10,0,0" TextWrapping="Wrap" PlaceholderText="Titel" VerticalAlignment="Top" MaxLength="50" />
+                <TextBox x:Name="tbx_subtitle" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,60,0,0" TextWrapping="Wrap" PlaceholderText="Ondertitel" VerticalAlignment="Top" MaxLength="50"/>                
                 <ScrollViewer x:Name="lbl_recipe_scroll"  HorizontalScrollMode="Enabled" Width="Auto" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" Margin="20,112,50,0" MaxHeight="310" MaxWidth="470" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <TextBlock x:Name="lbl_recipe" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White"  />
                 </ScrollViewer>
@@ -132,9 +134,9 @@
                 <TextBlock x:Name="lbl_tip_low" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="15,0,0,50" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontSize="12" Height="82" Width="193" Foreground="White"/>
 
                 <Rectangle x:Name="rect_ingredients" Grid.Column="2" Grid.Row="2" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBlock x:Name="lbl_ingredients_left" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" Margin="20,15,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" Height="130" Width="300" Foreground="White"/>
-                <TextBlock x:Name="lbl_ingredients_right" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" Margin="340,15,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontSize="16" Height="130" Width="300" Foreground="White"/>
+                <TextBox x:Name="tbx_ingredients" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" Margin="80,0,0,0" TextWrapping="Wrap" PlaceholderText="Ingredienten" VerticalAlignment="Center"/>
                 <Image x:Name="img_cart" Grid.Column="2" Grid.Row="2" Source="ms-appx:///Assets/shopping_cart.png" HorizontalAlignment="Right" VerticalAlignment="Center" Height="48" Margin="0,0,20,0" Width="48"/>
+                
                 <Grid Grid.Column="2" Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100*" />
@@ -143,16 +145,16 @@
                     </Grid.ColumnDefinitions>
                     <Rectangle x:Name="rect_sub_right" Grid.Column="0" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <Image x:Name="img_persons"  Grid.Column="0" Source="ms-appx:///Assets/persons.png" HorizontalAlignment="Left" Height="48" Margin="15,0,0,0" VerticalAlignment="Center" Width="48"/>
-                    <TextBlock x:Name="lbl_rect_left" Grid.Column="0" HorizontalAlignment="Left" Margin="80,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="16" Width="170" Foreground="White"/>
+                    <TextBlock x:Name="lbl_persons" Grid.Column="0" HorizontalAlignment="Left" Margin="160,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="16" Width="130" Foreground="White"/>
+                    <Button x:Name="btn_personUp" Grid.Column="0" VerticalAlignment="Center" Margin="120,0,0,0" Content="+" Click="btn_personUp_Click" />
+                    <Button x:Name="btn_personDown" Grid.Column="0" VerticalAlignment="Center" Margin="80,0,0,0" Content="-" Click="btn_personDown_Click" />
 
                     <Rectangle x:Name="rect_sub_middle" Grid.Column="1" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <Image x:Name="img_prepTime" Grid.Column="1" Source="ms-appx:///Assets/clock.png" HorizontalAlignment="Left" Height="48" Margin="15,0,0,0" VerticalAlignment="Center" Width="48"/>
-                    <ScrollViewer x:Name="lbl_rect_middle_scroll"  HorizontalScrollMode="Enabled" Width="Auto" Grid.Column="1" HorizontalAlignment="Left" Margin="80,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                        <TextBlock x:Name="lbl_rect_middle" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="16"  Foreground="White"/>
-                    </ScrollViewer>
-
+                    <TextBox x:Name="tbx_preperationTime" Grid.Column="1" HorizontalAlignment="Left" Margin="80,0,0,0" TextWrapping="Wrap"  PlaceholderText="Benodigde tijd" VerticalAlignment="Center" MaxLength="255" />
+                    
                     <Rectangle x:Name="rect_sub_left" Grid.Column="2" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock x:Name="lbl_rect_right" Grid.Column="2" HorizontalAlignment="Left" Margin="15,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="16" Width="150" Foreground="White"/>
+                    <TextBox x:Name="tbx_author" Grid.Column="2" HorizontalAlignment="Left" Margin="80,0,0,0" TextWrapping="Wrap"  PlaceholderText="Auteur" VerticalAlignment="Center" MaxLength="10" />            
                 </Grid>
             </Grid>
         </Grid>

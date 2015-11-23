@@ -9,13 +9,15 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
-
+using System.Threading.Tasks;
 
 namespace CookbookWin10
 {
     public sealed partial class RecipeEditor : Page
     {
         private RecipeController recipeController;
+        private int persons;
+
         public RecipeEditor()
         {
             this.InitializeComponent();
@@ -32,11 +34,11 @@ namespace CookbookWin10
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {            
+        {
             if ((e.Parameter).GetType() == typeof(RecipeController))
             {
                 this.recipeController = (RecipeController)e.Parameter;
-            }            
+            }
         }
 
         private void btn_editor_category_Click(object sender, RoutedEventArgs e)
@@ -65,8 +67,8 @@ namespace CookbookWin10
             if (sender.GetType() == typeof(MenuFlyoutItem))
             {
                 MenuFlyoutItem item = (MenuFlyoutItem)sender;
-                
-                setCategory(item.Text);                                
+
+                setCategory(item.Text);
             }
         }
 
@@ -80,7 +82,7 @@ namespace CookbookWin10
         {
             int[] idx = { 0, 1, 2, 3 };
             MainPage.FisherYatesShuffle(idx);
-
+            // ask Paul, is this okay? having same named variables in multiple XAML pages?
             rect_main.Fill = CategoryColor.sets[category, idx[0]];
             rect_ingredients.Fill = CategoryColor.sets[category, idx[1]];
             rect_left_low.Fill = CategoryColor.sets[category, idx[2]];
@@ -88,14 +90,47 @@ namespace CookbookWin10
             rect_sub_left.Fill = CategoryColor.sets[category, 0];
             rect_sub_middle.Fill = CategoryColor.sets[category, 1];
             rect_sub_right.Fill = CategoryColor.sets[category, 2];
-
-            lbl_title.Foreground = CategoryColor.sets[category, idx[1]];
-            lbl_subtitle.Foreground = CategoryColor.sets[category, idx[2]];
         }
 
         private void changeButtonText(string category)
         {
             btn_editor_category.Content = category;
+        }
+
+        private void btn_personUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (persons < 20)
+                persons++;
+            lbl_persons.Text = (persons != 1) ? persons + " personen" : persons + " persoon";
+        }
+
+        private void btn_personDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (persons > 0)
+                persons--;
+            lbl_persons.Text = (persons != 1) ? persons + " personen" : persons + " persoon";
+        }
+
+        private async void btn_browsePhoto_Click(object sender, RoutedEventArgs e)
+        {
+            await selectFile();
+        }
+
+        private async Task selectFile()
+        {
+            Windows.Storage.Pickers.FileOpenPicker picker = new Windows.Storage.Pickers.FileOpenPicker();
+            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".jpeg");
+            picker.FileTypeFilter.Add(".png");
+
+            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+            BitmapImage bitmap = new BitmapImage();
+                        
+            await bitmap.SetSourceAsync(await file.OpenAsync(Windows.Storage.FileAccessMode.Read));
+
+            img_main.Source = bitmap;
         }
     }
 }

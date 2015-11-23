@@ -132,7 +132,6 @@
     <Content Include="Assets\shopping_cart.png" />
     <Content Include="Assets\sounds\REMVIN.WAV" />
     <Content Include="Assets\sounds\REMVOUT.WAV" />
-    <Content Include="Assets\Square310x310Logo.scale-100.jpg" />
     <Content Include="Assets\star_empty.png" />
     <Content Include="Assets\star_full.png" />
     <Content Include="Assets\tip.png" />
