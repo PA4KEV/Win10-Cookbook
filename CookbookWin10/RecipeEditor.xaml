@@ -21,7 +21,6 @@
                         <Setter Target="lbl_type.Margin" Value="20,0,0,10"/>
                         <Setter Target="lbl_type.HorizontalAlignment" Value="Left"/>
                         <Setter Target="lbl_type.VerticalAlignment" Value="Bottom"/>
-                        <Setter Target="lbl_recipe_scroll.Margin" Value="0,112,50,0"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -102,14 +101,15 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="25*"/>
                 </Grid.RowDefinitions>
-                <Rectangle x:Name="rect_left_low" Grid.Column="0" Grid.Row="0" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <Button x:Name="btn_browsePhoto" Grid.Column="0" Grid.Row="0" Content="Voeg foto toe" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,0" Click="btn_browsePhoto_Click"/>
-                <Button x:Name="btn_makePhoto" Grid.Column="0" Grid.Row="0" Content="Maak een foto" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,160,0"/>
+                <Rectangle x:Name="rect_left_low" Grid.Column="0" Grid.Row="0" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>                
                 <Grid HorizontalAlignment="Left" Grid.Column="0" Grid.Row="0" Margin="0,0,0,0" VerticalAlignment="Top">
                     <Image x:Name="img_main" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
+                <Button x:Name="btn_browsePhoto" Grid.Column="0" Grid.Row="0" Content="Voeg foto toe" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,0" Click="btn_browsePhoto_Click"/>
+                <Button x:Name="btn_makePhoto" Grid.Column="0" Grid.Row="0" Content="Maak een foto" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,160,0"/>
                 <Rectangle x:Name="rect_left_top" Grid.Column="0" Grid.Row="2" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <Button x:Name="btn_editor_category" Grid.Column="0" Grid.Row="2" Content="Categorien" HorizontalAlignment="Right" Margin="0,0,50,0" VerticalAlignment="Top" Visibility="Visible" Click="btn_editor_category_Click"/>
+                <Button x:Name="btn_editor_preview" Grid.Column="0" Grid.Row="2" Content="Preview" HorizontalAlignment="Right" Margin="0,50,50,0" VerticalAlignment="Top" Visibility="Visible" Click="btn_editor_preview_Click"/>
             </Grid>
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
@@ -120,12 +120,16 @@
                     <RowDefinition Height="9*"/>
                 </Grid.RowDefinitions>
                 <Rectangle x:Name="rect_main" Grid.Column="2" Grid.Row="0" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                <TextBox x:Name="tbx_title" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,10,0,0" TextWrapping="Wrap" PlaceholderText="Titel" VerticalAlignment="Top" MaxLength="50" />
-                <TextBox x:Name="tbx_subtitle" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,60,0,0" TextWrapping="Wrap" PlaceholderText="Ondertitel" VerticalAlignment="Top" MaxLength="50"/>                
-                <ScrollViewer x:Name="lbl_recipe_scroll"  HorizontalScrollMode="Enabled" Width="Auto" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" Margin="20,112,50,0" MaxHeight="310" MaxWidth="470" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <TextBlock x:Name="lbl_recipe" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White"  />
-                </ScrollViewer>
-                <TextBlock x:Name="lbl_type" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="20,0,0,10" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontStyle="Italic" Foreground="#B2FFFFFF"/>
+                <TextBlock x:Name="lbl_error_title" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,10,0,0" TextWrapping="Wrap" Text="ERROR" Foreground="#FF990000" Visibility="Collapsed"/>
+                <TextBox x:Name="tbx_title" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,30,0,0" TextWrapping="Wrap" PlaceholderText="Titel" VerticalAlignment="Top" MaxLength="50" />
+                <TextBlock x:Name="lbl_error_subtitle" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,75,0,0" TextWrapping="Wrap" Text="ERROR" Foreground="#FF990000" Visibility="Collapsed"/>
+                <TextBox x:Name="tbx_subtitle" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,95,0,0" TextWrapping="Wrap" PlaceholderText="Ondertitel" VerticalAlignment="Top" MaxLength="50"/>
+                <TextBlock x:Name="lbl_error_type" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,135,0,0" TextWrapping="Wrap" Text="ERROR" Foreground="#FF990000" Visibility="Collapsed"/>
+                <ComboBox x:Name="cbx_type" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,155,0,0" VerticalAlignment="Top" SelectionChanged="cbx_type_SelectionChanged" Loaded="cbx_type_Loaded" Width="150"/>
+                
+                <TextBox x:Name="tbx_recipe" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,220,0,0" TextWrapping="Wrap" PlaceholderText="Recept" VerticalAlignment="Top" MaxLength="50000"/>                
+                
+                                
                 <Image x:Name="img_tip_top" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Height="48" Margin="15,0,0,320" VerticalAlignment="Bottom" Width="48"/>
                 <TextBlock x:Name="lbl_tip_title_top" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="15,0,0,285" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontSize="14.667" Foreground="White" Width="193"/>
                 <TextBlock x:Name="lbl_tip_top" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="15,0,0,210" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontSize="12" Height="77" Width="193" Foreground="White"/>
@@ -155,7 +159,7 @@
                     
                     <Rectangle x:Name="rect_sub_left" Grid.Column="2" Stretch="UniformToFill" Fill="#FFEEEEEE" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <TextBox x:Name="tbx_author" Grid.Column="2" HorizontalAlignment="Left" Margin="80,0,0,0" TextWrapping="Wrap"  PlaceholderText="Auteur" VerticalAlignment="Center" MaxLength="10" />            
-                </Grid>
+                </Grid>                
             </Grid>
         </Grid>
     </Grid>

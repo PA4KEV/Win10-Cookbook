@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Windows.UI.Xaml.Media;
+using Windows.UI;
 
 namespace CookbookWin10
 {
@@ -30,7 +33,7 @@ namespace CookbookWin10
                     Frame.GoBack();
                     a.Handled = true;
                 }
-            };
+            };            
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -131,6 +134,50 @@ namespace CookbookWin10
             await bitmap.SetSourceAsync(await file.OpenAsync(Windows.Storage.FileAccessMode.Read));
 
             img_main.Source = bitmap;
+        }
+
+        private void cbx_type_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> data = new List<string>();
+            data.Add("Snack of voorgerecht");
+            data.Add("Lunchgerecht");
+            data.Add("Hoofdgerecht");
+            data.Add("Drank");
+            data.Add("Nagerecht"); 
+            var comboBox = sender as ComboBox;
+            comboBox.ItemsSource = data;            
+        }
+
+        private void cbx_type_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            string value = comboBox.SelectedItem as string;
+            int index = comboBox.SelectedIndex;
+            lbl_error_type.Visibility = Visibility.Collapsed;
+            cbx_type.BorderBrush = R.Colors.BORDER_DEFAULT;
+        }
+
+        private void btn_editor_preview_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbx_title.Text.Length < 1)
+            {
+                lbl_error_title.Visibility = Visibility.Visible;
+                lbl_error_title.Text = "U moet een titel opgeven!";
+                tbx_title.BorderBrush = R.Colors.BORDER_ERROR;
+            }
+            else
+            {
+                lbl_error_title.Visibility = Visibility.Collapsed;
+                lbl_error_title.Text = "U moet een titel opgeven!";
+                tbx_title.BorderBrush = R.Colors.BORDER_DEFAULT;
+            }
+
+            if (cbx_type.SelectedIndex < 0)
+            {
+                lbl_error_type.Visibility = Visibility.Visible;
+                lbl_error_type.Text = "U moet een type gerecht kiezen!";
+                cbx_type.BorderBrush = R.Colors.BORDER_ERROR;
+            }
         }
     }
 }
