@@ -13,13 +13,17 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
+using Windows.Media.Capture;
+using Windows.Media.MediaProperties;
+using Windows.Storage.Streams;
+using Windows.Media;
 
 namespace CookbookWin10
 {
     public sealed partial class RecipeEditor : Page
     {
         private RecipeController recipeController;
-        private int persons;
+        private int persons = 0;
 
         public RecipeEditor()
         {
@@ -105,13 +109,15 @@ namespace CookbookWin10
             if (persons < 20)
                 persons++;
             lbl_persons.Text = (persons != 1) ? persons + " personen" : persons + " persoon";
+            lbl_error_persons.Visibility = Visibility.Collapsed;
         }
 
         private void btn_personDown_Click(object sender, RoutedEventArgs e)
         {
-            if (persons > 0)
+            if (persons > 1)
                 persons--;
             lbl_persons.Text = (persons != 1) ? persons + " personen" : persons + " persoon";
+            lbl_error_persons.Visibility = Visibility.Collapsed;
         }
 
         private async void btn_browsePhoto_Click(object sender, RoutedEventArgs e)
@@ -156,6 +162,58 @@ namespace CookbookWin10
             lbl_error_type.Visibility = Visibility.Collapsed;
             cbx_type.BorderBrush = R.Colors.BORDER_DEFAULT;
         }
+        private void btn_makePhoto_Click(object sender, RoutedEventArgs e)
+        {
+            getWebcam2();
+        }
+
+        private async void getWebcam2()
+        {
+            MediaCapture capture = new MediaCapture();
+            await capture.InitializeAsync();            
+
+            await capture.ClearEffectsAsync(MediaStreamType.VideoRecord);
+
+            cap_CaptureElement.Source = capture;
+            await capture.StartPreviewAsync();
+        }
+
+        private async void getWebcam()
+        {
+            MediaCapture mediaCapture = new MediaCapture();
+            string deviceID = "";
+
+            var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.VideoCapture);
+            for (int x = 0; x < devices.Count; x++)
+            {
+                tbx_recipe.Text += "✠  Kind:" + (devices[x]).Kind.ToString() + " Name: " + (devices[x]).Name.ToString();
+                deviceID = devices[x].Id;
+            }
+
+            MediaCaptureInitializationSettings settings = new MediaCaptureInitializationSettings();
+            settings.AudioDeviceId = "";
+            settings.VideoDeviceId = deviceID;
+            settings.PhotoCaptureSource = PhotoCaptureSource.Photo;
+            settings.StreamingCaptureMode = StreamingCaptureMode.Video;
+            await mediaCapture.InitializeAsync(settings);
+
+            VideoEncodingProperties resolutionMax = null;
+            int max = 0;
+            var resolutions = mediaCapture.VideoDeviceController.GetAvailableMediaStreamProperties(MediaStreamType.Photo);
+            for (int x = 0; x < resolutions.Count; x++)
+            {
+                VideoEncodingProperties res = (VideoEncodingProperties)resolutions[x];
+                tbx_recipe.Text += "Resolution: " + res.Width + "x" + res.Height;
+                if(res.Width * res.Height > max)
+                {
+                    max = (int)(res.Width * res.Height);
+                    resolutionMax = res;
+                }
+            }
+            await mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.Photo, resolutionMax);
+            ImageEncodingProperties imageProperties = ImageEncodingProperties.CreateJpeg();
+            var fPhotoStream = new InMemoryRandomAccessStream();
+        }
 
         private void btn_editor_preview_Click(object sender, RoutedEventArgs e)
         {
@@ -178,6 +236,12 @@ namespace CookbookWin10
                 lbl_error_type.Text = "U moet een type gerecht kiezen!";
                 cbx_type.BorderBrush = R.Colors.BORDER_ERROR;
             }
-        }
+
+            if (persons < 1)
+            {
+                lbl_error_persons.Visibility = Visibility.Visible;
+                lbl_error_persons.Text = "U moet aantal personen kiezen!";
+            }
+        }        
     }
 }
