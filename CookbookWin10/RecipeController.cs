@@ -59,6 +59,7 @@ namespace CookbookWin10
                         getListboxItems()[x].bitmapImage = img;
                     }
 
+                    // obsolete
                     Random random = new Random();
                     int colorIndex = random.Next(4);
                     if (getListboxItems()[x].category.Equals("Spaans"))

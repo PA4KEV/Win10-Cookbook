@@ -109,6 +109,8 @@
         <Button x:Name="btn_category" Content="Categorien" HorizontalAlignment="Right" Margin="0,0,50,0" Grid.Row="2" VerticalAlignment="Center" Click="btn_category_Click" Visibility="Collapsed"/>
         <Button x:Name="btn_daily" Content="Recept van de dag" HorizontalAlignment="Right" Margin="0,0,170,0" Grid.Row="2" VerticalAlignment="Center" Visibility="Collapsed" Click="btn_daily_Click"/>
         <Button x:Name="btn_editor" Content="Nieuw Recept" HorizontalAlignment="Right" Margin="0,0,320,0" Grid.Row="2" VerticalAlignment="Center" Visibility="Collapsed" Click="btn_editor_Click" />
+        <TextBox x:Name="tbx_search" HorizontalAlignment="Right" Margin="0,0,320,10" Grid.Row="2" VerticalAlignment="Bottom" Visibility="Collapsed" KeyDown="tbx_search_KeyDown" />
+        <Button x:Name="btn_search" Content="Zoeken" HorizontalAlignment="Right" Margin="0,0,240,10" Grid.Row="2" VerticalAlignment="Bottom" Visibility="Collapsed" Click="btn_search_Click" />
         <TextBlock x:Name="lbl_main_menu_welcome" HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="32" FontWeight="Bold" Foreground="White"/>
         
         <Grid Grid.Row="4">

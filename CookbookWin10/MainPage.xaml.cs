@@ -36,13 +36,13 @@ namespace CookbookWin10
         private RecipeController recipeController;
         public static string category = "all";    
         private string imgUrl = "http://www.returnoftambelon.com/cookbook/gallery/";
+        bool enterPressed = false;
 
         public MainPage()
         {
             this.InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-            //registerBackgroundTask(); 
-                       
+            //registerBackgroundTask();                       
             
             recipeController = new RecipeController();
             recipeController.jsonReady += RecipeController_jsonReady;            
@@ -50,9 +50,7 @@ namespace CookbookWin10
 
         private void RecipeController_jsonReady(RecipeController rc, EventArgs e)
         {
-            btn_category.Visibility = Visibility.Visible;
-            btn_daily.Visibility = Visibility.Visible;
-            btn_editor.Visibility = Visibility.Visible;
+            btn_category.Visibility = btn_daily.Visibility = btn_editor.Visibility = btn_search.Visibility = tbx_search.Visibility = Visibility.Visible;
             if (!MainPage.category.Equals("all"))
             {
                 updateMainListboxes(MainPage.category);
@@ -142,6 +140,11 @@ namespace CookbookWin10
             }
 
             FisherYatesShuffle(recipes);
+            fillLists(recipes);                               
+        }              
+
+        private void fillLists(MainListboxModel[] recipes)
+        {
             ListView[] lists = { lbox_main_0, lbox_main_1, lbox_main_2, lbox_main_3, lbox_main_4 };
 
             // knullige zooi...
@@ -150,12 +153,12 @@ namespace CookbookWin10
             for (int x = 0; x < recipes.Length; x++)
             {
                 subLists[(x % subLists.Length)].Add(recipes[x]);
-            }           
+            }
             for (int y = 0; y < lists.Length; y++)
             {
                 lists[y].ItemsSource = subLists[y];
-            }                    
-        }              
+            }
+        }
 
         private void updateMainMenuColors(string category)
         {
@@ -285,8 +288,6 @@ namespace CookbookWin10
             int n = array.Length;
             for (int i = 0; i < n; i++)
             {
-                // NextDouble returns a random number between 0 and 1.
-                // ... It is equivalent to Math.random() in Java.
                 int r = i + (int)(_random.NextDouble() * (n - i));
                 T t = array[r];
                 array[r] = array[i];
@@ -300,6 +301,62 @@ namespace CookbookWin10
             {
                 this.Frame.Navigate(typeof(RecipeEditor), recipeController);
             }            
+        }
+
+        private void btn_search_Click(object sender, RoutedEventArgs e)
+        {
+            string input = tbx_search.Text;
+            searchRecipeTitles(input);       
+        }
+
+        private async void searchRecipeTitles(string value)
+        {
+            if (value.Length < 3)
+            {
+                await (new MessageDialog("U moet minimaal 3 karakters invoeren")).ShowAsync();
+                enterPressed = false;
+            }
+            else
+            {
+                string searchTerm = value.ToLower();
+                List<MainListboxModel> models = new List<MainListboxModel>();
+
+                string category = (MainPage.category.Equals("")) ? "all" : MainPage.category;
+                foreach (MainListboxModel model in recipeController.getListboxItems(category))
+                {
+                    string title = (model.title).ToLower();
+                    if (title.IndexOf(searchTerm, StringComparison.Ordinal) != -1)
+                    {
+                        models.Add(model);
+                    }
+                }
+                if (models.Count > 0)
+                {
+                    MainListboxModel[] recipes = models.ToArray();
+                    FisherYatesShuffle(recipes);
+                    fillLists(recipes);
+
+                    updateMainMenuColors(category);
+                    enterPressed = false;
+                }
+                else
+                {
+                    await (new MessageDialog("Geen recepten gevonden voor: " + searchTerm)).ShowAsync();
+                    enterPressed = false;
+                }
+            }
+        }
+
+        private void tbx_search_KeyDown(object sender, KeyRoutedEventArgs e)
+        {            
+            if(e.Key == Windows.System.VirtualKey.Enter)
+            {
+                if(!enterPressed)
+                {
+                    enterPressed = true;
+                    btn_search_Click(null, null);
+                }                
+            }
         }
     }
 }
