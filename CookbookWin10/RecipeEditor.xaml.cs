@@ -122,7 +122,7 @@ namespace CookbookWin10
 
         private async void btn_browsePhoto_Click(object sender, RoutedEventArgs e)
         {
-            await selectFile();
+            await selectFile(); // exception upon closing dialog
         }
 
         private async Task selectFile()

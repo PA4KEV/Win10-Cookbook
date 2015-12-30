@@ -7,7 +7,34 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="LayoutRoot">
+        <Grid.Resources>
+            <Storyboard x:Name="myStoryboard">
+                <DoubleAnimation From="1" To="6" Duration="00:00:2" 
+                    Storyboard.TargetName="containerScaleTransform" 
+                    Storyboard.TargetProperty="Opacity">
+                    <DoubleAnimation.EasingFunction>
+                        <BounceEase Bounces="2" EasingMode="EaseOut" Bounciness="2" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+            <Storyboard x:Name="faderStoryBoard">
+                <!--Storyboard.TargetName="grid_area_search"
+                <DoubleAnimation EnableDependentAnimation="True" To="100" Duration="0:0:10" FillBehavior="Stop" Storyboard.TargetProperty="Width" />                 
+                <DoubleAnimation
+                    x:Name="animFadeOut"
+                    Duration="0:0:0.3" 
+                    From="1.0"
+                    To="0.0"
+                    Storyboard.TargetProperty="Opacity" />
+                <DoubleAnimation 
+                    x:Name="animFadeIn"
+                    Duration="0:0:0.3" 
+                    From="0.0"
+                    To="1.0"
+                    Storyboard.TargetProperty="Opacity" /> -->
+            </Storyboard> 
+        </Grid.Resources>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="wideState">
@@ -105,14 +132,30 @@
             </ListView>
         </Grid>       
 
-        <Rectangle Grid.Row="2" x:Name="rect_main_menu" Fill="#FFEEEEEE" Stretch="UniformToFill" />
-        <Button x:Name="btn_category" Content="Categorien" HorizontalAlignment="Right" Margin="0,0,50,0" Grid.Row="2" VerticalAlignment="Center" Click="btn_category_Click" Visibility="Collapsed"/>
-        <Button x:Name="btn_daily" Content="Recept van de dag" HorizontalAlignment="Right" Margin="0,0,170,0" Grid.Row="2" VerticalAlignment="Center" Visibility="Collapsed" Click="btn_daily_Click"/>
-        <Button x:Name="btn_editor" Content="Nieuw Recept" HorizontalAlignment="Right" Margin="0,0,320,0" Grid.Row="2" VerticalAlignment="Center" Visibility="Collapsed" Click="btn_editor_Click" />
-        <TextBox x:Name="tbx_search" HorizontalAlignment="Right" Margin="0,0,320,10" Grid.Row="2" VerticalAlignment="Bottom" Visibility="Collapsed" KeyDown="tbx_search_KeyDown" />
-        <Button x:Name="btn_search" Content="Zoeken" HorizontalAlignment="Right" Margin="0,0,240,10" Grid.Row="2" VerticalAlignment="Bottom" Visibility="Collapsed" Click="btn_search_Click" />
-        <TextBlock x:Name="lbl_main_menu_welcome" HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="32" FontWeight="Bold" Foreground="White"/>
+        <Rectangle Grid.Row="2" x:Name="rect_main_menu" Fill="#FFEEEEEE" Stretch="UniformToFill" />        
+        <Grid x:Name="grid_search" Grid.Row="2" Visibility="Collapsed">            
+            <Rectangle x:Name="rect_search" Width="{Binding ActualWidth, ElementName=grid_search}" Height="{Binding ActualWidth, ElementName=grid_search}" Fill="Firebrick"/>
+            <Button x:Name="btn_close" Grid.Row="2" Content="Close" HorizontalAlignment="Right" Margin="0,10,5,0"  VerticalAlignment="Top" Click="btn_close_Click" />
+            <TextBox x:Name="tbx_search" Margin="110,0,110,0" Grid.Row="2" VerticalAlignment="Center" Visibility="Visible" KeyDown="tbx_search_KeyDown" HorizontalAlignment="Stretch"/>
+            <Button x:Name="btn_search" Content="Zoeken" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="2" VerticalAlignment="Center" Visibility="Visible" Click="btn_search_Click" />            
+        </Grid>
+        <Grid x:Name="grid_menu" Grid.Row="2" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="menuCol_0" Width="*" />
+                <ColumnDefinition x:Name="menuCol_1" Width="*" />
+                <ColumnDefinition x:Name="menuCol_2" Width="*" />
+                <ColumnDefinition x:Name="menuCol_3" Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1" x:Name="grid_area_search">
+                
+            </Grid>
+            <Button Grid.Column="0" x:Name="btn_daily" Content="Recept van de dag" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_daily_Click"/>
+            <Button Grid.Column="1" x:Name="btn_open_search" Content="Search" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_open_search_Click" />
+            <Button Grid.Column="2" x:Name="btn_editor" Content="Nieuw Recept" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_editor_Click" />
+            <Button Grid.Column="3" x:Name="btn_category" Content="Categorien" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_category_Click" />
+        </Grid>
         
+        <TextBlock x:Name="lbl_main_menu_welcome" HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="32" FontWeight="Bold" Foreground="White"/>        
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*" />

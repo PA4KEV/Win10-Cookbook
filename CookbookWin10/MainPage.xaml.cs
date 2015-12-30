@@ -1,28 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Net.Http;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Newtonsoft.Json;
 using Windows.UI.Core;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
-using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Popups;
 using Windows.Data.Xml.Dom;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -45,12 +32,13 @@ namespace CookbookWin10
             //registerBackgroundTask();                       
             
             recipeController = new RecipeController();
+
             recipeController.jsonReady += RecipeController_jsonReady;            
         }
 
         private void RecipeController_jsonReady(RecipeController rc, EventArgs e)
         {
-            btn_category.Visibility = btn_daily.Visibility = btn_editor.Visibility = btn_search.Visibility = tbx_search.Visibility = Visibility.Visible;
+            grid_menu.Visibility = Visibility.Visible;
             if (!MainPage.category.Equals("all"))
             {
                 updateMainListboxes(MainPage.category);
@@ -300,7 +288,7 @@ namespace CookbookWin10
             if(recipeController != null)
             {
                 this.Frame.Navigate(typeof(RecipeEditor), recipeController);
-            }            
+            }                       
         }
 
         private void btn_search_Click(object sender, RoutedEventArgs e)
@@ -341,7 +329,10 @@ namespace CookbookWin10
                 }
                 else
                 {
-                    await (new MessageDialog("Geen recepten gevonden voor: " + searchTerm)).ShowAsync();
+                    string message = "Geen recepten gevonden voor: " + searchTerm;
+                    if (MainPage.category.Equals(""))
+                        message += " in categorie: " + MainPage.category;
+                    await (new MessageDialog(message)).ShowAsync();
                     enterPressed = false;
                 }
             }
@@ -357,6 +348,58 @@ namespace CookbookWin10
                     btn_search_Click(null, null);
                 }                
             }
+        }
+
+        private void btn_close_Click(object sender, RoutedEventArgs e)
+        {
+            fader(grid_menu, grid_search);       
+        }
+
+        private void btn_open_search_Click(object sender, RoutedEventArgs e)
+        {
+            fader(grid_search, grid_menu);          
+        }
+
+        private void fader(Grid elementFadeIn, Grid elementFadeOut)
+        {
+            elementFadeIn.Opacity = 0;
+            elementFadeIn.Visibility = Visibility.Visible;
+
+            DoubleAnimation fadeIn = new DoubleAnimation()
+            {   
+                From = 0.0,
+                To = 1.0,               
+                Duration = TimeSpan.FromMilliseconds(250),                                
+            };                        
+            fadeIn.SetValue(Storyboard.TargetNameProperty, elementFadeIn.Name);
+            fadeIn.SetValue(Storyboard.TargetPropertyProperty, "Opacity");
+
+            DoubleAnimation fadeOut = new DoubleAnimation()
+            {
+                From = 1.0,
+                To = 0.0,
+                Duration = TimeSpan.FromMilliseconds(250),
+            };
+            fadeOut.SetValue(Storyboard.TargetNameProperty, elementFadeOut.Name);
+            fadeOut.SetValue(Storyboard.TargetPropertyProperty, "Opacity");
+
+            //faderStoryBoard.Stop();
+            Storyboard faderStoryBoard = new Storyboard();
+            // dont create new Storyboard in code, generates TargetName does not exist exception
+            faderStoryBoard.Children.Clear();
+            faderStoryBoard.Children.Add(fadeIn);
+            faderStoryBoard.Children.Add(fadeOut);
+            faderStoryBoard.Completed += new EventHandler<object>((s, e) => FaderStoryBoard_Completed(s, e, elementFadeOut));
+
+            LayoutRoot.Resources.Clear();
+            LayoutRoot.Resources.Add("sb", faderStoryBoard);     
+
+            faderStoryBoard.Begin();
+        }
+
+        private void FaderStoryBoard_Completed(object sender, object e, Grid elementFadeOut)
+        {
+            elementFadeOut.Visibility = Visibility.Collapsed;
         }
     }
 }
