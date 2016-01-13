@@ -90,6 +90,7 @@
         <MediaElement x:Name="sfx_beepup" Source="Assets/sounds/REMVIN.WAV" AutoPlay="False" Height="0" Width="0" />
         <MediaElement x:Name="sfx_beepdown" Source="Assets/sounds/REMVOUT.WAV" AutoPlay="False" Height="0" Width="0" />
         <MediaElement x:Name="sfx_favorite" Source="Assets/sounds/CONFIRM1.WAV" AutoPlay="False" Height="0" Width="0" />
+        <ProgressRing x:Name="prog_recipe" HorizontalAlignment="Center" VerticalAlignment="Center" Width="48" Height="48" IsActive="True"/>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="column_main_left" Width="55*" />

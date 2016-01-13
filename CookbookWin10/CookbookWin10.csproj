@@ -124,7 +124,13 @@
     <None Include="CookbookWin10_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\categories.png" />
     <Content Include="Assets\clock.png" />
+    <Content Include="Assets\daily.png" />
+    <Content Include="Assets\loader_squares.gif" />
+    <Content Include="Assets\newRecipe.png" />
+    <Content Include="Assets\search.png" />
+    <Content Include="Assets\sort.png" />
     <Content Include="Assets\sounds\CONFIRM1.WAV" />
     <Content Include="Assets\persons.png" />
     <Content Include="Assets\shopping_cart.png" />

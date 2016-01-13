@@ -24,13 +24,13 @@ namespace CookbookWin10
         public static string category = "all";    
         private string imgUrl = "http://www.returnoftambelon.com/cookbook/gallery/";
         bool enterPressed = false;
+        int sortingMethod = 0; // maybe convert to enum properly
 
         public MainPage()
         {
             this.InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
             //registerBackgroundTask();                       
-            
             recipeController = new RecipeController();
 
             recipeController.jsonReady += RecipeController_jsonReady;            
@@ -39,6 +39,7 @@ namespace CookbookWin10
         private void RecipeController_jsonReady(RecipeController rc, EventArgs e)
         {
             grid_menu.Visibility = Visibility.Visible;
+            prog_main.IsActive = false;
             if (!MainPage.category.Equals("all"))
             {
                 updateMainListboxes(MainPage.category);
@@ -125,14 +126,36 @@ namespace CookbookWin10
             else
             {
                 recipes = recipeController.getListboxItems(category).ToArray();
-            }
-
-            FisherYatesShuffle(recipes);
+            }            
             fillLists(recipes);                               
-        }              
+        }
 
         private void fillLists(MainListboxModel[] recipes)
         {
+            switch (sortingMethod)
+            {
+                case 0: // Random
+                    FisherYatesShuffle(recipes);
+                    break;
+                case 1: // 3-Gangen 
+                    break;
+                default:
+                    List<MainListboxModel> sortedRecipes = new List<MainListboxModel>();
+                    for(int x = 0; x < recipes.Length; x++)
+                    {
+                        for(int y = 0; y < recipes[x].getTypesArray().Length; y++)
+                        {
+                            if(recipes[x].getTypesArray()[y] == sortingMethod)
+                            {
+                                sortedRecipes.Add(recipes[x]);
+                            }
+                        }
+                    }
+                    recipes = sortedRecipes.ToArray();
+                    FisherYatesShuffle(recipes);
+                    break;
+            }
+
             ListView[] lists = { lbox_main_0, lbox_main_1, lbox_main_2, lbox_main_3, lbox_main_4 };
 
             // knullige zooi...
@@ -171,8 +194,7 @@ namespace CookbookWin10
             {
                 catColor = CategoryColor.ITALIAN;
             }
-            colorRectangles(catColor);
-            lbl_main_menu_welcome.Text = (category.Equals("Favorites")) ? "Heerlijk Mijn Favorieten Koken" : "Heerlijk " + category + " Koken";            
+            colorRectangles(catColor);                      
         }
 
         // Click events
@@ -191,29 +213,47 @@ namespace CookbookWin10
 
         private void btn_category_Click(object sender, RoutedEventArgs e)
         {
-            buildFlyout(sender);
+            buildFlyout(sender, 0);
         }
 
-        public async void buildFlyout(object sender)
+        private void btn_sort_Click(object sender, RoutedEventArgs e)
+        {
+            buildFlyout(sender, 1);            
+        }
+
+        public async void buildFlyout(object sender, int type)
         {
             MenuFlyout menuFlyout = new MenuFlyout();
-
-            for (int x = 0; x < recipeController.getCategories().Count; x++)
+            if (type == 0)
             {
-                MenuFlyoutItem flyItem = new MenuFlyoutItem();
-                flyItem.Text = recipeController.getCategories()[x];
-                flyItem.Click += FlyItem_Click;
-                menuFlyout.Items.Add(flyItem);
+                for (int x = 0; x < recipeController.getCategories().Count; x++)
+                {
+                    MenuFlyoutItem flyItem = new MenuFlyoutItem();
+                    flyItem.Text = recipeController.getCategories()[x];
+                    flyItem.Click += FlyItemCategory_Click;
+                    menuFlyout.Items.Add(flyItem);
+                }
+                StorageManager storageManager = new StorageManager();
+
+                bool fileExists = await storageManager.fileExists();
+                if (fileExists)
+                {
+                    MenuFlyoutItem favItem = new MenuFlyoutItem();
+                    favItem.Text = "Mijn Favorieten";
+                    favItem.Click += FlyItem_Click_Favorites;
+                    menuFlyout.Items.Add(favItem);
+                }
             }
-            StorageManager storageManager = new StorageManager();
-
-            bool fileExists = await storageManager.fileExists();
-            if (fileExists)
+            else if (type == 1)
             {
-                MenuFlyoutItem favItem = new MenuFlyoutItem();
-                favItem.Text = "Mijn Favorieten";
-                favItem.Click += FlyItem_Click_Favorites;
-                menuFlyout.Items.Add(favItem);
+                for (int x = 0; x < RecipeController.getRecipeTypes().Length; x++)
+                {
+                    MenuFlyoutItem flyItem = new MenuFlyoutItem();
+                    flyItem.Text = RecipeController.getRecipeTypes()[x];
+                    flyItem.Tag = x;
+                    flyItem.Click += FlyItemType_Click;
+                    menuFlyout.Items.Add(flyItem);
+                }
             }
 
             menuFlyout.ShowAt((FrameworkElement)sender);
@@ -225,7 +265,7 @@ namespace CookbookWin10
             UpdateTile(recipeController.getDailyRecipe());
         }
 
-        private void FlyItem_Click(object sender, RoutedEventArgs e)
+        private void FlyItemCategory_Click(object sender, RoutedEventArgs e)
         {
             if (sender.GetType() == typeof(MenuFlyoutItem))
             {                
@@ -234,7 +274,19 @@ namespace CookbookWin10
                 
                 updateMainMenuColors(item.Text);
                 updateMainListboxes(item.Text);
+                updateTitle();
             }            
+        }
+
+        private void FlyItemType_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender.GetType() == typeof(MenuFlyoutItem))
+            {
+                MenuFlyoutItem item = (MenuFlyoutItem)sender;
+                sortingMethod = (int)item.Tag;
+                updateMainListboxes(MainPage.category);
+                updateTitle();
+            }
         }
 
         private void FlyItem_Click_Favorites(object sender, RoutedEventArgs e)
@@ -246,10 +298,9 @@ namespace CookbookWin10
                 updateMainMenuColors("Favorites");
                 updateMainListboxes("Favorites");
             }
-        }
+        }       
 
         // Colors
-
         private void colorRectangles(int catColorID)
         {
             // deal with when 2 colors are next to eachother
@@ -330,7 +381,7 @@ namespace CookbookWin10
                 else
                 {
                     string message = "Geen recepten gevonden voor: " + searchTerm;
-                    if (MainPage.category.Equals(""))
+                    if (!MainPage.category.Equals(""))
                         message += " in categorie: " + MainPage.category;
                     await (new MessageDialog(message)).ShowAsync();
                     enterPressed = false;
@@ -401,5 +452,14 @@ namespace CookbookWin10
         {
             elementFadeOut.Visibility = Visibility.Collapsed;
         }
+
+        private void updateTitle()
+        {            
+            string text = (category.Equals("Favorites")) ? "Heerlijk Mijn Favorieten Koken" : "Heerlijk " + category + " Koken";
+            if (sortingMethod != 0)
+                text += " (" + RecipeController.getRecipeTypes()[sortingMethod] + ")";
+            lbl_main_menu_welcome.Text = text;
+        }
+        
     }
 }

@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CookbookWin10"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
     mc:Ignorable="d">
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="LayoutRoot">
@@ -133,29 +133,42 @@
         </Grid>       
 
         <Rectangle Grid.Row="2" x:Name="rect_main_menu" Fill="#FFEEEEEE" Stretch="UniformToFill" />        
-        <Grid x:Name="grid_search" Grid.Row="2" Visibility="Collapsed">            
+        <ProgressRing x:Name="prog_main" IsActive="true" Width="48" Height="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Grid x:Name="grid_search" Grid.Row="2" Visibility="Collapsed">            
             <Rectangle x:Name="rect_search" Width="{Binding ActualWidth, ElementName=grid_search}" Height="{Binding ActualWidth, ElementName=grid_search}" Fill="Firebrick"/>
             <Button x:Name="btn_close" Grid.Row="2" Content="Close" HorizontalAlignment="Right" Margin="0,10,5,0"  VerticalAlignment="Top" Click="btn_close_Click" />
             <TextBox x:Name="tbx_search" Margin="110,0,110,0" Grid.Row="2" VerticalAlignment="Center" Visibility="Visible" KeyDown="tbx_search_KeyDown" HorizontalAlignment="Stretch"/>
             <Button x:Name="btn_search" Content="Zoeken" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="2" VerticalAlignment="Center" Visibility="Visible" Click="btn_search_Click" />            
         </Grid>
-        <Grid x:Name="grid_menu" Grid.Row="2" Visibility="Visible">
+        <Grid x:Name="grid_menu" Grid.Row="2" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="menuCol_0" Width="*" />
                 <ColumnDefinition x:Name="menuCol_1" Width="*" />
                 <ColumnDefinition x:Name="menuCol_2" Width="*" />
                 <ColumnDefinition x:Name="menuCol_3" Width="*" />
+                <ColumnDefinition x:Name="menuCol_4" Width="*" />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1" x:Name="grid_area_search">
                 
             </Grid>
-            <Button Grid.Column="0" x:Name="btn_daily" Content="Recept van de dag" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_daily_Click"/>
-            <Button Grid.Column="1" x:Name="btn_open_search" Content="Search" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_open_search_Click" />
-            <Button Grid.Column="2" x:Name="btn_editor" Content="Nieuw Recept" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_editor_Click" />
-            <Button Grid.Column="3" x:Name="btn_category" Content="Categorien" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_category_Click" />
+            <Button Grid.Column="0" x:Name="btn_dailyo" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_daily_Click" >
+                <Image Source="ms-appx:///Assets/daily.png" Width="48" Height="48"/>
+            </Button>
+            <Button Grid.Column="1" x:Name="btn_open_search" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_open_search_Click">
+                <Image Source="ms-appx:///Assets/search.png" Width="48" Height="48"/>
+            </Button>
+            <Button Grid.Column="2" x:Name="btn_editor" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_editor_Click">
+                <Image Source="ms-appx:///Assets/newRecipe.png" Width="48" Height="48"/>
+            </Button>
+            <Button Grid.Column="3" x:Name="btn_sort" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_sort_Click" >
+                <Image Source="ms-appx:///Assets/sort.png" Width="48" Height="48"/>
+            </Button>
+            <Button Grid.Column="4" x:Name="btn_category" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_category_Click">
+                <Image Source="ms-appx:///Assets/categories.png" Width="48" Height="48"/>
+            </Button>
         </Grid>
         
-        <TextBlock x:Name="lbl_main_menu_welcome" HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Center" FontSize="32" FontWeight="Bold" Foreground="White"/>        
+        <TextBlock x:Name="lbl_main_menu_welcome" HorizontalAlignment="Left" Margin="50,0,0,5" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" FontSize="20" FontWeight="Bold" Foreground="White"/>        
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*" />

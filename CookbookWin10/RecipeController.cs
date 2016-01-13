@@ -19,7 +19,7 @@ namespace CookbookWin10
         private EventArgs eventArgs = null;
         public event JsonReadyHandler jsonReady;
         public delegate void JsonReadyHandler(RecipeController rc, EventArgs e);
-
+        
         public RecipeController()
         {
             retrieveJSON();        
@@ -166,5 +166,21 @@ namespace CookbookWin10
         {
             this.listboxItems = list;
         }        
+        
+        public static string[] getRecipeTypes()
+        {
+            // 0 = no cat
+            // 1 = 3-Gangen
+            // 2 = Voorgerecht
+            // 3 = Hoofdgerecht
+            // 4 = Nagerecht
+            // 5 = Snacks
+            // 6 = Ontbijtgerecht
+            // 7 = Lunchgerecht
+            // 8 = Drank
+            // 9 = Bijgerecht
+            return new string[] { "Willekeurig", "3-Gangen Menu", "Voorgerecht", "Hoofdgerecht", "Nagerecht", "Snack",
+            "Ontbijtgerecht", "Lunchgerecht", "Drank", "Bijgerecht"};
+        }       
     }
 }

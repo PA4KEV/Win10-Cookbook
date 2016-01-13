@@ -94,6 +94,7 @@ namespace CookbookWin10
 
                 }
             }
+            prog_recipe.IsActive = false;
         }
 
         private void updateKitchenTimer(KitchenTimer kitchenTimer, EventArgs e)

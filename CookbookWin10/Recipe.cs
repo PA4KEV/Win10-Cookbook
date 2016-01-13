@@ -14,7 +14,7 @@ namespace CookbookWin10
         public string subtitle;
         public string category;
         public string author;
-        public string type;
+        public string types;
         public int persons;
         public string preperationTime;
         public string recipe;
@@ -50,7 +50,25 @@ namespace CookbookWin10
         }
         public string getRecipeType()
         {
-            return type;
+            StringBuilder sb = new StringBuilder();
+            string[] myTypes = types.Split(',');
+            for(int x = 0; x < myTypes.Length; x++)
+            {
+                sb.Append(RecipeController.getRecipeTypes()[int.Parse(myTypes[x])]);
+                if (x != (myTypes.Length - 1))
+                    sb.Append(", ");
+            }
+            return sb.ToString();
+        }
+        public int[] getRecipeTypeArray()
+        {
+            string[] myTypes = types.Split(',');
+            int[] typesInt = new int[myTypes.Length];
+            for(int x = 0; x < myTypes.Length; x++)
+            {
+                typesInt[x] = int.Parse(myTypes[x]);
+            }
+            return typesInt;
         }
         public int getPersons()
         {

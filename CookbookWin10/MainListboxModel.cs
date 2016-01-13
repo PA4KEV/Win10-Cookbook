@@ -15,9 +15,21 @@ namespace CookbookWin10
         public string title { get; set; }
         public string subtitle { get; set; }
         public string category { get; set; }
+        public string types { get; set; }
         public string image { get; set; }
         public BitmapImage bitmapImage { get; set; }
-        public SolidColorBrush rectColor { get; set; }        
+        public SolidColorBrush rectColor { get; set; }
+
+        public int[] getTypesArray()
+        {
+            string[] myTypes = types.Split(',');
+            int[] typesInt = new int[myTypes.Length];
+            for (int x = 0; x < myTypes.Length; x++)
+            {
+                typesInt[x] = int.Parse(myTypes[x]);
+            }
+            return typesInt;
+        }
     }
 
 

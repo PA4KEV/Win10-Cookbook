@@ -6,6 +6,8 @@ Json70r1/
 How to add a BackgroundTask _ Romasz.net_files/
 *.htm
 *.html
+#for now, ignore the server PHP files
+*.php
 
 # User-specific files
 *.suo
