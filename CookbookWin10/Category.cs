@@ -15,6 +15,7 @@ namespace CookbookWin10
         public static int FRENCH = 2;
         public static int AMERICAN = 3;
         public static int ITALIAN = 4;
+        public static int JAPANESE = 5;
 
         public static Color accentColor = (Color)App.Current.Resources["SystemAccentColor"];
                 
@@ -42,7 +43,14 @@ namespace CookbookWin10
             //American
             { (new SolidColorBrush(Color.FromArgb(255, 12, 84, 199))), (new SolidColorBrush(Color.FromArgb(255, 15, 60, 133))), (new SolidColorBrush(Color.FromArgb(255, 247, 5, 5))), (new SolidColorBrush(Color.FromArgb(255, 105, 179, 219))) },
             //Italian
+            { (new SolidColorBrush(Color.FromArgb(255, 224, 7, 7))), (new SolidColorBrush(Color.FromArgb(255, 222, 215, 20))), (new SolidColorBrush(Color.FromArgb(255, 102, 230, 67))), (new SolidColorBrush(Color.FromArgb(255, 26, 153, 49))) },
+            //Japanese
             { (new SolidColorBrush(Color.FromArgb(255, 224, 7, 7))), (new SolidColorBrush(Color.FromArgb(255, 222, 215, 20))), (new SolidColorBrush(Color.FromArgb(255, 102, 230, 67))), (new SolidColorBrush(Color.FromArgb(255, 26, 153, 49))) }
+        };
+
+        public static string[] categoryNames =
+        {
+            "Default", "Spaans", "Frans", "Amerikaans", "Italiaans", "Japans"
         };
     }
 }

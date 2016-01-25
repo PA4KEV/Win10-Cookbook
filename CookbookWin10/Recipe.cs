@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -97,6 +98,26 @@ namespace CookbookWin10
         public string getImageString()
         {
             return image;
+        }
+
+        public string getJSON()
+        {
+            DateTime date = DateTime.Today; 
+            string json = "{";
+            json += "'date':'" + (DateTime.Today).ToString("yyyy-MM-dd") +"',";
+            json += "'title':'" + title + "',";
+            json += "'subtitle':'" + subtitle + "',";
+            json += "'category':'" + category + "',";
+            json += "'types':'" + types + "',";
+            json += "'author':'" + author + "',";
+            json += "'persons':" + persons + ",";
+            json += "'preperationTime':'" + preperationTime + "',";
+            json += "'recipe':'" + recipe + "',";
+            json += "'tip':'" + tip + "',";
+            json += "'winetip':'" + winetip + "',";
+            json += "'ingredients':'" + ingredients + "',";
+            json += "'image':'" + image + "'}";
+            return json;
         }
     }
 }

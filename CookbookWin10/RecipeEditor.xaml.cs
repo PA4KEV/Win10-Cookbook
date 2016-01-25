@@ -143,15 +143,9 @@ namespace CookbookWin10
         }
 
         private void cbx_type_Loaded(object sender, RoutedEventArgs e)
-        {
-            List<string> data = new List<string>();
-            data.Add("Snack of voorgerecht");
-            data.Add("Lunchgerecht");
-            data.Add("Hoofdgerecht");
-            data.Add("Drank");
-            data.Add("Nagerecht"); 
+        {            
             var comboBox = sender as ComboBox;
-            comboBox.ItemsSource = data;            
+            comboBox.ItemsSource = RecipeController.getRecipeTypes();            
         }
 
         private void cbx_type_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -22,7 +22,7 @@ namespace CookbookWin10
     {        
         private RecipeController recipeController;
         public static string category = "alles";    
-        private string imgUrl = "http://www.returnoftambelon.com/cookbook/gallery/";
+        private string imgUrl = Config.URL_GALLERY;
         bool enterPressed = false;
         int sortingMethod = 0; // maybe convert to enum properly
 
@@ -35,7 +35,15 @@ namespace CookbookWin10
             setTooltips();
                                  
             recipeController = new RecipeController();
-            recipeController.jsonReady += RecipeController_jsonReady;            
+            recipeController.jsonReady += RecipeController_jsonReady;
+            recipeController.jsonFailed += RecipeController_jsonFailed;           
+        }
+
+        private void RecipeController_jsonFailed(RecipeController rc, EventArgs e)
+        {
+            prog_main.IsActive = false;
+            lbl_error.Text = "Er kan geen verbinding worden gemaakt met de server...";
+            lbl_error.Visibility = Visibility.Visible;
         }
 
         private void RecipeController_jsonReady(RecipeController rc, EventArgs e)
@@ -222,10 +230,10 @@ namespace CookbookWin10
             }
             else if (type == 1)
             {
-                for (int x = 0; x < RecipeController.getRecipeTypes().Length; x++)
+                for (int x = 0; x < RecipeController.getSortingItems().Length; x++)
                 {
                     MenuFlyoutItem flyItem = new MenuFlyoutItem();
-                    flyItem.Text = RecipeController.getRecipeTypes()[x];
+                    flyItem.Text = RecipeController.getSortingItems()[x];
                     flyItem.Tag = x;
                     flyItem.Click += FlyItemType_Click;
                     menuFlyout.Items.Add(flyItem);
@@ -436,7 +444,7 @@ namespace CookbookWin10
         {            
             string text = (category.Equals("Favorites")) ? "Heerlijk Mijn Favorieten Koken" : "Heerlijk " + category + " Koken";
             if (sortingMethod != 0)
-                text += " (" + RecipeController.getRecipeTypes()[sortingMethod] + ")";
+                text += " (" + RecipeController.getSortingItems()[sortingMethod] + ")";
             lbl_main_menu_welcome.Text = text;
         }
         

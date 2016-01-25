@@ -53,7 +53,7 @@ namespace CookbookWin10
 
         private async void loadRecipe(int id)
         {
-            string page = "http://www.returnoftambelon.com/koken_recepten.php?id=" + id;
+            string page = Config.URL_JSON_ID + id;
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(page);
             HttpContent content = response.Content;
@@ -78,7 +78,7 @@ namespace CookbookWin10
             {
                 try
                 {
-                    page = "http://www.returnoftambelon.com/cookbook/gallery/" + recipe.getImageString();
+                    page = Config.URL_GALLERY + recipe.getImageString();
                     Stream st = await client.GetStreamAsync(page);
 
                     var memoryStream = new MemoryStream();
@@ -179,7 +179,7 @@ namespace CookbookWin10
         {
             lbl_title.Text = recipe.getTitle();
             lbl_subtitle.Text = recipe.getSubtitle();
-            lbl_recipe.Text = recipe.getRecipe();
+            lbl_recipe.Text = recipe.getJSON();//getRecipe();
             lbl_type.Text = recipe.getRecipeType();
             lbl_rect_left.Text = recipe.getPersons() + " personen";
             lbl_rect_middle.Text = recipe.getPreperationTime();

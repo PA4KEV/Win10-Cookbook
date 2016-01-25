@@ -18,6 +18,7 @@ namespace CookbookWin10
 
         private EventArgs eventArgs = null;
         public event JsonReadyHandler jsonReady;
+        public event JsonReadyHandler jsonFailed;
         public delegate void JsonReadyHandler(RecipeController rc, EventArgs e);
         
         public RecipeController()
@@ -27,12 +28,21 @@ namespace CookbookWin10
 
         private async void retrieveJSON()
         {
-            string page = "http://www.returnoftambelon.com/koken_recepten.php?section=main";
+            string output = null;
+            string page = Config.URL_JSON_MAIN;
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(page);
-            HttpContent content = response.Content;
 
-            string output = await content.ReadAsStringAsync();
+            try {                
+                HttpResponseMessage response = await client.GetAsync(page);
+                HttpContent content = response.Content;
+                output = await content.ReadAsStringAsync();
+            }
+            catch (HttpRequestException ex)
+            {
+                output = null;
+                jsonFailed(this, eventArgs);
+            }
+            
             if (output != null)
             {
                 this.listboxItems = JsonConvert.DeserializeObject<List<MainListboxModel>>(output);
@@ -44,7 +54,7 @@ namespace CookbookWin10
                     {
                         try
                         {
-                            page = "http://www.returnoftambelon.com/cookbook/gallery/" + getListboxItems()[x].image;
+                            page = Config.URL_GALLERY + getListboxItems()[x].image;
                             Stream st = await client.GetStreamAsync(page);
 
                             var memoryStream = new MemoryStream();
@@ -54,7 +64,7 @@ namespace CookbookWin10
                         }
                         catch (Exception e)
                         {
-
+                            
                         }
                         getListboxItems()[x].bitmapImage = img;
                     }
@@ -165,12 +175,15 @@ namespace CookbookWin10
         public void setListboxItems(List<MainListboxModel> list)
         {
             this.listboxItems = list;
-        }        
-        
-        public static string[] getRecipeTypes()
+        }
+        public static string[] getSearchItems()
         {
             // 0 = no cat
             // 1 = 3-Gangen
+            return new string[] { "Willekeurig", "3-Gangen Menu" };
+        }
+        public static string[] getRecipeTypes()
+        {            
             // 2 = Voorgerecht
             // 3 = Hoofdgerecht
             // 4 = Nagerecht
@@ -179,8 +192,23 @@ namespace CookbookWin10
             // 7 = Lunchgerecht
             // 8 = Drank
             // 9 = Bijgerecht
-            return new string[] { "Willekeurig", "3-Gangen Menu", "Voorgerecht", "Hoofdgerecht", "Nagerecht", "Snack",
+            return new string[] { "Voorgerecht", "Hoofdgerecht", "Nagerecht", "Snack",
             "Ontbijtgerecht", "Lunchgerecht", "Drank", "Bijgerecht"};
-        }       
+        }
+        public static string[] getSortingItems()
+        {
+            string[] array = new string[getSearchItems().Length + getRecipeTypes().Length];
+
+            for(int x = 0; x < getSearchItems().Length; x++)
+            {
+                array[x] = getSearchItems()[x];
+            } 
+            for(int x = 0; x < getRecipeTypes().Length; x++)
+            {
+                array[x + getSearchItems().Length] = getRecipeTypes()[x];
+            }
+
+            return array;
+        }
     }
 }
