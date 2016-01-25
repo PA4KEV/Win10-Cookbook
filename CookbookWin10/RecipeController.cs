@@ -64,11 +64,11 @@ namespace CookbookWin10
                     int colorIndex = random.Next(4);
                     if (getListboxItems()[x].category.Equals("Spaans"))
                     {
-                        getListboxItems()[x].rectColor = (CategoryColor.sets[CategoryColor.SPANISH, colorIndex]);
+                        getListboxItems()[x].rectColor = (Category.colorSets[Category.SPANISH, colorIndex]);
                     }
                     else if (getListboxItems()[x].category.Equals("Frans"))
                     {
-                        getListboxItems()[x].rectColor = (CategoryColor.sets[CategoryColor.FRENCH, colorIndex]);
+                        getListboxItems()[x].rectColor = (Category.colorSets[Category.FRENCH, colorIndex]);
                     }
                 }
 
@@ -93,13 +93,13 @@ namespace CookbookWin10
         {
             int cat = 0;
             if (category.Equals("Spaans"))
-                cat = CategoryColor.SPANISH;
+                cat = Category.SPANISH;
             else if (category.Equals("Frans"))
-                cat = CategoryColor.FRENCH;
+                cat = Category.FRENCH;
             else if (category.Equals("Amerikaans"))
-                cat = CategoryColor.AMERICAN;
+                cat = Category.AMERICAN;
             else if (category.Equals("Italiaans"))
-                cat = CategoryColor.ITALIAN;
+                cat = Category.ITALIAN;
             return cat;
         }
             
@@ -158,7 +158,7 @@ namespace CookbookWin10
         {
             foreach (MainListboxModel model in listboxItems)
             {
-                model.rectColor = CategoryColor.sets[catColorID, 0];
+                model.rectColor = Category.colorSets[catColorID, 0];
             }
         }
 

@@ -223,16 +223,16 @@ namespace CookbookWin10
             int[] idx = { 0, 1, 2, 3 };
             MainPage.FisherYatesShuffle(idx);
 
-            rect_main.Fill = CategoryColor.sets[category, idx[0]];
-            rect_ingredients.Fill = CategoryColor.sets[category, idx[1]];
-            rect_left_low.Fill = CategoryColor.sets[category, idx[2]];
-            rect_left_top.Fill = CategoryColor.sets[category, idx[3]];
-            rect_sub_left.Fill = CategoryColor.sets[category, 0];
-            rect_sub_middle.Fill = CategoryColor.sets[category, 1];
-            rect_sub_right.Fill = CategoryColor.sets[category, 2];
+            rect_main.Fill = Category.colorSets[category, idx[0]];
+            rect_ingredients.Fill = Category.colorSets[category, idx[1]];
+            rect_left_low.Fill = Category.colorSets[category, idx[2]];
+            rect_left_top.Fill = Category.colorSets[category, idx[3]];
+            rect_sub_left.Fill = Category.colorSets[category, 0];
+            rect_sub_middle.Fill = Category.colorSets[category, 1];
+            rect_sub_right.Fill = Category.colorSets[category, 2];
 
-            lbl_title.Foreground = CategoryColor.sets[category, idx[1]];
-            lbl_subtitle.Foreground = CategoryColor.sets[category, idx[2]];
+            lbl_title.Foreground = Category.colorSets[category, idx[1]];
+            lbl_subtitle.Foreground = Category.colorSets[category, idx[2]];
         }        
     }
 }

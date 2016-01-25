@@ -136,9 +136,13 @@
         <ProgressRing x:Name="prog_main" IsActive="true" Width="48" Height="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Grid x:Name="grid_search" Grid.Row="2" Visibility="Collapsed">            
             <Rectangle x:Name="rect_search" Width="{Binding ActualWidth, ElementName=grid_search}" Height="{Binding ActualWidth, ElementName=grid_search}" Fill="Firebrick"/>
-            <Button x:Name="btn_close" Grid.Row="2" Content="Close" HorizontalAlignment="Right" Margin="0,10,5,0"  VerticalAlignment="Top" Click="btn_close_Click" />
+            <Button x:Name="btn_close" Grid.Row="2" HorizontalAlignment="Right" Margin="0,10,5,0"  VerticalAlignment="Top" Click="btn_close_Click">
+                <Image Source="ms-appx:///Assets/close.png" Width="48" Height="48"/>
+            </Button>
             <TextBox x:Name="tbx_search" Margin="110,0,110,0" Grid.Row="2" VerticalAlignment="Center" Visibility="Visible" KeyDown="tbx_search_KeyDown" HorizontalAlignment="Stretch"/>
-            <Button x:Name="btn_search" Content="Zoeken" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="2" VerticalAlignment="Center" Visibility="Visible" Click="btn_search_Click" />            
+            <Button x:Name="btn_search" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="2" VerticalAlignment="Center" Visibility="Visible" Click="btn_search_Click" >
+                <Image Source="ms-appx:///Assets/search.png" Width="48" Height="48"/>
+            </Button>
         </Grid>
         <Grid x:Name="grid_menu" Grid.Row="2" Visibility="Collapsed">
             <Grid.ColumnDefinitions>
@@ -151,10 +155,10 @@
             <Grid Grid.Column="1" x:Name="grid_area_search">
                 
             </Grid>
-            <Button Grid.Column="0" x:Name="btn_dailyo" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_daily_Click" >
+            <Button Grid.Column="0" x:Name="btn_daily" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_daily_Click" >
                 <Image Source="ms-appx:///Assets/daily.png" Width="48" Height="48"/>
             </Button>
-            <Button Grid.Column="1" x:Name="btn_open_search" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_open_search_Click">
+            <Button Grid.Column="1" ToolTipService.ToolTip="TEST" x:Name="btn_open_search" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_open_search_Click">
                 <Image Source="ms-appx:///Assets/search.png" Width="48" Height="48"/>
             </Button>
             <Button Grid.Column="2" x:Name="btn_editor" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Click="btn_editor_Click">

@@ -21,7 +21,7 @@ namespace CookbookWin10
     public sealed partial class MainPage : Page
     {        
         private RecipeController recipeController;
-        public static string category = "all";    
+        public static string category = "alles";    
         private string imgUrl = "http://www.returnoftambelon.com/cookbook/gallery/";
         bool enterPressed = false;
         int sortingMethod = 0; // maybe convert to enum properly
@@ -30,9 +30,11 @@ namespace CookbookWin10
         {
             this.InitializeComponent();
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-            //registerBackgroundTask();                       
-            recipeController = new RecipeController();
+            //registerBackgroundTask();  
 
+            setTooltips();
+                                 
+            recipeController = new RecipeController();
             recipeController.jsonReady += RecipeController_jsonReady;            
         }
 
@@ -67,32 +69,6 @@ namespace CookbookWin10
             taskBuilder.SetTrigger(new TimeTrigger(15, true));
             BackgroundTaskRegistration myTileUpdateTask = taskBuilder.Register();
             await (new MessageDialog("Task registered")).ShowAsync();
-        }
-
-        private void newDailyRecipe(object sender, RoutedEventArgs e)
-        {
-            recipeController.randomDailyRecipe();
-            UpdateTile(recipeController.getDailyRecipe());
-
-            //HttpClient client = new HttpClient();
-            //try
-            //{
-            //    int id = 0;
-            //    string page = "http://www.returnoftambelon.com/cookbook/gallery/" + id + "/main.jpg";
-            //    Stream st = await client.GetStreamAsync(page);
-
-            //    var memoryStream = new MemoryStream();
-            //    await st.CopyToAsync(memoryStream);
-            //    memoryStream.Position = 0;
-            //    BitmapImage bitmap = new BitmapImage();
-            //    bitmap.SetSource(memoryStream.AsRandomAccessStream());
-
-            //    //imgDailyImage.Source = bitmap;
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
         }
 
         private void UpdateTile(MainListboxModel item)
@@ -176,23 +152,23 @@ namespace CookbookWin10
             int catColor = 0;
             if (category.Equals("Favorites"))
             {
-                catColor = CategoryColor.ITALIAN;
+                catColor = Category.DEFAULT;
             }
             else if (category.Equals("Spaans"))
             {
-                catColor = CategoryColor.SPANISH;
+                catColor = Category.SPANISH;
             }
             else if (category.Equals("Frans"))
             {
-                catColor = CategoryColor.FRENCH;
+                catColor = Category.FRENCH;
             }
             else if (category.Equals("Amerikaans"))
             {
-                catColor = CategoryColor.AMERICAN;
+                catColor = Category.AMERICAN;
             }
             else if (category.Equals("Italiaans"))
             {
-                catColor = CategoryColor.ITALIAN;
+                catColor = Category.ITALIAN;
             }
             colorRectangles(catColor);                      
         }
@@ -263,6 +239,9 @@ namespace CookbookWin10
         {
             recipeController.randomDailyRecipe();
             UpdateTile(recipeController.getDailyRecipe());
+
+            MainListboxModel model = (MainListboxModel)recipeController.getDailyRecipe();
+            this.Frame.Navigate(typeof(RecipePageImproved), model);                    
         }
 
         private void FlyItemCategory_Click(object sender, RoutedEventArgs e)
@@ -312,11 +291,11 @@ namespace CookbookWin10
 
             for (int x = 0; x < keys.Length; x++)
             {
-                rectangles[x].Fill = CategoryColor.sets[catColorID, keys[x]];
-                lists[x].Background = CategoryColor.sets[catColorID, keys[x]];
+                rectangles[x].Fill = Category.colorSets[catColorID, keys[x]];
+                lists[x].Background = Category.colorSets[catColorID, keys[x]];
             }
             Random random = new Random();            
-            rect_main_menu.Fill = CategoryColor.sets[catColorID, keys[random.Next(keys.Length)]];
+            rect_main_menu.Fill = Category.colorSets[catColorID, keys[random.Next(keys.Length)]];
                         
             //recipeController.setListBoxColors(catColorID);            
         }
@@ -461,5 +440,16 @@ namespace CookbookWin10
             lbl_main_menu_welcome.Text = text;
         }
         
+        private void setTooltips()
+        {
+            ToolTipService.SetToolTip(btn_daily, "Recept van de dag");
+            ToolTipService.SetToolTip(btn_open_search, "Zoeken");
+            ToolTipService.SetToolTip(btn_search, "Zoeken");
+            ToolTipService.SetToolTip(btn_close, "Sluiten");
+            ToolTipService.SetToolTip(btn_sort, "Sorteren");
+            ToolTipService.SetToolTip(btn_category, "Categorien");
+            ToolTipService.SetToolTip(btn_editor, "Nieuw Recept");
+        }
+
     }
 }

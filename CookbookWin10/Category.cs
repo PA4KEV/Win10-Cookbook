@@ -8,14 +8,33 @@ using Windows.UI.Xaml.Media;
 
 namespace CookbookWin10
 {
-    class CategoryColor
+    class Category
     {
-        public static int SPANISH = 0;
-        public static int FRENCH = 1;
-        public static int AMERICAN = 2;
-        public static int ITALIAN = 3;
+        public static int DEFAULT = 0;
+        public static int SPANISH = 1;
+        public static int FRENCH = 2;
+        public static int AMERICAN = 3;
+        public static int ITALIAN = 4;
 
-        public static SolidColorBrush[,] sets = {
+        public static Color accentColor = (Color)App.Current.Resources["SystemAccentColor"];
+                
+        private static byte convertColor(byte input, int mutation)
+        {
+            if (input + mutation > 255)
+                return 255;
+            else if (input + mutation < 0)
+                return 0;
+            else
+                return (byte)(input + mutation);
+        }
+
+        public static SolidColorBrush[,] colorSets = {
+            //Default colors            
+            { (new SolidColorBrush(accentColor)),
+                (new SolidColorBrush(Color.FromArgb(255, convertColor(accentColor.R, 25), convertColor(accentColor.G, 25), convertColor(accentColor.B, 25)))),
+                (new SolidColorBrush(Color.FromArgb(255, convertColor(accentColor.R, -15), convertColor(accentColor.G, -15), convertColor(accentColor.B, -15)))),
+                (new SolidColorBrush(Color.FromArgb(255, convertColor(accentColor.R, 15), convertColor(accentColor.G, 15), convertColor(accentColor.B, 15))))
+            },
             //Spanish
             { (new SolidColorBrush(Color.FromArgb(255, 214, 78, 32))), (new SolidColorBrush(Color.FromArgb(255, 255, 119, 8))), (new SolidColorBrush(Color.FromArgb(255, 247, 5, 5))), (new SolidColorBrush(Color.FromArgb(255, 255, 193, 8))) },
             //French

@@ -99,7 +99,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CategoryColor.cs" />
+    <Compile Include="Category.cs" />
     <Compile Include="KitchenTimer.cs" />
     <Compile Include="MainListboxModel.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -126,8 +126,8 @@
   <ItemGroup>
     <Content Include="Assets\categories.png" />
     <Content Include="Assets\clock.png" />
+    <Content Include="Assets\close.png" />
     <Content Include="Assets\daily.png" />
-    <Content Include="Assets\loader_squares.gif" />
     <Content Include="Assets\newRecipe.png" />
     <Content Include="Assets\search.png" />
     <Content Include="Assets\sort.png" />
