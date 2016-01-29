@@ -123,7 +123,9 @@
                 <TextBlock x:Name="lbl_error_subtitle" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,75,0,0" TextWrapping="Wrap" Text="ERROR" Foreground="#FF990000" Visibility="Collapsed"/>
                 <TextBox x:Name="tbx_subtitle" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,95,0,0" TextWrapping="Wrap" PlaceholderText="Ondertitel" VerticalAlignment="Top" MaxLength="50"/>
                 <TextBlock x:Name="lbl_error_type" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,135,0,0" TextWrapping="Wrap" Text="ERROR" Foreground="#FF990000" Visibility="Collapsed"/>
-                <ComboBox x:Name="cbx_type" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,155,0,0" VerticalAlignment="Top" SelectionChanged="cbx_type_SelectionChanged" Loaded="cbx_type_Loaded" Width="150"/>
+                <ComboBox x:Name="cbx_type1" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="80,155,0,0" VerticalAlignment="Top" SelectionChanged="cbx_type1_SelectionChanged" Loaded="cbx_type_Loaded" Width="150"/>
+                <ComboBox x:Name="cbx_type2" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="260,155,0,0" VerticalAlignment="Top" SelectionChanged="cbx_type2_SelectionChanged" Loaded="cbx_type_Loaded" Width="150" Visibility="Collapsed"/>
+                <ComboBox x:Name="cbx_type3" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left" Margin="450,155,0,0" VerticalAlignment="Top" SelectionChanged="cbx_type3_SelectionChanged" Loaded="cbx_type_Loaded" Width="150" Visibility="Collapsed"/>
                 
                 <TextBox x:Name="tbx_recipe" Grid.Column="2" Grid.Row="0" Width="600" Height="200" HorizontalAlignment="Left" Margin="80,220,80,20" TextWrapping="Wrap" PlaceholderText="Recept" VerticalAlignment="Top" MaxLength="50000"/>                
                                              

@@ -184,14 +184,14 @@ namespace CookbookWin10
         }
         public static string[] getRecipeTypes()
         {            
-            // 2 = Voorgerecht
-            // 3 = Hoofdgerecht
-            // 4 = Nagerecht
-            // 5 = Snacks
-            // 6 = Ontbijtgerecht
-            // 7 = Lunchgerecht
-            // 8 = Drank
-            // 9 = Bijgerecht
+            // 0 = Voorgerecht
+            // 1 = Hoofdgerecht
+            // 2 = Nagerecht
+            // 3 = Snacks
+            // 4 = Ontbijtgerecht
+            // 5 = Lunchgerecht
+            // 6 = Drank
+            // 7 = Bijgerecht            
             return new string[] { "Voorgerecht", "Hoofdgerecht", "Nagerecht", "Snack",
             "Ontbijtgerecht", "Lunchgerecht", "Drank", "Bijgerecht"};
         }

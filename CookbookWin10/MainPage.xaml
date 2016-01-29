@@ -183,10 +183,15 @@
                 <ColumnDefinition Width="20*" />
             </Grid.ColumnDefinitions>
             <Rectangle x:Name="rect_main_0" Grid.Column="0" Fill="#FFEEEEEE" Stretch="UniformToFill" />
+            <TextBlock x:Name="lbl_down_rect_0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Text="Drank" FontSize="14" FontWeight="Bold" Foreground="White"/>
             <Rectangle x:Name="rect_main_1" Grid.Column="1" Fill="#FFEEEEEE" Stretch="UniformToFill" />
+            <TextBlock x:Name="lbl_down_rect_1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Text="Voorgerecht" FontSize="14" FontWeight="Bold" Foreground="White"/>
             <Rectangle x:Name="rect_main_2" Grid.Column="2" Fill="#FFEEEEEE" Stretch="UniformToFill" />
+            <TextBlock x:Name="lbl_down_rect_2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Text="Hoofdgerecht" FontSize="14" FontWeight="Bold" Foreground="White"/>
             <Rectangle x:Name="rect_main_3" Grid.Column="3" Fill="#FFEEEEEE" Stretch="UniformToFill" />
+            <TextBlock x:Name="lbl_down_rect_3" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Text="Bijgerecht" FontSize="14" FontWeight="Bold" Foreground="White"/>
             <Rectangle x:Name="rect_main_4" Grid.Column="4" Fill="#FFEEEEEE" Stretch="UniformToFill" />
+            <TextBlock x:Name="lbl_down_rect_4" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Text="Nagerecht" FontSize="14" FontWeight="Bold" Foreground="White"/>
         </Grid>
     </Grid>
 </Page>

@@ -179,7 +179,7 @@ namespace CookbookWin10
         {
             lbl_title.Text = recipe.getTitle();
             lbl_subtitle.Text = recipe.getSubtitle();
-            lbl_recipe.Text = recipe.getJSON();//getRecipe();
+            lbl_recipe.Text = recipe.getRecipe();
             lbl_type.Text = recipe.getRecipeType();
             lbl_rect_left.Text = recipe.getPersons() + " personen";
             lbl_rect_middle.Text = recipe.getPreperationTime();

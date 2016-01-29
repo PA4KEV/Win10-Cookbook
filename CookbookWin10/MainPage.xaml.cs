@@ -116,12 +116,35 @@ namespace CookbookWin10
 
         private void fillLists(MainListboxModel[] recipes)
         {
+            bool sorted = false;
+            List<MainListboxModel> listOne = new List<MainListboxModel>();
+            List<MainListboxModel> listTwo = new List<MainListboxModel>();
+            List<MainListboxModel> listThree = new List<MainListboxModel>();
+            List<MainListboxModel> listFour = new List<MainListboxModel>();
+            List<MainListboxModel> listFive = new List<MainListboxModel>();
             switch (sortingMethod)
             {
                 case 0: // Random
                     FisherYatesShuffle(recipes);
                     break;
-                case 1: // 3-Gangen 
+                case 1: // 3-Gangen                    
+                    sorted = true;
+                    for (int x = 0; x < recipes.Length; x++)
+                    {
+                        for (int y = 0; y < recipes[x].getTypesArray().Length; y++)
+                        {
+                            if (recipes[x].getTypesArray()[y] == 6)                            
+                                listOne.Add(recipes[x]);
+                            else if (recipes[x].getTypesArray()[y] == 0)
+                                listTwo.Add(recipes[x]);
+                            else if (recipes[x].getTypesArray()[y] == 1)
+                                listThree.Add(recipes[x]);
+                            else if (recipes[x].getTypesArray()[y] == 7)
+                                listFour.Add(recipes[x]);
+                            else if (recipes[x].getTypesArray()[y] == 2)
+                                listFive.Add(recipes[x]);
+                        }
+                    }
                     break;
                 default:
                     List<MainListboxModel> sortedRecipes = new List<MainListboxModel>();
@@ -142,16 +165,39 @@ namespace CookbookWin10
 
             ListView[] lists = { lbox_main_0, lbox_main_1, lbox_main_2, lbox_main_3, lbox_main_4 };
 
-            // knullige zooi...
-            List<MainListboxModel>[] subLists = { new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>() };
+            if (!sorted)
+            {
+                // knullige zooi...
+                List<MainListboxModel>[] subLists = { new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>(), new List<MainListboxModel>() };
 
-            for (int x = 0; x < recipes.Length; x++)
-            {
-                subLists[(x % subLists.Length)].Add(recipes[x]);
+                for (int x = 0; x < recipes.Length; x++)
+                {
+                    subLists[(x % subLists.Length)].Add(recipes[x]);
+                }
+
+                for (int y = 0; y < lists.Length; y++)
+                {
+                    lists[y].ItemsSource = subLists[y];
+                }
+                lbl_down_rect_0.Visibility = Visibility.Collapsed;
+                lbl_down_rect_1.Visibility = Visibility.Collapsed;
+                lbl_down_rect_2.Visibility = Visibility.Collapsed;
+                lbl_down_rect_3.Visibility = Visibility.Collapsed;
+                lbl_down_rect_4.Visibility = Visibility.Collapsed;
             }
-            for (int y = 0; y < lists.Length; y++)
+            else
             {
-                lists[y].ItemsSource = subLists[y];
+                // very unclean code!
+                lists[0].ItemsSource = listOne;
+                lists[1].ItemsSource = listTwo;
+                lists[2].ItemsSource = listThree;
+                lists[3].ItemsSource = listFour;
+                lists[4].ItemsSource = listFive;
+                lbl_down_rect_0.Visibility = Visibility.Visible;
+                lbl_down_rect_1.Visibility = Visibility.Visible;
+                lbl_down_rect_2.Visibility = Visibility.Visible;
+                lbl_down_rect_3.Visibility = Visibility.Visible;
+                lbl_down_rect_4.Visibility = Visibility.Visible;
             }
         }
 
@@ -284,6 +330,8 @@ namespace CookbookWin10
                 
                 updateMainMenuColors("Favorites");
                 updateMainListboxes("Favorites");
+                category = "Favorites";
+                updateTitle();
             }
         }       
 
@@ -395,7 +443,9 @@ namespace CookbookWin10
 
         private void btn_open_search_Click(object sender, RoutedEventArgs e)
         {
-            fader(grid_search, grid_menu);          
+            fader(grid_search, grid_menu);
+            tbx_search.Text = "";
+            tbx_search.Focus(FocusState.Programmatic);
         }
 
         private void fader(Grid elementFadeIn, Grid elementFadeOut)

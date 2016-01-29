@@ -18,6 +18,7 @@ Config.cs
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+Bericht_voor_Paul.txt
 
 # Build results
 [Dd]ebug/
